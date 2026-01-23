@@ -1,20 +1,41 @@
 <script setup lang="ts">
+import {ObjectStateEnum} from '../../utils/enums/ObjectStateEnum.ts';
+
+defineProps({
+	label: {
+		type: String,
+		required: true,
+	},
+	objectState: {
+		default: ObjectStateEnum.NoAction,
+		required: false,
+		validator: function (value: string): boolean {
+			const enumValues: string[] = Object.values(ObjectStateEnum);
+			return enumValues.includes(value);
+		},
+	},
+});
 </script>
 
 <template>
-    <button>
-	    Hello World
-    </button>
+	<button :disabled="objectState !== ObjectStateEnum.NoAction">
+		<slot/>
+		<span v-show="objectState !== ObjectStateEnum.NoAction"
+			  class="object-state"
+		>
+			{{objectState}}
+		</span>
+	</button>
 </template>
 
 <style scoped>
 button {
-    padding: 0.5rem 1rem;
-    border: var(--border);
-    border-radius: var(--border-radius);
-    border-width: var(--border-width);
-    border-style: var(--border-style);
-    color: var(--text);
+	padding: 0.5rem 1rem;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	border-width: var(--border-width);
+	border-style: var(--border-style);
+	color: var(--text);
 
 	&.compact {
 		padding: 0.25rem 0.125rem;
@@ -28,86 +49,92 @@ button {
 		line-height: 0.75rem;
 	}
 
-    &.primary {
-        background-color: var(--primary);
-        border-color: var(--primary);
+	&.primary {
+		background-color: var(--primary);
+		border-color: var(--primary);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--primary-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--primary-hover);
+			}
+		}
+	}
 
-    &.secondary {
-        background-color: var(--secondary);
-        border-color: var(--secondary);
+	&.secondary {
+		background-color: var(--secondary);
+		border-color: var(--secondary);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--secondary-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--secondary-hover);
+			}
+		}
+	}
 
-    &.danger {
-        background-color: var(--danger);
-        border-color: var(--danger);
+	&.danger {
+		background-color: var(--danger);
+		border-color: var(--danger);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--danger-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--danger-hover);
+			}
+		}
+	}
 
-    &.warning {
-        background-color: var(--warning);
-        border-color: var(--warning);
+	&.warning {
+		background-color: var(--warning);
+		border-color: var(--warning);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--warning-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--warning-hover);
+			}
+		}
+	}
 
-    &.success {
-        background-color: var(--success);
-        border-color: var(--success);
+	&.success {
+		background-color: var(--success);
+		border-color: var(--success);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--success-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--success-hover);
+			}
+		}
+	}
 
-    &.info {
-        background-color: var(--info);
-        border-color: var(--info);
+	&.info {
+		background-color: var(--info);
+		border-color: var(--info);
 
-        &:hover {
-            &:enabled {
-                background-color: var(--info-hover);
-            }
-        }
-    }
+		&:hover {
+			&:enabled {
+				background-color: var(--info-hover);
+			}
+		}
+	}
 
-    &.loading {
-        animation: loading-animation 1s infinite linear;
-    }
+	&.loading {
+		animation: loading-animation 1s infinite linear;
+	}
+
+	> .object-state {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 @keyframes loading-animation {
-    0% {
-        color: var(--text);
-    }
-    50% {
-        color: var(--text-muted);
-    }
-    100% {
-        color: var(--text);
-    }
+	0% {
+		color: var(--text);
+	}
+	50% {
+		color: var(--text-muted);
+	}
+	100% {
+		color: var(--text);
+	}
 }
 </style>

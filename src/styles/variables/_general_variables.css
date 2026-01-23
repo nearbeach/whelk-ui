@@ -1,20 +1,10 @@
-:root { /* Set all the grid size here */
-    --xx-small-grid-width: 320px;
-    --x-small-grid-width: 400px;
-    --small-grid-width: 640px;
-    --medium-grid-width: 768px;
-    --large-grid-width: 1024px;
-    --x-large-grid-width: 1280px;
-    --xx-large-grid-width: 1536px; /* Set all variables in here for globals */
-    /*--xx-small-card-width: 320px;*/ /*--x-small-card-width: 400px;*/
-    /*--small-card-width: 640px;*/ /*--medium-card-width: 768px;*/
-    /*--large-card-width: 1024px;*/ /*--x-large-card-width: 1280px;*/
-    /*--xx-large-card-width: 1536px;*/ /* Set all the border variables here */
+:root {
+    /* Border Variables */
     --border-radius: 5px;
     --border-style: solid;
     --border-width: 1px;
-    /* Set all the
-   colour variables here */
+
+    /* Set all the colour variables here */
     --bg-dark: hsl(26 53% 89%);
     --bg: hsl(26 100% 94%);
     --bg-light: hsl(26 100% 100%);
