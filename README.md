@@ -13,6 +13,8 @@ You can follow the completion status on [NearBeach's 0.32 Component Reconstructi
 
 ## Forms
 
+- [] Add Object
+- [x] Buttons
 - [] Checkbox
 - [] Datetime picker
 - [] Date picker
