@@ -1,9 +1,11 @@
 const ObjectStateEnum = {
-  Loading: "LOADING",
-  Saving: "SAVING",
-  NoAction: "NO_ACTION",
   Disable: "DISABLE",
   Error: "ERROR",
+  Loading: "LOADING",
+  LoggingIn: "LOGGING_IN",
+  LoggingOut: "LOGGING_OUT",
+  NoAction: "NO_ACTION",
+  Saving: "SAVING",
 } as const;
 
 type ObjectStateEnum = (typeof ObjectStateEnum)[keyof typeof ObjectStateEnum];

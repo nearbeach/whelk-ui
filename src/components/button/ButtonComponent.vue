@@ -2,11 +2,8 @@
 import {ObjectStateEnum} from '../../utils/enums/ObjectStateEnum.ts';
 
 defineProps({
-	label: {
-		type: String,
-		required: true,
-	},
 	objectState: {
+		type: String,
 		default: ObjectStateEnum.NoAction,
 		required: false,
 		validator: function (value: string): boolean {
@@ -19,10 +16,8 @@ defineProps({
 
 <template>
 	<button :disabled="objectState !== ObjectStateEnum.NoAction">
-		<slot/>
-		<span v-show="objectState !== ObjectStateEnum.NoAction"
-			  class="object-state"
-		>
+		<slot v-if="objectState === ObjectStateEnum.NoAction" />
+		<span v-if="objectState !== ObjectStateEnum.NoAction">
 			{{objectState}}
 		</span>
 	</button>
@@ -117,12 +112,6 @@ button {
 
 	&.loading {
 		animation: loading-animation 1s infinite linear;
-	}
-
-	> .object-state {
-		position: absolute;
-		width: 100%;
-		height: 100%;
 	}
 }
 

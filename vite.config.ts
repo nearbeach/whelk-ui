@@ -7,9 +7,11 @@ import {resolve} from 'path'
 // https://vite.dev/config/
 export default defineConfig({
 	build: {
+		cssCodeSplit: true,
 		lib: {
 			entry: {
-				'Button': resolve(__dirname, 'src/components/button/ButtonComponent.vue'),
+				button: resolve(__dirname, 'src/components/button/ButtonComponent.vue'),
+				style: resolve(__dirname, 'src/styles/main.css'),
 			},
 			name: 'whelk-ui',
 			formats: ['es', 'cjs']
