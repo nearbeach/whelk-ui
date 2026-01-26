@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 import type {PropType} from "vue";
 import type {DropDownItemsInterface} from "../../utils/interfaces/DropDownItemsInterface.ts";
-import DropDownItem from "./drop_down_item/DropDownItem.vue";
+import DropDownItem from "./DropDownItem/DropDownItem.vue";
 
 // Define props
 defineProps({
