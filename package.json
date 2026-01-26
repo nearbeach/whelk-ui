@@ -1,39 +1,77 @@
 {
   "name": "whelk-ui",
+  "description": "Vue3 Component Library for NearBeach",
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "ui"
+  ],
+  "author": "Robotichead",
+  "license": "MIT",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.8",
   "type": "module",
+  "main": "./dist/whelk-ui.umd.cjs",
+  "module": "./dist/whelk-ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/whelk-ui.js",
+      "require": "./dist/whelk-ui.umd.cjs"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/whelk-ui.js",
+      "require": "./dist/whelk-ui.umd.cjs"
+    },
+    "./dist/whelk-ui.css": {
+      "default": "./dist/whelk-ui.css"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "test:e2e": "playwright test",
-    "test:unit": "vitest"
+    "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "@vuepress/theme-default": "^2.0.0-rc.121",
+  "peerDependencies": {
     "vue": "^3.5.24"
   },
   "devDependencies": {
     "@csstools/postcss-global-data": "^3.1.0",
     "@playwright/test": "^1.58.0",
     "@types/node": "^24.10.1",
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-vue": "^6.0.3",
     "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
     "@vitest/eslint-plugin": "^1.4.0",
+    "@vitest/ui": "^4.0.18",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "@vuepress/bundler-vite": "^2.0.0-rc.26",
-    "petite-vue-i18n": "^11.2.8",
+    "@vuepress/client": "^2.0.0-rc.26",
+    "jsdom": "^27.4.0",
     "postcss": "^8.5.6",
     "postcss-nesting": "^13.0.2",
     "sass-embedded": "^1.97.3",
     "typescript": "~5.9.3",
-    "vite": "^7.2.4",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.18",
     "vitest-browser-vue": "^2.0.1",
-    "vue-tsc": "^3.1.4",
-    "vuepress": "^2.0.0-rc.26"
+    "vue-tsc": "^3.2.3",
+    "vuepress": "^2.0.0-rc.26",
+    "@vuepress/theme-default": "^2.0.0-rc.121"
   }
 }

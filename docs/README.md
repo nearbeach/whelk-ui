@@ -1,32 +1,30 @@
 # Whelk UI
 
-***Coming soon - The VueJS UI Components used to build NearBeach***
+A modern Vue 3 component library.
 
-**Author:** *Robotichead*
+## Features
 
----
+- 🚀 Built with Vue 3 and TypeScript
+- 📦 Tree-shakeable
+- 🎨 Customizable styles
+- 📱 Responsive components
+- ✅ Fully tested
 
-## Component Completion
+## Quick Start
+```bash
+npm install whelk-ui
+```
 
-You can follow the completion status on [NearBeach's 0.32 Component Reconstruction kanban board](https://prod.nearbeach.app/public/kanban_board/14/dfa1f175-faa2-4dd1-a2f3-f2c8c507bee4/)
+## Usage
+```vue
+<script setup>
+import { ButtonComponent } from 'whelk-ui'
+import 'whelk-ui/dist/style.css'
+</script>
 
-### Forms
-
-- [] Add Object
-- [x] Buttons
-- [] Checkbox
-- [] Datetime picker
-- [] Date picker
-- [] Email Input
-- [] Form Group
-- [] Multi select
-- [] Password Input
-- [] Select
-- [] Text Input
-- [] Time picker
-- [] Toggle
-- [] Website Input
-
-### Generic
-
-- [] Tooltip
+<template>
+  <ButtonComponent variant="primary">
+    Click me
+  </ButtonComponent>
+</template>
+```
