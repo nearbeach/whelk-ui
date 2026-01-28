@@ -42,7 +42,7 @@ const errorMessage = ref('');
 // Computed
 const getId = computed(() => {
 	// Return an id made up of input- + title
-	return 'input-' + props.label?.toLowerCase()?.replace(' ', '-');
+	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
 function checkValidation() {

@@ -38,7 +38,7 @@ const getClass = computed(() => {
 
 const getId = computed(() => {
 	// Return an id made up of input- + title
-	return 'input-' + props.label?.toLowerCase()?.replace(' ', '-');
+	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
 const getText = computed(() => {
