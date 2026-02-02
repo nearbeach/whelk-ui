@@ -1,0 +1,27 @@
+:root {
+    --wlk-border-color: hsl(26 21% 49%);
+    --wlk-border-top-color: var(--wlk-border-color);
+    --wlk-border-right-color: var(--wlk-border-color);
+    --wlk-border-bottom-color: var(--wlk-border-color);
+    --wlk-border-left-color: var(--wlk-border-color);
+    --wlk-border-color-muted: hsl(26 27% 61%);
+    --wlk-border-top-color-muted: var(--wlk-border-color-muted);
+    --wlk-border-right-color-muted: var(--wlk-border-color-muted);
+    --wlk-border-bottom-color-muted: var(--wlk-border-color-muted);
+    --wlk-border-left-color-muted: var(--wlk-border-color-muted);
+    --wlk-border-radius: 4rem;
+    --wlk-border-top-left-radius: var(--wlk-border-radius);
+    --wlk-border-top-right-radius: var(--wlk-border-radius);
+    --wlk-border-bottom-left-radius: var(--wlk-border-radius);
+    --wlk-border-bottom-right-radius: var(--wlk-border-radius);
+    --wlk-border-style: solid;
+    --wlk-border-top-style: var(--wlk-border-style);
+    --wlk-border-right-style: var(--wlk-border-style);
+    --wlk-border-bottom-style: var(--wlk-border-style);
+    --wlk-border-left-style: var(--wlk-border-style);
+    --wlk-border-width: 0.063rem;
+    --wlk-border-top-width: var(--wlk-border-width);
+    --wlk-border-right-width: var(--wlk-border-width);
+    --wlk-border-bottom-width: var(--wlk-border-width);
+    --wlk-border-left-width: var(--wlk-border-width);
+}

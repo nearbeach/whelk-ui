@@ -60,11 +60,11 @@ const tooltipClass = ref('tooltip');
     position: absolute;
     z-index: 10;
     padding: 0.75rem 0.25rem;
-    background-color: var(--bg-dark);
-    border-color: var(--border-muted);
-    border-width: var(--border-width);
-    border-style: var(--border-style);
-    border-radius: var(--border-radius);
+    background-color: var(--wlk-bg-dark);
+    border-color: var(--wlk-border-color-muted);
+    border-width: var(--wlk-border-color-width);
+    border-style: var(--wlk-border-style);
+    border-radius: var(--wlk-border-color-radius);
     transform: translateY(-100%) translateY(-0.5rem);
     max-width: 75vw;
 
@@ -74,13 +74,13 @@ const tooltipClass = ref('tooltip');
 
     > .tooltip-title {
         margin: 0 0 0.125rem 0;
-        color: var(--text-red);
+        color: var(--wlk-text-red);
     }
 
     > .tooltip-message {
         font-weight: lighter;
         margin: 0;
-        color: var(--text-muted);
+        color: var(--wlk-text-muted);
     }
 
     @media (--large-screen) {
@@ -91,6 +91,6 @@ const tooltipClass = ref('tooltip');
 svg {
     width: 1rem;
     height: 1rem;
-    color: var(--text-muted);
+    color: var(--wlk-text-muted);
 }
 </style>

@@ -1,0 +1,7 @@
+:root {
+    --wlk-card-footer-padding: 0;
+    --wlk-card-footer-top-padding: var(--wlk-card-footer-padding);
+    --wlk-card-footer-right-padding: var(--wlk-card-footer-padding);
+    --wlk-card-footer-bottom-padding: 0.75rem;
+    --wlk-card-footer-left-padding: var(--wlk-card-footer-padding);
+}

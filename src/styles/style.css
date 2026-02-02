@@ -1,1 +1,5 @@
-@import "./partials/_general_variables.css";
+/*Import Colours First*/
+@import "partials/_colour_variables.css";
+
+/*Secondary Variables*/
+@import "partials/_border_variables.css";

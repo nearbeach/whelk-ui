@@ -1,19 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="card-footer">
-        <slot></slot>
-    </div>
+	<div class="wlk-card-footer">
+		<slot></slot>
+	</div>
 </template>
 
 <style scoped>
-.card-footer {
-    padding: 0 0 0.75rem 0;
-
-    @media (--large-screen) {
-        margin: 1rem -2rem -1rem -2rem;
-        padding: 1rem 2rem;
-        border-radius: 0 0 var(--border-radius) var(--border-radius);
-    }
+.wlk-card-footer {
+	padding: var(--wlk-card-footer-top-padding)
+			 var(--wlk-card-footer-right-padding)
+			 var(--wlk-card-footer-bottom-padding)
+			 var(--wlk-card-footer-left-padding);
 }
 </style>

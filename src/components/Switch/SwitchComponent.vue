@@ -87,10 +87,10 @@ function switchClicked() {
 	> .switch {
 		display: grid;
 		grid-template-columns: [on] 2rem [text] minmax(0, 1fr) [off] 2rem;
-		border-style: var(--border-style);
-		border-width: var(--border-width);
-		border-radius: var(--border-radius);
-		border-color: var(--border);
+		border-style: var(--wlk-border-style);
+		border-width: var(--wlk-border-color-width);
+		border-radius: var(--wlk-border-color-radius);
+		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
@@ -114,14 +114,14 @@ function switchClicked() {
 		&.on {
 			> .switch-block {
 				grid-area: on;
-				background-color: var(--success);
+				background-color: var(--wlk-success);
 			}
 		}
 
 		&.off {
 			> .switch-block {
 				grid-area: off;
-				background-color: var(--info);
+				background-color: var(--wlk-info);
 			}
 		}
 	}

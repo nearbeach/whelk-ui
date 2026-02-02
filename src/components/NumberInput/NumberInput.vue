@@ -192,21 +192,21 @@ function manualUpdate(event: Event) {
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
 
 		> .negative {
-			border-radius: var(--border-radius) 0 0 var(--border-radius);
-			border-width: var(--border-width) 0 var(--border-width) var(--border-width);
+			border-radius: var(--wlk-border-color-radius) 0 0 var(--wlk-border-color-radius);
+			border-width: var(--wlk-border-color-width) 0 var(--wlk-border-color-width) var(--wlk-border-color-width);
 		}
 
 		> input {
-			border-style: var(--border-style);
-			border-width: var(--border-width);
+			border-style: var(--wlk-border-style);
+			border-width: var(--wlk-border-color-width);
 			border-radius: 0;
-			border-color: var(--border);
+			border-color: var(--wlk-border-color);
 			box-sizing: border-box;
 			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 
 			&:focus {
-				border-color: var(--secondary);
+				border-color: var(--wlk-secondary);
 				border-width: 2px;
 				outline: none;
 				padding: calc(0.5rem - 1px);
@@ -214,8 +214,8 @@ function manualUpdate(event: Event) {
 		}
 
 		> .positive {
-			border-radius: 0 var(--border-radius) var(--border-radius) 0;
-			border-width: var(--border-width) var(--border-width) var(--border-width) 0;
+			border-radius: 0 var(--wlk-border-color-radius) var(--wlk-border-color-radius) 0;
+			border-width: var(--wlk-border-color-width) var(--wlk-border-color-width) var(--wlk-border-color-width) 0;
 		}
 	}
 

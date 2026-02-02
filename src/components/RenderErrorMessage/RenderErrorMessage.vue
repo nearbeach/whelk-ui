@@ -9,7 +9,7 @@
 
 <style scoped>
 .render-error-message {
-    color: var(--text-red);
+    color: var(--wlk-text-red);
     font-weight: lighter;
     font-size: 1rem;
     line-height: 1.125rem;

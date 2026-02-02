@@ -1,14 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="card">
+    <div class="wlk-card-component">
         <slot></slot>
     </div>
 </template>
 
 <style scoped>
-.card {
-    border-radius: var(--border-radius);
-    background-color: var(--bg-light);
+.wlk-card-component {
+    border-radius: var(--wlk-border-radius);
+    background-color: var(--wlk-bg-light);
 }
 </style>

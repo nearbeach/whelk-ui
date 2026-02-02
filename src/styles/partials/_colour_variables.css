@@ -1,0 +1,54 @@
+:root {
+    /*BACKGROUND*/
+    --wlk-bg: hsl(26 100% 94%);
+    --wlk-bg-dark: hsl(26 53% 89%);
+    --wlk-bg-light: hsl(26 100% 100%);
+
+    /*TEXT*/
+    --wlk-text: hsl(16 100% 4%);
+    --wlk-text-red: hsl(8, 93%, 43%);
+    --wlk-text-muted: hsl(26 35% 27%);
+    --wlk-text-opacity: 55%;
+    --wlk-highlight: hsl(26 100% 99%);
+
+    /*COLOUR SETS*/
+    --wlk-primary: hsl(27 65% 66%);
+    --wlk-primary-hover: hsl(27 65% 76%);
+    --wlk-secondary: hsl(204 74% 68%);
+    --wlk-secondary-hover: hsl(204 74% 78%);
+    --wlk-danger: hsl(9 26% 64%);
+    --wlk-danger-hover: hsl(9 26% 74%);
+    --wlk-warning: hsl(52 19% 57%);
+    --wlk-warning-hover: hsl(52 19% 67%);
+    --wlk-success: hsl(146 17% 59%);
+    --wlk-success-hover: hsl(146 17% 69%);
+    --wlk-info: hsl(217 28% 65%);
+    --wlk-info-hover: hsl(217 28% 75%);
+}
+
+.dark {
+    /*BACKGROUND*/
+    --wlk-bg: hsl(22 76% 4%);
+    --wlk-bg-dark: hsl(16 100% 2%);
+    --wlk-bg-light: hsl(26 50% 8%);
+
+    /*TEXT*/
+    --wlk-text: hsl(26 100% 94%);
+    --wlk-text-red: hsl(8, 93%, 23%);
+    --wlk-text-muted: hsl(26 34% 68%);
+    --wlk-highlight: hsl(26 26% 38%);
+
+    /*COLOUR SETS*/
+    --wlk-primary: hsl(32 100% 20%);
+    --wlk-primary-hover: hsl(32 100% 10%);
+    --wlk-secondary: hsl(198 100% 20%);
+    --wlk-secondary-hover: hsl(198 100% 10%);
+    --wlk-danger: hsl(9 21% 41%);
+    --wlk-danger-hover: hsl(9 21% 31%);
+    --wlk-warning: hsl(52 23% 34%);
+    --wlk-warning-hover: hsl(52 23% 24%);
+    --wlk-success: hsl(147 19% 36%);
+    --wlk-success-hover: hsl(147 19% 26%);
+    --wlk-info: hsl(217 22% 41%);
+    --wlk-info-hover: hsl(217 22% 31%);
+}

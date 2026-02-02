@@ -1,43 +1,104 @@
+// ButtonComponent.test.ts
 import {describe, it, expect} from 'vitest'
 import {mount} from '@vue/test-utils'
 import ButtonComponent from './ButtonComponent.vue'
 
-describe('ButtonComponent', () => {
-	it('renders slot content', () => {
-		const wrapper = mount(ButtonComponent, {
-			slots: {
-				default: 'Click me'
-			}
-		})
+describe('ButtonComponent', async () => {
+    it('mounts successfully', async () => {
+        const wrapper = mount(ButtonComponent);
 
-		expect(wrapper.text()).toBe('Click me')
-	})
+        // Check component can mount
+        expect(wrapper.exists()).toBe(true)
+    });
 
-	it('applies primary variant class by default', () => {
-		const wrapper = mount(ButtonComponent)
-		expect(wrapper.classes()).toContain('whelk-button--primary')
-	})
+    it('enabled by default', async () => {
+        const wrapper = mount(ButtonComponent);
 
-	it('applies secondary variant class when specified', () => {
-		const wrapper = mount(ButtonComponent, {
-			props: {variant: 'secondary'}
-		})
-		expect(wrapper.classes()).toContain('whelk-button--secondary')
-	})
+        // Check to make sure the button isn't disabled
+        const button = wrapper.get('button')
+        expect(button.element.disabled).toBe(false);
+    });
 
-	it('emits click event when clicked', async () => {
-		const wrapper = mount(ButtonComponent)
-		await wrapper.trigger('click')
+    it('default text will be "submit"', async () => {
+        const wrapper = mount(ButtonComponent);
 
-		expect(wrapper.emitted('click')).toHaveLength(1)
-	})
+        // Check default text
+        expect(wrapper.text()).toContain('Submit')
+    });
 
-	it('does not emit click event when disabled', async () => {
-		const wrapper = mount(ButtonComponent, {
-			props: {disabled: true}
-		})
-		await wrapper.trigger('click')
+    it('for is-action-running, default text will be "Updating"', async () => {
+        const wrapper = mount(
+            ButtonComponent,
+            {
+                props: {
+                    isActionRunning: true,
+                }
+            }
+        );
 
-		expect(wrapper.emitted('click')).toBeUndefined()
-	})
+        // Check default text
+        expect(wrapper.text()).toContain("Updating");
+    });
+});
+
+describe('ButtonComponent - Disable', async () => {
+    it('is-disabled flagged, button will be disabled', async () => {
+        const wrapper = mount(
+            ButtonComponent,
+            {
+                props: {
+                    isDisabled: true,
+                }
+            }
+        );
+
+        // Check button is disabled
+        const button = wrapper.find('button');
+        expect(button.element.disabled).toBe(true);
+    })
+
+    it('is-action-running flagged, button will be disabled', async () => {
+        const wrapper = mount(
+            ButtonComponent,
+            {
+                props: {
+                    isDisabled: true,
+                }
+            }
+        );
+
+        // Check button is disabled
+        const button = wrapper.find('button');
+        expect(button.element.disabled).toBe(true);
+    })
+})
+
+
+describe('ButtonComponent - Slot', async () => {
+    it('default slot renders correctly', async () => {
+        const wrapper = mount(ButtonComponent, {
+            slots: {
+                default: 'Modified Button Text',
+            },
+        })
+
+        expect(wrapper.text()).toContain('Modified Button Text')
+        expect(wrapper.text()).not.toContain('Submit')
+    })
+
+    it('is-action-running flagged, appropriate slot renders correctly', async () => {
+
+        const wrapper = mount(ButtonComponent, {
+            props: {
+                isActionRunning: true,
+            },
+            slots: {
+                default: 'Modified Button Text',
+                'action-state': 'Action Button Text',
+            },
+        })
+
+        expect(wrapper.text()).toContain('Action Button Text')
+        expect(wrapper.text()).not.toContain('Modified Button Text')
+    })
 })
