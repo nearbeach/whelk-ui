@@ -10,7 +10,7 @@
   "author": "Robotichead",
   "license": "MIT",
   "private": false,
-  "version": "0.0.8",
+  "version": "0.0.10",
   "type": "module",
   "main": "./dist/whelk-ui.umd.cjs",
   "module": "./dist/whelk-ui.js",

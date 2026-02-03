@@ -1,0 +1,7 @@
+:root {
+    --wlk-checkbox-padding: 0;
+    --wlk-checkbox-top-padding: var(--wlk-checkbox-padding);
+    --wlk-checkbox-right-padding: var(--wlk-checkbox-padding);
+    --wlk-checkbox-bottom-padding: 0.75rem;
+    --wlk-checkbox-left-padding: var(--wlk-checkbox-padding);
+}
