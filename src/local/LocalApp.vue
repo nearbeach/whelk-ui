@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import ButtonComponent from "@/components/Button/ButtonComponent.vue";
+import CheckBox from "@/components/CheckBox/CheckBox.vue";
+import DatetimeComponent from "@/components/Datetime/DatetimeComponent.vue";
+
+// Define ref
+const datetimeModel = ref("2012-01-01");
 </script>
 
 <template>
@@ -127,6 +133,33 @@ import ButtonComponent from "@/components/Button/ButtonComponent.vue";
 </ButtonComponent>
 			</textarea>
 			</div>
+		</section>
+
+		<h1>Check Box</h1>
+		<section id="checkbox">
+			<h3>Basic Checkbox</h3>
+			<CheckBox id="pizza" label="Pizza Checkbox" />
+			<div class="code-block">
+				<textarea rows="10">
+<CheckBox id="pizza" label="Pizza Checkbox" />
+				</textarea>
+			</div>
+
+		</section>
+
+		<h1>Datetime Component</h1>
+		<section id="checkbox">
+			<h3>Basic Checkbox</h3>
+			<DatetimeComponent
+				label="Start Date"
+				v-model="datetimeModel"
+			/>
+			<div class="code-block">
+				<textarea rows="10">
+<CheckBox id="pizza" label="Pizza Checkbox" />
+				</textarea>
+			</div>
+
 		</section>
 	</main>
 </template>

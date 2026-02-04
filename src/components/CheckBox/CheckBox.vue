@@ -14,6 +14,21 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
+	isRequired: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+	requiredAriaDescription: {
+		type: String,
+		required: false,
+		default: 'Field is required',
+	},
+	requiredText: {
+		type: String,
+		required: false,
+		default: '*',
+	},
 });
 
 // Computed
@@ -24,8 +39,23 @@ const checkboxId = computed(() => {
 
 <template>
 	<div class="wlk-checkbox-component">
-		<input :id="checkboxId" :name="label" v-model="model" type="checkbox"/>
-		<label :for="checkboxId">{{ props.label }}</label>
+		<input
+			:id="checkboxId"
+			:name="label"
+			v-model="model"
+			type="checkbox"
+		/>
+		<label
+			:for="checkboxId"
+		>
+			{{ props.label }}
+			<span
+				v-if="isRequired"
+				:aria-description="requiredAriaDescription"
+			>
+				{{ props.requiredText}}
+			</span>
+		</label>
 	</div>
 </template>
 
