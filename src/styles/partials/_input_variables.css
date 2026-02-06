@@ -1,0 +1,27 @@
+:root {
+    /* LABEL */
+    --wlk-label-margin: 0;
+    --wlk-label-top-margin: var(--wlk-label-margin);
+    --wlk-label-right-margin: var(--wlk-label-margin);
+    --wlk-label-bottom-margin: 0.375rem;
+    --wlk-label-left-margin: var(--wlk-label-margin);
+
+    --wlk-compact-label-margin: 0;
+    --wlk-compact-label-top-margin: var(--wlk-label-margin);
+    --wlk-compact-label-right-margin: var(--wlk-label-margin);
+    --wlk-compact-label-bottom-margin: 0.125rem;
+    --wlk-compact-label-left-margin: var(--wlk-label-margin);
+
+    /* INPUT */
+    --wlk-input-padding: 0.5rem;
+    --wlk-input-top-padding: var(--wlk-input-padding);
+    --wlk-input-right-padding: var(--wlk-input-padding);
+    --wlk-input-bottom-padding: var(--wlk-input-padding);
+    --wlk-input-left-padding: var(--wlk-input-padding);
+
+    --wlk-compact-input-padding: 0.5rem;
+    --wlk-compact-input-top-padding: var(--wlk-input-padding);
+    --wlk-compact-input-right-padding: var(--wlk-input-padding);
+    --wlk-compact-input-bottom-padding: var(--wlk-input-padding);
+    --wlk-compact-input-left-padding: var(--wlk-input-padding);
+}

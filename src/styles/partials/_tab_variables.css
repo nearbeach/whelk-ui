@@ -1,0 +1,8 @@
+:root {
+    /* TAB BUTTONS */
+    --wlk-tab-button-padding: 0.5rem;
+    --wlk-tab-button-top-padding: var(--wlk-tab-button-padding);
+    --wlk-tab-button-right-padding: 1rem;
+    --wlk-tab-button-bottom-padding: var(--wlk-tab-button-padding);
+    --wlk-tab-button-left-padding: var(--wlk-tab-button-right-padding);
+}

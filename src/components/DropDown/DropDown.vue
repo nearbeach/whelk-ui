@@ -62,7 +62,7 @@ function dropDownItemClicked(trigger: string) {
 	> button {
 		border: solid;
 		border-width: 1px;
-		border-radius: var(--wlk-border-color-radius);
+		border-radius: var(--wlk-border-radius);
 		border-color: var(--wlk-border-color-muted);
 		background: var(--wlk-bg-light);
 		box-shadow: none;

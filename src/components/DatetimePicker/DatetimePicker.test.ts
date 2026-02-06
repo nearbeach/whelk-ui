@@ -1,6 +1,6 @@
 // DatetimeComponent.test.ts
 import {describe, test, expect} from "vitest";
-import DatetimeComponent from "./DatetimeComponent.vue";
+import DatetimeComponent from "./DatetimePicker.vue";
 import {mount} from "@vue/test-utils";
 
 describe("DatetimeComponent", async () => {
@@ -10,8 +10,7 @@ describe("DatetimeComponent", async () => {
         const wrapper = mount(DatetimeComponent, {
             props: {
                 label: "Start Datetime",
-                // @ts-ignore
-                model: date,
+                modelValue: date,
             }
         });
 
@@ -24,8 +23,7 @@ describe("DatetimeComponent", async () => {
         const wrapper = mount(DatetimeComponent, {
             props: {
                 label: "End Datetime",
-                // @ts-ignore
-                model: date,
+                modelValue: date,
             }
         });
 
@@ -39,8 +37,7 @@ describe("DatetimeComponent", async () => {
         const wrapper = mount(DatetimeComponent, {
             props: {
                 label: "Start Datetime",
-                // @ts-ignore
-                model: date,
+                modelValue: date,
             }
         });
 
@@ -54,8 +51,7 @@ describe("DatetimeComponent", async () => {
         const wrapper = mount(DatetimeComponent, {
             props: {
                 label: "End Datetime",
-                // @ts-ignore
-                model: date,
+                modelValue: date,
             }
         });
 
@@ -69,4 +65,6 @@ describe("DatetimeComponent", async () => {
     // TODO - Test time zone differences. i.e the user is in AEST and the server is in UTC
     // TODO - Test when there is a null passed through
     // TODO - Test when the model has a younger than min date model
+    // TODO - Test many different times
+    // TODO - Test the setter for the computed
 });
