@@ -50,8 +50,8 @@ const props = defineProps({
 const model = defineModel({ required: true });
 
 // Define ref
-const hasError = ref(false);
 const errorMessage = ref('');
+const hasError = ref(false);
 
 // Computed
 const getId = computed(() => {

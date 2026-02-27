@@ -9,7 +9,7 @@
     --wlk-border-right-color-muted: var(--wlk-border-color-muted);
     --wlk-border-bottom-color-muted: var(--wlk-border-color-muted);
     --wlk-border-left-color-muted: var(--wlk-border-color-muted);
-    --wlk-border-radius: 4rem;
+    --wlk-border-radius: 0.25rem;
     --wlk-border-top-left-radius: var(--wlk-border-radius);
     --wlk-border-top-right-radius: var(--wlk-border-radius);
     --wlk-border-bottom-left-radius: var(--wlk-border-radius);
