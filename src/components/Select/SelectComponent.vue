@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref, watch, onMounted, type PropType} from 'vue';
+import {computed, ref, type PropType} from 'vue';
 import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
 import SelectRenderOptions from "@/components/Select/SelectRenderOptions/SelectRenderOptions.vue";
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/SelectRenderOptionGroups.vue";
@@ -40,24 +40,7 @@ const model = defineModel({required: true});
 
 // Define ref
 const errorMessage = ref('');
-const groupOptions = ref<string[]>([]);
 const hasError = ref(false);
-const optionsWithoutGroup = ref<SelectOptionInterface[]>([]);
-const optionsWithGroup = ref<SelectOptionInterface[]>([]);
-
-// Define watch
-watch(
-	() => props.options,
-	() => {
-		refreshSelect();
-	},
-	{deep: true}
-)
-
-// Define on mounted
-onMounted(() => {
-	refreshSelect();
-})
 
 // Define computed
 const getId = computed(() => {
@@ -65,8 +48,40 @@ const getId = computed(() => {
 	return 'select-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
-// Define functions
+const groupOptions = computed(() => {
+	// Get unique list from opt group
+	const list: string[] = [
+		...new Set(
+			props.options.map(item => item.optGroup)
+		)
+	];
 
+	 return list.filter(item => {
+		return item !== "" && item !== undefined && item !== null;
+	});
+});
+
+const optionsWithoutGroup = computed(() => {
+	return [
+		...new Set(
+			props.options.filter(item => {
+				return item.optGroup === undefined || item.optGroup === null || item.optGroup === "";
+			})
+		)
+	];
+});
+
+const optionsWithGroup = computed(() => {
+	return [
+		...new Set(
+			props.options.filter(item => {
+				return item.optGroup !== undefined && item.optGroup !== null && item.optGroup !== "";
+			})
+		)
+	]
+})
+
+// Define functions
 function checkValidation() {
 	// Fall back to defaults
 	hasError.value = false;
@@ -80,45 +95,6 @@ function checkValidation() {
 
 	// Set the defined ref and tell parent
 	emit('isValid', !hasError.value);
-}
-
-function fetchGroupList() {
-	// Get unique list from opt group
-	const list: string[] = [
-		...new Set(
-			props.options.map(item => item.optGroup)
-		)
-	];
-
-	groupOptions.value = list.filter(item => {
-		return item !== "" && item !== undefined && item !== null;
-	});
-}
-
-function fetchOptionsWithGroup() {
-	optionsWithGroup.value = [
-		...new Set(
-			props.options.filter(item => {
-				return item.optGroup !== undefined && item.optGroup !== null && item.optGroup !== "";
-			})
-		)
-	]
-}
-
-function fetchOptionsWithoutGroup() {
-	optionsWithoutGroup.value = [
-		...new Set(
-			props.options.filter(item => {
-				return item.optGroup === undefined || item.optGroup === null || item.optGroup === "";
-			})
-		)
-	]
-}
-
-function refreshSelect() {
-	fetchGroupList();
-	fetchOptionsWithGroup();
-	fetchOptionsWithoutGroup();
 }
 
 </script>
