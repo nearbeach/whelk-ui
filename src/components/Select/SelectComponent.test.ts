@@ -2,25 +2,30 @@
 import {describe, test, expect} from "vitest";
 import SelectComponent from "./SelectComponent.vue";
 import {mount} from "@vue/test-utils";
+import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
 
 describe("SelectComponent", async() => {
     test("select component renders", async () => {
-        const wrapper = mount(SelectComponent, {
-            props: {
-                label: "Options",
-                options: [
-                    {label: "Is Disabled", value: "is-disabled", optGroup: ""},
-                    {label: "Cat", value: "cat", optGroup: "Animal"},
-                    {label: "Dog", value: "dog", optGroup: "Animal"},
-                    {label: "Horse", value: "horse", optGroup: "Animal"},
-                    {label: "Apple", value: "apple", optGroup: "Fruit"},
-                    {label: "Orange", value: "orange", optGroup: "Fruit"},
-                    {label: "Pear", value: "pear", optGroup: "Fruit"},
-                    {label: "Peach", value: "peach", optGroup: "Fruit"},
-                ],
-            },
-            model: "",
-        });
+        const wrapper = mount(
+            SelectComponent,
+            {
+                model: "",
+                props: {
+                    label: "Options" as string,
+                    modelValue: "",
+                    options: [
+                        {label: "Is Disabled", value: "is-disabled", optGroup: ""},
+                        {label: "Cat", value: "cat", optGroup: "Animal"},
+                        {label: "Dog", value: "dog", optGroup: "Animal"},
+                        {label: "Horse", value: "horse", optGroup: "Animal"},
+                        {label: "Apple", value: "apple", optGroup: "Fruit"},
+                        {label: "Orange", value: "orange", optGroup: "Fruit"},
+                        {label: "Pear", value: "pear", optGroup: "Fruit"},
+                        {label: "Peach", value: "peach", optGroup: "Fruit"},
+                    ] as SelectOptionInterface[],
+                },
+            }
+        );
 
         // Select
         const select = wrapper.find("select");
@@ -39,6 +44,7 @@ describe("SelectComponent", async() => {
             props: {
                 isRequired: true,
                 label: "Options",
+                modelValue: "",
                 options: [
                     {label: "Is Disabled", value: "is-disabled", optGroup: ""},
                     {label: "Cat", value: "cat", optGroup: "Animal"},
@@ -63,6 +69,7 @@ describe("SelectComponent", async() => {
             props: {
                 isRequired: true,
                 label: "Options",
+                modelValue: "",
                 options: [
                     {label: "Is Disabled", value: "is-disabled", optGroup: ""},
                     {label: "Cat", value: "cat", optGroup: "Animal"},
@@ -106,6 +113,7 @@ describe("SelectComponent", async() => {
             props: {
                 isRequired: true,
                 label: "Options",
+                modelValue: "",
                 options: [
                     {label: "Socks", value: "socks", optGroup: "Fluffy Butt"},
                     {label: "Max", value: "max", optGroup: "Cat"},
@@ -150,8 +158,8 @@ describe("SelectComponent", async() => {
             {label: "Pear", value: "pear", optGroup: "Fruit"},
             {label: "Peach", value: "peach", optGroup: "Fruit"},
         ]);
-        expect(wrapper.vm.optionsWithGroup?.length).toBe(8);
-        expect(wrapper.vm.optionsWithGroup).toEqual([
+        expect(wrapper.vm?.optionsWithGroup?.length).toBe(8);
+        expect(wrapper.vm?.optionsWithGroup).toEqual([
             {label: "Socks", value: "socks", optGroup: "Fluffy Butt"},
             {label: "Max", value: "max", optGroup: "Cat"},
             {label: "Paddy", value: "paddy", optGroup: "Cat"},
