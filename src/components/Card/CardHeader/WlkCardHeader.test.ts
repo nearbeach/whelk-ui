@@ -1,11 +1,11 @@
 // CardHeader.spec.ts
 import { describe, test, expect } from "vitest";
-import CardHeader from "./CardHeader.vue";
+import WlkCardHeader from "./WlkCardHeader.vue";
 import { mount } from "@vue/test-utils";
 
 describe("CardHeader", async () => {
     test("card header slot renders main content", () => {
-        const wrapper = mount(CardHeader, {
+        const wrapper = mount(WlkCardHeader, {
             slots: {
                 default: "Main Content",
             },

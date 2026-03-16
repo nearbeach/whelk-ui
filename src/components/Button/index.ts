@@ -1,1 +1,1 @@
-export { default as ButtonComponent } from './WlkButton.vue'
+export { default as WlkButton } from './WlkButton.vue'

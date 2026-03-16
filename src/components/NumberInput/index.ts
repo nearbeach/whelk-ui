@@ -1,1 +1,1 @@
-export { default as NumberInput } from './WlkNumberInput.vue'
+export { default as WlkNumberInput } from './WlkNumberInput.vue'

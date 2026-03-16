@@ -1,1 +1,1 @@
-export { default as CheckBox } from './WlkCheckBox.vue'
+export { default as WlkCheckBox } from './WlkCheckBox.vue'

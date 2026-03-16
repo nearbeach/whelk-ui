@@ -100,7 +100,7 @@ function checkValidation() {
 </script>
 
 <template>
-	<WlkFormGroup class="wlk-select-component">
+	<WlkFormGroup class="wlk-select">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -131,7 +131,7 @@ function checkValidation() {
 </template>
 
 <style scoped>
-.wlk-select-component {
+.wlk-select {
 	> label {
 		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin);
 	}

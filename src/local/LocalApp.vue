@@ -3,6 +3,9 @@ import {ref} from "vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkTextInput from "@/components/TextInput/WlkTextInput.vue";
 import WlkButton from "@/components/Button/WlkButton.vue";
+import WlkCard from "@/components/Card/WlkCard.vue";
+import {WlkCardHeader} from "@";
+import WlkCardFooter from "@/components/Card/CardFooter/WlkCardFooter.vue";
 
 const model = ref("")
 </script>
@@ -32,6 +35,12 @@ const model = ref("")
 		</WlkFormGroup>
 
 		<WlkButton class="success" id="test-button" label="Test Button" />
+
+		<WlkCard class="card">
+			<WlkCardHeader>Card Header</WlkCardHeader>
+			Hello World
+			<WlkCardFooter>Card Footer</WlkCardFooter>
+		</WlkCard>
 	</main>
 </template>
 

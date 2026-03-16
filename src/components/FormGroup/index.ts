@@ -1,1 +1,1 @@
-export { default as FormGroup } from './WlkFormGroup.vue'
+export { default as WlkFormGroup } from './WlkFormGroup.vue'
