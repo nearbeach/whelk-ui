@@ -1,1 +1,1 @@
-export { default as TabsComponent } from './TabsComponent.vue'
+export { default as TabsComponent } from './WlkTabs.vue'

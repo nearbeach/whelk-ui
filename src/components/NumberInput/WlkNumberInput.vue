@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/FormGroup.vue';
+import FormGroup from '../FormGroup/WlkFormGroup.vue';
 import {computed, ref} from 'vue';
-import ToolTip from '@/components/ToolTip/ToolTip.vue';
-import RenderErrorMessage from "../RenderErrorMessage/RenderErrorMessage.vue";
+import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
+import RenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Props
 const props = defineProps({
@@ -139,7 +139,7 @@ function manualUpdate(event: Event) {
 </script>
 
 <template>
-	<FormGroup class="number-input">
+	<WlkFormGroup class="number-input">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -178,7 +178,7 @@ function manualUpdate(event: Event) {
 			</button>
 		</div>
 		<RenderErrorMessage :error-message="errorMessage"/>
-	</FormGroup>
+	</WlkFormGroup>
 </template>
 
 <style scoped>

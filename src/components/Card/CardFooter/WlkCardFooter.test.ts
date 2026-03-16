@@ -1,6 +1,6 @@
 // CardFooter.spec.ts
 import { describe, test, expect } from "vitest";
-import CardFooter from "./CardFooter.vue";
+import CardFooter from "./WlkCardFooter.vue";
 import { mount } from "@vue/test-utils";
 
 describe("CardFooter", async () => {

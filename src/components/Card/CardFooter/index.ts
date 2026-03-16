@@ -1,1 +1,1 @@
-export { default as CardFooter } from './CardFooter.vue';
+export { default as CardFooter } from './WlkCardFooter.vue';

@@ -1,1 +1,1 @@
-export { default as RenderErrorMessage } from './RenderErrorMessage.vue'
+export { default as RenderErrorMessage } from './WlkRenderErrorMessage.vue'

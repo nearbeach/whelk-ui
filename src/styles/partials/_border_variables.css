@@ -1,14 +1,14 @@
 :root {
-    --wlk-border-color: hsl(26 21% 49%);
+    --wlk-border-color: hsl(209, 100%, 85%);
     --wlk-border-top-color: var(--wlk-border-color);
     --wlk-border-right-color: var(--wlk-border-color);
     --wlk-border-bottom-color: var(--wlk-border-color);
     --wlk-border-left-color: var(--wlk-border-color);
-    --wlk-border-color-muted: hsl(26 27% 61%);
-    --wlk-border-top-color-muted: var(--wlk-border-color-muted);
-    --wlk-border-right-color-muted: var(--wlk-border-color-muted);
-    --wlk-border-bottom-color-muted: var(--wlk-border-color-muted);
-    --wlk-border-left-color-muted: var(--wlk-border-color-muted);
+    --wlk-border-color-focused: hsl(227, 76%, 41%);
+    --wlk-border-top-color-focused: var(--wlk-border-color-focused);
+    --wlk-border-right-color-focused: var(--wlk-border-color-focused);
+    --wlk-border-bottom-color-focused: var(--wlk-border-color-focused);
+    --wlk-border-left-color-focused: var(--wlk-border-color-focused);
     --wlk-border-radius: 0.25rem;
     --wlk-border-top-left-radius: var(--wlk-border-radius);
     --wlk-border-top-right-radius: var(--wlk-border-radius);
@@ -19,7 +19,7 @@
     --wlk-border-right-style: var(--wlk-border-style);
     --wlk-border-bottom-style: var(--wlk-border-style);
     --wlk-border-left-style: var(--wlk-border-style);
-    --wlk-border-width: 0.063rem;
+    --wlk-border-width: 0.125rem;
     --wlk-border-top-width: var(--wlk-border-width);
     --wlk-border-right-width: var(--wlk-border-width);
     --wlk-border-bottom-width: var(--wlk-border-width);

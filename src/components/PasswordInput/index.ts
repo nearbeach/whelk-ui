@@ -1,1 +1,1 @@
-export { default as PasswordInput } from './PasswordInput.vue'
+export { default as PasswordInput } from './WlkPasswordInput.vue'

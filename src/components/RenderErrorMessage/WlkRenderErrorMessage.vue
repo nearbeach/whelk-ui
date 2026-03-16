@@ -2,9 +2,9 @@
 </script>
 
 <template>
-    <span class="render-error-message">
+    <div class="render-error-message">
 		<slot />
-    </span>
+    </div>
 </template>
 
 <style scoped>
@@ -23,6 +23,11 @@
     @media (--large-screen) {
         font-size: 0.75rem;
     }
+
+	&:before {
+		content: ".";
+		visibility: hidden;
+	}
 }
 
 p:before {

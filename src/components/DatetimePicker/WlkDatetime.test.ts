@@ -1,6 +1,6 @@
 // DatetimeComponent.test.ts
 import {describe, test, expect} from "vitest";
-import DatetimeComponent from "./DatetimePicker.vue";
+import DatetimeComponent from "./WlkDatetime.vue";
 import {mount} from "@vue/test-utils";
 
 describe("DatetimeComponent", async () => {

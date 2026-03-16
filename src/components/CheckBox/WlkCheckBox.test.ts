@@ -1,6 +1,6 @@
 // Checkbox.test.ts
 import {describe, test, expect} from "vitest";
-import CheckBox from "./CheckBox.vue";
+import CheckBox from "./WlkCheckBox.vue";
 import {mount} from "@vue/test-utils";
 
 describe("CheckBox", async () => {

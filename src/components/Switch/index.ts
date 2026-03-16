@@ -1,1 +1,1 @@
-export { default as SwitchComponent } from './SwitchComponent.vue'
+export { default as SwitchComponent } from './WlkSwitch.vue'

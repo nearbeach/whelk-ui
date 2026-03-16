@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SelectRenderOptions from "../SelectRenderOptions/SelectRenderOptions.vue";
+import SelectRenderOptions from "../SelectRenderOptions/WlkSelectRenderOptions.vue";
 import type {PropType} from "vue";
 import type {SelectOptionInterface} from "../../../utils/interfaces/SelectOptionInterface.ts";
 

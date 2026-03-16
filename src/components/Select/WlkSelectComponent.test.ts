@@ -1,8 +1,8 @@
 // SelectComponent.test.ts
 import {describe, test, expect} from "vitest";
-import SelectComponent from "./SelectComponent.vue";
-import SelectRenderOptionGroups from "./SelectRenderOptionGroups/SelectRenderOptionGroups.vue";
-import SelectRenderOptions from "./SelectRenderOptions/SelectRenderOptions.vue";
+import SelectComponent from "./WlkSelect.vue";
+import SelectRenderOptionGroups from "./SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
+import SelectRenderOptions from "./SelectRenderOptions/WlkSelectRenderOptions.vue";
 import {mount} from "@vue/test-utils";
 import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
 

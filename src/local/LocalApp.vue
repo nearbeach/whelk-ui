@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import SelectComponent from "@/components/Select/SelectComponent.vue";
 import {ref} from "vue";
-import {SelectOptionInterface} from "../utils/interfaces/SelectOptionInterface.ts";
-
-const options = ref<SelectOptionInterface[]>([
-	{disabled: true, label: "Disabled option", value: "disabled", optGroup: ""},
-	{disabled: false, label: "Human", value: "Human", optGroup: ""},
-	{disabled: false, label: "Cat", value: "Cat", optGroup: "Animal"},
-	{disabled: false, label: "Dog", value: "Dog", optGroup: "Animal"},
-	{disabled: false, label: "Horse", value: "Horse", optGroup: "Animal"},
-])
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import WlkTextInput from "@/components/TextInput/WlkTextInput.vue";
+import WlkButton from "@/components/Button/WlkButton.vue";
 
 const model = ref("")
 </script>
@@ -18,16 +11,27 @@ const model = ref("")
 	<main id="main" aria-labelledby="main-title" role="main">
 		<h1 id="main-title">Whelk UI - Local Testing</h1>
 
-		<h2>Select Component</h2>
-		<section id="tab">
-			<h3>Select</h3>
-			<SelectComponent
-				:options="options"
-				label="Select Single Option"
+		<WlkFormGroup id="test">
+			<WlkTextInput
+				id="test-label"
+				label="Test Label"
 				v-model="model"
-			 />
+			/>
+		</WlkFormGroup>
 
-		</section>
+		<WlkFormGroup>
+			<WlkTextInput
+				:is-required="true"
+				:min-length="5"
+				:max-length="50"
+				label="Text Input"
+				model-value="model"
+				tooltip-title="Tooltip"
+				tooltip-message="Hello World"
+			/>
+		</WlkFormGroup>
+
+		<WlkButton class="success" id="test-button" label="Test Button" />
 	</main>
 </template>
 

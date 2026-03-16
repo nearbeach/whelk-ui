@@ -50,7 +50,7 @@ const tooltipClass = ref('tooltip');
         @blur="tooltipClass = 'tooltip'"
         @keydown.esc="tooltipClass = 'tooltip'"
     >
-        <Info />
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
     </span>
 </template>
 
@@ -59,12 +59,12 @@ const tooltipClass = ref('tooltip');
     display: none;
     position: absolute;
     z-index: 10;
-    padding: 0.75rem 0.25rem;
-    background-color: var(--wlk-bg-dark);
-    border-color: var(--wlk-border-color-muted);
-    border-width: var(--wlk-border-color-width);
+    padding: 0.25rem;
+    background-color: var(--wlk-bg-light);
+    border-color: var(--wlk-border-color);
+    border-width: var(--wlk-border-width);
     border-style: var(--wlk-border-style);
-    border-radius: var(--wlk-border-color-radius);
+    border-radius: var(--wlk-border-radius);
     transform: translateY(-100%) translateY(-0.5rem);
     max-width: 75vw;
 
@@ -80,7 +80,6 @@ const tooltipClass = ref('tooltip');
     > .tooltip-message {
         font-weight: lighter;
         margin: 0;
-        color: var(--wlk-text-muted);
     }
 
     @media (--large-screen) {
@@ -92,5 +91,6 @@ svg {
     width: 1rem;
     height: 1rem;
     color: var(--wlk-text-muted);
+	transform: translateY(0.125rem);
 }
 </style>

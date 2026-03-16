@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import FormGroup from "@/components/FormGroup/FormGroup.vue";
-import ToolTip from "@/components/ToolTip/ToolTip.vue";
+import FormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import ToolTip from "@/components/ToolTip/WlkToolTip.vue";
 
 // Define props
 const props = defineProps({
@@ -58,7 +58,7 @@ function switchClicked() {
 
 <template>
 
-	<FormGroup class="switch-component">
+	<WlkFormGroup class="switch-component">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -77,7 +77,7 @@ function switchClicked() {
 			<div class="switch-text">{{ getText }}</div>
 			<div class="switch-block"></div>
 		</div>
-	</FormGroup>
+	</WlkFormGroup>
 </template>
 
 <style scoped>

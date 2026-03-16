@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/FormGroup.vue';
 import {computed, ref} from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/RenderErrorMessage.vue';
-import ToolTip from '@/components/ToolTip/ToolTip.vue';
+import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
+import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
@@ -47,7 +48,7 @@ const props = defineProps({
 });
 
 // Define Models
-const model = defineModel({ required: true });
+const model = defineModel({required: true});
 
 // Define ref
 const errorMessage = ref('');
@@ -92,7 +93,7 @@ function checkValidation() {
 </script>
 
 <template>
-	<FormGroup class="text-input">
+	<WlkFormGroup class="text-input">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -115,35 +116,37 @@ function checkValidation() {
 			v-on:keyup="checkValidation"
 			v-on:focusout="checkValidation"
 		/>
-		<RenderErrorMessage :error-message="errorMessage"/>
-	</FormGroup>
+		<WlkRenderErrorMessage>
+			{{ errorMessage }}
+		</WlkRenderErrorMessage>
+	</WlkFormGroup>
 </template>
 
 <style scoped>
 .text-input {
+	margin-bottom: 0.125rem;
 
 	> label {
-		margin-bottom: 6px;
-	}
+		margin-bottom: 0.25rem;
 
-	> span {
-		color: var(--wlk-text-red);
+		> span {
+			color: var(--wlk-text-red);
+		}
 	}
 
 	> input {
+		padding: 0.5rem;
 		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-color-width);
-		border-radius: var(--wlk-border-color-radius);
+		border-width: var(--wlk-border-width);
+		border-radius: var(--wlk-border-radius);
 		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 
 		&:focus {
-			border-color: var(--wlk-secondary);
-			border-width: 2px;
+			border-color: var(--wlk-border-color-focused);
 			outline: none;
-			padding: calc(0.5rem - 1px);
 		}
 	}
 
@@ -151,7 +154,7 @@ function checkValidation() {
 		> label {
 			font-size: 1rem;
 			line-height: 1.25rem;
-			margin-bottom: 2px;
+			margin-bottom: 0.125rem;
 
 			@media (--large-screen) {
 				font-size: 0.75rem;
@@ -165,7 +168,7 @@ function checkValidation() {
 			padding: 0.25rem;
 
 			&:focus {
-				padding: calc(0.25rem - 1px);
+				padding: 0.25rem;
 			}
 
 			@media (--large-screen) {

@@ -1,7 +1,7 @@
 // SelectRenderOptionGroups.test.ts
 import {describe, test, expect} from "vitest";
 import {mount} from "@vue/test-utils";
-import SelectRenderOptionGroups from "./SelectRenderOptionGroups.vue";
+import SelectRenderOptionGroups from "./WlkSelectRenderOptionGroups.vue";
 
 describe("SelectRenderOptionGroups", () => {
     test("select render option groups - renders and filters correctly", async () => {

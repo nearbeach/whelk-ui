@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import {computed, ref, type PropType} from 'vue';
+import {computed, ref, watch, onMounted, type PropType} from 'vue';
 import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
-import SelectRenderOptions from "@/components/Select/SelectRenderOptions/SelectRenderOptions.vue";
-import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/SelectRenderOptionGroups.vue";
-import FormGroup from "../FormGroup/FormGroup.vue";
-import ToolTip from "../ToolTip/ToolTip.vue";
+import FormGroup from "../FormGroup/WlkFormGroup.vue";
+import ToolTip from "../ToolTip/WlkToolTip.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
@@ -36,11 +34,33 @@ const props = defineProps({
 })
 
 // Define Model
-const model = defineModel({required: true});
+const model = defineModel({
+	required: true,
+	type: Array as PropType<string[]>,
+});
 
 // Define ref
 const errorMessage = ref('');
+const groupOptions = ref<string[]>([]);
 const hasError = ref(false);
+const isOpen = ref(false);
+const optionsWithoutGroup = ref<SelectOptionInterface[]>([]);
+const optionsWithGroup = ref<SelectOptionInterface[]>([]);
+const searchTerm = ref(''); // MAYBE MODEL?
+
+// Define watch
+watch(
+	() => props.options,
+	() => {
+		refreshSelect();
+	},
+	{deep: true}
+)
+
+// Define on mounted
+onMounted(() => {
+	refreshSelect();
+})
 
 // Define computed
 const getId = computed(() => {
@@ -48,40 +68,8 @@ const getId = computed(() => {
 	return 'select-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
-const groupOptions = computed(() => {
-	// Get unique list from opt group
-	const list: string[] = [
-		...new Set(
-			props.options.map(item => item.optGroup)
-		)
-	];
-
-	 return list.filter(item => {
-		return item !== "" && item !== undefined && item !== null;
-	});
-});
-
-const optionsWithoutGroup = computed(() => {
-	return [
-		...new Set(
-			props.options.filter(item => {
-				return item.optGroup === undefined || item.optGroup === null || item.optGroup === "";
-			})
-		)
-	];
-});
-
-const optionsWithGroup = computed(() => {
-	return [
-		...new Set(
-			props.options.filter(item => {
-				return item.optGroup !== undefined && item.optGroup !== null && item.optGroup !== "";
-			})
-		)
-	]
-})
-
 // Define functions
+
 function checkValidation() {
 	// Fall back to defaults
 	hasError.value = false;
@@ -97,10 +85,49 @@ function checkValidation() {
 	emit('isValid', !hasError.value);
 }
 
+function fetchGroupList() {
+	// Get unique list from opt group
+	const list: string[] = [
+		...new Set(
+			props.options.map(item => item.optGroup)
+		)
+	];
+
+	groupOptions.value = list.filter(item => {
+		return item !== "" && item !== undefined && item !== null;
+	});
+}
+
+function fetchOptionsWithGroup() {
+	optionsWithGroup.value = [
+		...new Set(
+			props.options.filter(item => {
+				return item.optGroup !== undefined && item.optGroup !== null && item.optGroup !== "";
+			})
+		)
+	]
+}
+
+function fetchOptionsWithoutGroup() {
+	optionsWithoutGroup.value = [
+		...new Set(
+			props.options.filter(item => {
+				return item.optGroup === undefined || item.optGroup === null || item.optGroup === "";
+			})
+		)
+	]
+}
+
+function refreshSelect() {
+	fetchGroupList();
+	fetchOptionsWithGroup();
+	fetchOptionsWithoutGroup();
+}
 </script>
 
+
 <template>
-	<FormGroup class="wlk-select-component">
+	<WlkFormGroup class="wlk-multi-select">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -113,25 +140,12 @@ function checkValidation() {
 			}}<span v-if="isRequired" aria-description="Field is required"
 		>*</span>
 		</label>
-		<select
-			:id="getId"
-			:name="props.label"
-			v-model="model"
-			v-on:change="checkValidation"
-		>
-			<SelectRenderOptions
-				:options="optionsWithoutGroup"
-			/>
-			<SelectRenderOptionGroups
-				:options="optionsWithGroup"
-				:groupOptions="groupOptions"
-			/>
-		</select>
-	</FormGroup>
+		ADD CODE HERE
+	</WlkFormGroup>
 </template>
 
 <style scoped>
-.wlk-select-component {
+.wlk-multi-select {
 	> label {
 		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin);
 	}

@@ -1,6 +1,6 @@
 // SelectRenderOptions.test.ts
 import {describe, test, expect} from 'vitest';
-import SelectRenderOptions from './SelectRenderOptions.vue';
+import SelectRenderOptions from './WlkSelectRenderOptions.vue';
 import {mount} from "@vue/test-utils";
 
 describe('SelectRenderOptions', () => {

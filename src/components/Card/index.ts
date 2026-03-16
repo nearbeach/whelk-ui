@@ -1,1 +1,1 @@
-export { default as CardComponent } from './CardComponent.vue'
+export { default as CardComponent } from './WlkCard.vue'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {type PropType, ref, onMounted} from 'vue';
 import type {TabHeaderInterface} from '../../utils/interfaces/TabHeaderInterface.ts';
-import TabHeader from "@/components/TabsComponent/TabHeader/TabHeader.vue";
+import TabHeader from "@/components/TabsComponent/TabHeader/WlkTabHeader.vue";
 
 // Define props
 const props = defineProps({

@@ -1,7 +1,7 @@
 // ButtonComponent.test.ts
 import {describe, it, expect} from 'vitest'
 import {mount} from '@vue/test-utils'
-import ButtonComponent from './ButtonComponent.vue'
+import ButtonComponent from './WlkButton.vue'
 
 describe('ButtonComponent', async () => {
     it('mounts successfully', async () => {

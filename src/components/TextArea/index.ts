@@ -1,1 +1,1 @@
-export { default as TextArea } from './TextArea.vue'
+export { default as TextArea } from './WlkTextArea.vue'

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/FormGroup.vue';
+import FormGroup from '../FormGroup/WlkFormGroup.vue';
 import {computed, PropType, ref, nextTick} from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/RenderErrorMessage.vue';
-import ToolTip from '@/components/ToolTip/ToolTip.vue';
+import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
+import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 
 // Define Model
 const model = defineModel({
@@ -197,7 +197,7 @@ function handleDate(value: object) {
 </script>
 
 <template>
-	<FormGroup class="wlk-datetime-component">
+	<WlkFormGroup class="wlk-datetime-component">
 		<label :for="datetimeId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -227,7 +227,7 @@ function handleDate(value: object) {
 			v-on:submit="checkValidation"
 		/>
 		<RenderErrorMessage :error-message="errorMessage"/>
-	</FormGroup>
+	</WlkFormGroup>
 </template>
 
 <style scoped>

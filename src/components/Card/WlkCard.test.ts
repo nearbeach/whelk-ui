@@ -1,6 +1,6 @@
 // CardComponent.test.ts
 import { describe, test, expect } from "vitest";
-import CardComponent from "./CardComponent.vue";
+import CardComponent from "./WlkCard.vue";
 import { mount } from "@vue/test-utils";
 
 describe("CardComponent", async () => {

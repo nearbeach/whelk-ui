@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/FormGroup.vue';
+import FormGroup from '../FormGroup/WlkFormGroup.vue';
 import { computed, ref } from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/RenderErrorMessage.vue';
-import ToolTip from '@/components/ToolTip/ToolTip.vue';
+import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
+import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 
 // Define Emits
 const emit = defineEmits(['isValid']);
@@ -96,7 +96,7 @@ function checkValidation() {
 </script>
 
 <template>
-    <FormGroup>
+    <WlkFormGroup>
         <label :for="getId">
             <ToolTip
                 v-if="props.tooltipMessage !== ''"
@@ -120,7 +120,7 @@ function checkValidation() {
             v-on:focusout="checkValidation"
         />
         <RenderErrorMessage :error-message="errorMessage" />
-    </FormGroup>
+    </WlkFormGroup>
 </template>
 
 <style scoped>

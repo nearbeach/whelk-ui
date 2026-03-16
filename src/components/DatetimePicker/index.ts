@@ -1,1 +1,1 @@
-export { default as DatetimeComponent } from './DatetimePicker.vue'
+export { default as DatetimeComponent } from './WlkDatetime.vue'

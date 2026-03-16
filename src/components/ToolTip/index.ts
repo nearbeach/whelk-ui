@@ -1,1 +1,1 @@
-export { default as ToolTip } from './ToolTip.vue'
+export { default as ToolTip } from './WlkToolTip.vue'

@@ -1,6 +1,6 @@
 // FormGroup.spec.ts
 import {describe, test, expect} from "vitest";
-import FormGroup from "./FormGroup.vue";
+import FormGroup from "./WlkFormGroup.vue";
 import {mount} from "@vue/test-utils";
 
 describe("FormGroup", async () => {

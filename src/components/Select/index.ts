@@ -1,1 +1,1 @@
-export { default as SelectComponent } from './SelectComponent.vue'
+export { default as SelectComponent } from './WlkSelect.vue'
