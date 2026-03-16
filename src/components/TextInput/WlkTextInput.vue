@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {computed, ref} from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";

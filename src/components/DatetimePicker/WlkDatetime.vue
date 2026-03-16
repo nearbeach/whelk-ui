@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/WlkFormGroup.vue';
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import {computed, PropType, ref, nextTick} from 'vue';
 import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';

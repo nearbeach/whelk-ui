@@ -3,8 +3,8 @@ import {computed, ref, type PropType} from 'vue';
 import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
 import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSelectRenderOptions.vue";
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
-import FormGroup from "../FormGroup/WlkFormGroup.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);

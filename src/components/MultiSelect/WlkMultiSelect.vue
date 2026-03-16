@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {computed, ref, watch, onMounted, type PropType} from 'vue';
 import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
-import FormGroup from "../FormGroup/WlkFormGroup.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FormGroup from '../FormGroup/WlkFormGroup.vue';
 import {computed, ref} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import RenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 
 // Define Props
 const props = defineProps({

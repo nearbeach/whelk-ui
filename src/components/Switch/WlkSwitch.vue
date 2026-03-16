@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import FormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import ToolTip from "@/components/ToolTip/WlkToolTip.vue";
+import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 
 // Define props
 const props = defineProps({
