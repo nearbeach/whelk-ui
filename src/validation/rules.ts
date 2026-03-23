@@ -1,5 +1,5 @@
 // validation/rules.ts
-import {EMAIL, PATTERN, MAXIMUM_LENGTH, MINIMUM_LENGTH, REQUIRED_RULE, ValidationRuleInterface} from '../types';
+import {EMAIL, PATTERN, MAXIMUM_LENGTH, MAXIMUM_VALUE, MINIMUM_LENGTH, MINIMUM_VALUE, REQUIRED_RULE, ValidationRuleInterface} from '../types';
 
 export const required = (message : string = 'This field is required'): ValidationRuleInterface => {
 	const rule: ValidationRuleInterface = (value) => {
@@ -19,12 +19,48 @@ export const minLength = (min: number, message?: string): ValidationRuleInterfac
 	return rule;
 }
 
+export const minValue = (min: number, message?: string): ValidationRuleInterface => {
+	const rule: ValidationRuleInterface = (value) => {
+		// Define message if not defined
+		message = message ?? `Minimum value is ${min}`;
+
+		// Check the type of value
+		if (typeof value !== "number") {
+			// Value must be a number
+			return message;
+		}
+
+		// Return validation
+		return value >= min || message;
+	};
+	rule._type = MINIMUM_VALUE;
+	return rule;
+}
+
 export const maxLength = (max: number, message?: string): ValidationRuleInterface => {
 	const rule: ValidationRuleInterface = (value) => {
 		const len = value?.toString().length ?? 0;
 		return len <= max || (message ?? `Maximum length is ${len} / ${max}`);
 	};
 	rule._type = MAXIMUM_LENGTH;
+	return rule;
+}
+
+export const maxValue = (max: number, message?: string): ValidationRuleInterface => {
+	const rule: ValidationRuleInterface = (value) => {
+		// Define message if not defined
+		message = message ?? `Maximum value is ${max}`;
+
+		// Check the type of value
+		if (typeof value !== "number") {
+			// Value must be a number
+			return message;
+		}
+
+		// Return validation
+		return value <= max || message;
+	};
+	rule._type = MAXIMUM_VALUE;
 	return rule;
 }
 

@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import RenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import {ValidationRuleInterface} from "../../types";
+import {getComponentId} from "../../composables/getComponentId.ts";
+import {useValidation} from "@/composables/useValidation.ts";
+import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+
+// Define Emits
+const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
 	label: {
 		type: String,
 		required: true,
-	},
-	maxValue: {
-		type: Number,
-		default: Number.MAX_SAFE_INTEGER,
-	},
-	minValue: {
-		type: Number,
-		default: Number.MIN_SAFE_INTEGER,
 	},
 	stepIncrement: {
 		type: Number,
@@ -32,6 +31,10 @@ const props = defineProps({
 		required: false,
 		default: '',
 	},
+	validationRules: {
+		type: Array as PropType<ValidationRuleInterface[]>,
+		required: false,
+	},
 });
 
 // Define Models
@@ -40,25 +43,15 @@ const model = defineModel({
 	default: 0,
 });
 
-// Define Ref
-const errorMessage = ref('');
+// Define Refs
+const rulesRef = toRef(props, 'validationRules', []);
 
-// Computed
-const getId = computed(() => {
-	// Return an id made up of input- + title
-	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
-});
-
-const isMax = computed(() => {
-	return model.value >= props.maxValue;
-});
-
-const isMin = computed(() => {
-	return model.value <= props.minValue;
-});
+// Define Validation
+const { errorMessage, validate } = useValidation(model, rulesRef);// Define computed
 
 // FUNCTIONS
 function applyDecrement() {
+	/*
 	// Reset error messages
 	errorMessage.value = '';
 
@@ -82,9 +75,11 @@ function applyDecrement() {
 
 	//Mutate the value
 	model.value = update_value;
+	 */
 }
 
 function applyIncrement() {
+	/*
 	// Reset error messages
 	errorMessage.value = '';
 
@@ -108,44 +103,24 @@ function applyIncrement() {
 
 	// Mutate the value
 	model.value = update_value;
+	 */
 }
 
-function manualUpdate(event: Event) {
-	// Reset error messages
-	errorMessage.value = '';
-
-	// Handle manual event
-	const target = event.target as HTMLInputElement;
-	let update_value: number | undefined = target?.valueAsNumber;
-	if (update_value === undefined) {
-		errorMessage.value = "Model is undefined - default 0";
-		update_value = 0;
-	}
-	if (isNaN(update_value)) {
-		errorMessage.value = "Not a number - default 0";
-		update_value = 0;
-	}
-
-
-	// Make sure the values fall within the min and max
-	update_value =
-		update_value > props.maxValue ? props.maxValue : update_value;
-	update_value =
-		update_value < props.minValue ? props.minValue : update_value;
-
-	// Mutate the value
-	model.value = update_value;
+function checkValidation() {
+	validate();
+	emit('isValid', errorMessage.value === "");
 }
+
 </script>
 
 <template>
 	<WlkFormGroup class="number-input">
-		<label :for="getId">
+		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getId"
+				:id="getComponentId(props.label)"
 			/>
 			{{ label }}
 		</label>
@@ -154,7 +129,6 @@ function manualUpdate(event: Event) {
 				type="button"
 				class="negative"
 				v-bind:aria-label="`Decrement current value of ${model} by ${props.stepIncrement}`"
-				v-bind:disabled="isMin"
 				v-on:click="applyDecrement"
 			>
 				-
@@ -164,27 +138,29 @@ function manualUpdate(event: Event) {
 				aria-label="Current value picked"
 				aria-describedby="helper-text-explanation"
 				v-model="model"
-				v-on:change="manualUpdate($event)"
-				v-on:keyup="manualUpdate($event)"
+				v-on:keyup="checkValidation"
 			/>
 			<button
 				type="button"
 				class="positive"
 				v-bind:aria-label="`Increment current value of ${model} by ${props.stepIncrement}`"
-				v-bind:disabled="isMax"
 				v-on:click="applyIncrement"
 			>
 				+
 			</button>
 		</div>
-		<RenderErrorMessage :error-message="errorMessage"/>
+		<WlkRenderErrorMessage>
+			{{ errorMessage }}
+		</WlkRenderErrorMessage>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
 .number-input {
+	margin-bottom: 0.125rem;
+
 	> label {
-		margin-bottom: 6px;
+		margin-bottom: 0.25rem;
 	}
 
 	> .number-input-row {
@@ -192,13 +168,14 @@ function manualUpdate(event: Event) {
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
 
 		> .negative {
-			border-radius: var(--wlk-border-color-radius) 0 0 var(--wlk-border-color-radius);
-			border-width: var(--wlk-border-color-width) 0 var(--wlk-border-color-width) var(--wlk-border-color-width);
+			border-radius: var(--wlk-border-radius) 0 0 var(--wlk-border-radius);
+			border-width: var(--wlk-border-width) 0 var(--wlk-border-width) var(--wlk-border-width);
 		}
 
 		> input {
+			padding: 0.5rem;
 			border-style: var(--wlk-border-style);
-			border-width: var(--wlk-border-color-width);
+			border-width: var(--wlk-border-width);
 			border-radius: 0;
 			border-color: var(--wlk-border-color);
 			box-sizing: border-box;
@@ -206,16 +183,14 @@ function manualUpdate(event: Event) {
 			-webkit-box-sizing: border-box;
 
 			&:focus {
-				border-color: var(--wlk-secondary);
-				border-width: 2px;
+				border-color: var(--wlk-border-color-focused);
 				outline: none;
-				padding: calc(0.5rem - 1px);
 			}
 		}
 
 		> .positive {
-			border-radius: 0 var(--wlk-border-color-radius) var(--wlk-border-color-radius) 0;
-			border-width: var(--wlk-border-color-width) var(--wlk-border-color-width) var(--wlk-border-color-width) 0;
+			border-radius: 0 var(--wlk-border-radius) var(--wlk-border-radius) 0;
+			border-width: var(--wlk-border-width) var(--wlk-border-width) var(--wlk-border-width) 0;
 		}
 	}
 

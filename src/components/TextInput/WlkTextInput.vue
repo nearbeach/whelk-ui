@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {computed, PropType, toRef} from 'vue';
+import {PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
-import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
+import {ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/useValidation.ts";
+import { getComponentId} from "../../composables/getComponentId.ts";
+import { showIsRequired} from "../../composables/showIsRequired.ts";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
@@ -43,39 +45,33 @@ const model = defineModel({required: true});
 const rulesRef = toRef(props, 'validationRules', []);
 
 // Define Validation
-const { errorMessage, validate } = useValidation(model, rulesRef);
+const {errorMessage, validate} = useValidation(model, rulesRef);
 
-// Computed
-const getId = computed(() => {
-	// Return an id made up of input- + title
-	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
-});
-
-const showIsRequired = computed(() => {
-	return props.validationRules?.some(rule => rule._type === REQUIRED_RULE) ?? false
-});
-
-
+// Define functions
 function checkValidation() {
 	validate();
 	emit('isValid', errorMessage.value === "");
 }
+
+defineExpose({
+	checkValidation,
+});
 </script>
 
 <template>
 	<WlkFormGroup class="text-input">
-		<label :for="getId">
+		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getId"
+				:id="getComponentId(props.label)"
 			/>
 			{{ label }}
-			<span v-if="showIsRequired" aria-label="required">*</span>
+			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
 		</label>
 		<input
-			:id="getId"
+			:id="getComponentId(props.label)"
 			type="text"
 			:name="props.label"
 			:placeholder="props.placeholderText"

@@ -3,8 +3,10 @@ import {ref} from "vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkButton from "@/components/Button/WlkButton.vue";
 import WlkSelect from "@/components/Select/WlkSelect.vue";
-import {required} from "../validation/rules.ts";
+import {maxValue, minValue, required} from "../validation/rules.ts";
 import {SelectOptionInterface} from "../types/SelectOptionInterface.ts";
+import WlkPasswordInput from "@/components/PasswordInput/WlkPasswordInput.vue";
+import {WlkNumberInput} from "@";
 
 const options = ref<SelectOptionInterface[]>([
 	{
@@ -34,6 +36,7 @@ const options = ref<SelectOptionInterface[]>([
 ])
 
 const model = ref("")
+const modelPassword = ref("")
 const selectRef = ref();
 
 function validate() {
@@ -55,7 +58,10 @@ function validate() {
 			></WlkSelect>
 
 		</WlkFormGroup>
-
+			<WlkNumberInput
+				label="number input"
+				:validation-rules="[minValue(0), maxValue(10)]"
+			/>
 		<WlkFormGroup>
 
 		</WlkFormGroup>

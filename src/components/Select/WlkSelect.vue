@@ -5,8 +5,10 @@ import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSele
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
+import {ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/useValidation.ts";
+import { getComponentId } from "../../composables/getComponentId.ts";
+import { showIsRequired} from "../../composables/showIsRequired.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
@@ -48,11 +50,6 @@ const rulesRef = toRef(props, 'validationRules', []);
 const { errorMessage, validate } = useValidation(model, rulesRef);// Define computed
 
 // Define computed
-const getId = computed(() => {
-	// Return an id made up of input- + title
-	return 'select-' + props.label?.toLowerCase()?.replace(/ /g, '-');
-});
-
 const groupOptions = computed(() => {
 	// Get unique list from opt group
 	const list: string[] = [
@@ -64,10 +61,6 @@ const groupOptions = computed(() => {
 	 return list.filter(item => {
 		return item !== "" && item !== undefined && item !== null;
 	});
-});
-
-const showIsRequired = computed(() => {
-	return props.validationRules?.some(rule => rule._type === REQUIRED_RULE) ?? false
 });
 
 const optionsWithoutGroup = computed(() => {
@@ -99,24 +92,24 @@ async function checkValidation() {
 
 defineExpose({
 	checkValidation,
-})
+});
 
 </script>
 
 <template>
 	<WlkFormGroup class="wlk-select">
-		<label :for="getId">
+		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getId"
+				:id="getComponentId(props.label)"
 			/>
 			{{ label }}
-			<span v-if="showIsRequired" aria-description="required">*</span>
+			<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
 		</label>
 		<select
-			:id="getId"
+			:id="getComponentId(props.label)"
 			:name="props.label"
 			v-model="model"
 			v-on:change="checkValidation"
@@ -156,7 +149,7 @@ defineExpose({
 		padding: var(--wlk-input-top-padding) var(--wlk-input-right-padding) var(--wlk-input-bottom-padding) var(--wlk-input-left-padding);
 
 		&:focus {
-			border-color: var(--wlk-secondary);
+			border-color: var(--wlk-border-color-focused);
 		}
 	}
 
