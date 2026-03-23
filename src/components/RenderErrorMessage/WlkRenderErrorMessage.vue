@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="render-error-message">
+    <div class="render-error-message" role="alert">
 		<slot />
     </div>
 </template>

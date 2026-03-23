@@ -1,33 +1,19 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed, PropType, ref, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
+import {REQUIRED_RULE, ValidationRule} from "../../types/validation.ts";
+import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
-	isRequired: {
-		type: Boolean,
-		default: false,
-	},
 	label: {
 		type: String,
 		required: true,
-	},
-	minLength: {
-		type: Number,
-		default: 0,
-		required: false,
-		validator: (val) => !Number.isNaN(val),
-	},
-	maxLength: {
-		type: Number,
-		default: 0,
-		required: false,
-		validator: (val) => !Number.isNaN(val),
 	},
 	placeholderText: {
 		type: String,
@@ -44,14 +30,20 @@ const props = defineProps({
 		required: false,
 		default: '',
 	},
+	validationRules: {
+		type: Array as PropType<ValidationRule[]>,
+		required: false,
+	},
 });
 
 // Define Models
 const model = defineModel({required: true});
 
-// Define ref
-const errorMessage = ref('');
-const hasError = ref(false);
+// Define Refs
+const rulesRef = toRef(props, 'validationRules', []);
+
+// Define Validation
+const { errorMessage, validate } = useValidation(model, rulesRef);
 
 // Computed
 const getId = computed(() => {
@@ -59,35 +51,14 @@ const getId = computed(() => {
 	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
+const isRequired = computed(() => {
+	return props.validationRules?.some(rule => rule._type === REQUIRED_RULE) ?? false
+})
+
+
 function checkValidation() {
-	// Fall back to defaults
-	hasError.value = false;
-	errorMessage.value = '';
-
-	// Get the length of the model and if NaN fallback to 0
-	let modelLength: number = Number(model?.value?.toString().length);
-	modelLength = isNaN(modelLength) ? 0 : modelLength;
-
-	// Check the first "required" condition
-	if (props.isRequired && modelLength === 0) {
-		hasError.value = true;
-		errorMessage.value = 'This field is required';
-	}
-
-	// Check the minimum "required" condition
-	if (props.minLength > 0 && modelLength < props.minLength) {
-		hasError.value = true;
-		errorMessage.value = `This field has a minimum length ${modelLength} / ${props.minLength}`;
-	}
-
-	// Check the maximum "required" condition
-	if (props.maxLength > 0 && modelLength > props.maxLength) {
-		hasError.value = true;
-		errorMessage.value = `This field has a maximum length ${modelLength} / ${props.maxLength}`;
-	}
-
-	// Set the defined ref and tell parent
-	emit('isValid', !hasError.value);
+	const valid = validate();
+	emit('isValid', valid);
 }
 </script>
 
@@ -100,11 +71,8 @@ function checkValidation() {
 				:message="tooltipMessage"
 				:id="getId"
 			/>
-			{{
-				label
-			}}<span v-if="isRequired" aria-description="Field is required"
-		>*</span
-		>
+			{{ label }}
+			<span v-if="isRequired" aria-label="required">*</span>
 		</label>
 		<input
 			:id="getId"
@@ -114,6 +82,7 @@ function checkValidation() {
 			v-model="model"
 			v-on:keyup="checkValidation"
 			v-on:focusout="checkValidation"
+			v-on:blur="checkValidation"
 		/>
 		<WlkRenderErrorMessage>
 			{{ errorMessage }}
