@@ -4,6 +4,7 @@ import './styles/style.css'
 
 export * from './components'
 export * from './utils'
+export * from './types'
 
 export default {
 	install(app: App) {

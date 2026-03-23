@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {PropType} from "vue";
-import type {DropDownItemsInterface} from "../../../utils/interfaces/DropDownItemsInterface.ts";
+import type {DropDownItemsInterface} from "../../../types/DropDownItemsInterface.ts";
 
 // Define props
 defineProps({

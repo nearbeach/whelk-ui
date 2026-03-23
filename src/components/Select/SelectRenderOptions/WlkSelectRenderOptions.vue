@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {PropType} from "vue";
-import type {SelectOptionInterface} from "../../../utils/interfaces/SelectOptionInterface.ts";
+import type {SelectOptionInterface} from "../../../types/SelectOptionInterface.ts";
 
 defineProps({
 	options: {

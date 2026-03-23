@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {computed, PropType, ref, toRef} from 'vue';
+import {computed, PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
-import {REQUIRED_RULE, ValidationRule} from "../../types/validation.ts";
+import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits
@@ -31,7 +31,7 @@ const props = defineProps({
 		default: '',
 	},
 	validationRules: {
-		type: Array as PropType<ValidationRule[]>,
+		type: Array as PropType<ValidationRuleInterface[]>,
 		required: false,
 	},
 });
@@ -51,14 +51,14 @@ const getId = computed(() => {
 	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
 });
 
-const isRequired = computed(() => {
+const showIsRequired = computed(() => {
 	return props.validationRules?.some(rule => rule._type === REQUIRED_RULE) ?? false
-})
+});
 
 
 function checkValidation() {
-	const valid = validate();
-	emit('isValid', valid);
+	validate();
+	emit('isValid', errorMessage.value === "");
 }
 </script>
 
@@ -72,7 +72,7 @@ function checkValidation() {
 				:id="getId"
 			/>
 			{{ label }}
-			<span v-if="isRequired" aria-label="required">*</span>
+			<span v-if="showIsRequired" aria-label="required">*</span>
 		</label>
 		<input
 			:id="getId"

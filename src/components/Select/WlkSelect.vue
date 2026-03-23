@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import {computed, ref, type PropType} from 'vue';
-import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
+import {computed, nextTick, type PropType, toRef} from 'vue';
+import type {SelectOptionInterface} from "../../types/SelectOptionInterface.ts";
 import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSelectRenderOptions.vue";
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
+import {useValidation} from "../../composables/useValidation.ts";
+import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
-	isRequired: {
-		type: Boolean,
-		default: false,
-	},
 	label: {
 		type: String,
 		required: true,
@@ -33,14 +32,20 @@ const props = defineProps({
 		required: false,
 		default: '',
 	},
+	validationRules: {
+		type: Array as PropType<ValidationRuleInterface[]>,
+		required: false,
+	},
 })
 
 // Define Model
 const model = defineModel({required: true});
 
-// Define ref
-const errorMessage = ref('');
-const hasError = ref(false);
+// Define Refs
+const rulesRef = toRef(props, 'validationRules', []);
+
+// Define Validation
+const { errorMessage, validate } = useValidation(model, rulesRef);// Define computed
 
 // Define computed
 const getId = computed(() => {
@@ -59,6 +64,10 @@ const groupOptions = computed(() => {
 	 return list.filter(item => {
 		return item !== "" && item !== undefined && item !== null;
 	});
+});
+
+const showIsRequired = computed(() => {
+	return props.validationRules?.some(rule => rule._type === REQUIRED_RULE) ?? false
 });
 
 const optionsWithoutGroup = computed(() => {
@@ -82,20 +91,15 @@ const optionsWithGroup = computed(() => {
 })
 
 // Define functions
-function checkValidation() {
-	// Fall back to defaults
-	hasError.value = false;
-	errorMessage.value = '';
-
-	// Conditions
-	if (props.isRequired && model.value === "") {
-		hasError.value = true;
-		errorMessage.value = 'This field is required.';
-	}
-
-	// Set the defined ref and tell parent
-	emit('isValid', !hasError.value);
+async function checkValidation() {
+	await nextTick();
+	validate();
+	emit('isValid', errorMessage.value === "");
 }
+
+defineExpose({
+	checkValidation,
+})
 
 </script>
 
@@ -108,10 +112,8 @@ function checkValidation() {
 				:message="tooltipMessage"
 				:id="getId"
 			/>
-			{{
-				label
-			}}<span v-if="isRequired" aria-description="Field is required"
-		>*</span>
+			{{ label }}
+			<span v-if="showIsRequired" aria-description="required">*</span>
 		</label>
 		<select
 			:id="getId"
@@ -127,6 +129,9 @@ function checkValidation() {
 				:groupOptions="groupOptions"
 			/>
 		</select>
+		<WlkRenderErrorMessage>
+			{{ errorMessage }}
+		</WlkRenderErrorMessage>
 	</WlkFormGroup>
 </template>
 
@@ -134,10 +139,10 @@ function checkValidation() {
 .wlk-select {
 	> label {
 		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin);
-	}
 
-	> span {
-		color: var(--wlk-text-red);
+		> span {
+			color: var(--wlk-text-red);
+		}
 	}
 
 	> select {

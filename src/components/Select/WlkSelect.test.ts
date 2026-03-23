@@ -4,7 +4,7 @@ import SelectComponent from "./WlkSelect.vue";
 import SelectRenderOptionGroups from "./SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import SelectRenderOptions from "./SelectRenderOptions/WlkSelectRenderOptions.vue";
 import {mount} from "@vue/test-utils";
-import type {SelectOptionInterface} from "../../utils/interfaces/SelectOptionInterface.ts";
+import type {SelectOptionInterface} from "../../types/SelectOptionInterface.ts";
 
 describe("SelectComponent", async() => {
     test("select component renders", async () => {

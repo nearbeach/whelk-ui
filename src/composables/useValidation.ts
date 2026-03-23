@@ -1,10 +1,10 @@
 // composables/useValidation.ts
 import { ref, type Ref } from 'vue';
-import type { ValidationRule } from '../types/validation.ts';
+import type { ValidationRuleInterface } from '../types';
 
 export function useValidation(
 	model: Ref<unknown>,
-	rules: Ref<ValidationRule[]>
+	rules: Ref<ValidationRuleInterface[]>
 ) {
 	const errorMessage = ref('');
 

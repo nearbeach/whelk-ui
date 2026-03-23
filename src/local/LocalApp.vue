@@ -1,13 +1,44 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkTextInput from "@/components/TextInput/WlkTextInput.vue";
 import WlkButton from "@/components/Button/WlkButton.vue";
-import WlkCard from "@/components/Card/WlkCard.vue";
-import {WlkCardHeader} from "@";
-import WlkCardFooter from "@/components/Card/CardFooter/WlkCardFooter.vue";
+import WlkSelect from "@/components/Select/WlkSelect.vue";
+import {required} from "../validation/rules.ts";
+import {SelectOptionInterface} from "../types/SelectOptionInterface.ts";
+
+const options = ref<SelectOptionInterface[]>([
+	{
+		disabled: false,
+		label: "First option",
+		optGroup: "",
+		value: "first",
+	},
+	{
+		disabled: true,
+		label: "Second option",
+		optGroup: "",
+		value: "second",
+	},
+	{
+		disabled: false,
+		label: "First option",
+		optGroup: "The Pain",
+		value: "first",
+	},
+	{
+		disabled: false,
+		label: "First option",
+		optGroup: "The Pain",
+		value: "first",
+	},
+])
 
 const model = ref("")
+const selectRef = ref();
+
+function validate() {
+	selectRef.value.checkValidation();
+}
 </script>
 
 <template>
@@ -15,32 +46,26 @@ const model = ref("")
 		<h1 id="main-title">Whelk UI - Local Testing</h1>
 
 		<WlkFormGroup id="test">
-			<WlkTextInput
-				id="test-label"
-				label="Test Label"
+			<WlkSelect
+				label="Select something"
+				:validation-rules="[required()]"
+				:options="options"
 				v-model="model"
-			/>
+				ref="selectRef"
+			></WlkSelect>
+
 		</WlkFormGroup>
 
 		<WlkFormGroup>
-			<WlkTextInput
-				:is-required="true"
-				:min-length="5"
-				:max-length="50"
-				label="Text Input"
-				model-value="model"
-				tooltip-title="Tooltip"
-				tooltip-message="Hello World"
-			/>
+
 		</WlkFormGroup>
 
-		<WlkButton class="success" id="test-button" label="Test Button" />
-
-		<WlkCard class="card">
-			<WlkCardHeader>Card Header</WlkCardHeader>
-			Hello World
-			<WlkCardFooter>Card Footer</WlkCardFooter>
-		</WlkCard>
+		<WlkButton
+			class="success"
+			id="test-button"
+			label="Test Button"
+			v-on:click="validate()"
+		/>
 	</main>
 </template>
 
