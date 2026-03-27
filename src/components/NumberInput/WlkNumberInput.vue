@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import {type PropType, toRef} from 'vue';
+import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
-import RenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types";
+import {MAXIMUM_VALUE, MINIMUM_VALUE, ValidationRuleInterface} from "../../types";
 import {getComponentId} from "../../composables/getComponentId.ts";
-import {useValidation} from "@/composables/useValidation.ts";
+import {useValidation} from "../../composables/useValidation.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
@@ -47,63 +46,71 @@ const model = defineModel({
 const rulesRef = toRef(props, 'validationRules', []);
 
 // Define Validation
-const { errorMessage, validate } = useValidation(model, rulesRef);// Define computed
+const { errorMessage, validate } = useValidation(model, rulesRef);
+
+// Define computed
+const isMax = computed(() => {
+	return model.value >= maxValue.value;
+});
+
+const maxValue = computed(() => {
+	// Grab the first max rule
+	const max_rule = rulesRef.value.filter(row => row._type === MAXIMUM_VALUE)[0];
+
+	// If max rule exists, send back the max number. If not default to MAX SAFE INTEGER
+	return max_rule?._max_value ?? Number.MAX_SAFE_INTEGER
+})
+
+const isMin = computed(() => {
+	return model.value <= minValue.value;
+});
+
+const minValue = computed<number>(() => {
+	// Grab the first min rule
+	const min_rule = rulesRef.value.filter(row => row._type === MINIMUM_VALUE)[0]
+
+	// If min rule exists, send back the min number. If not default to MIN SAFE INTEGER
+	return min_rule?._min_value ?? Number.MIN_SAFE_INTEGER;
+});
 
 // FUNCTIONS
 function applyDecrement() {
-	/*
-	// Reset error messages
-	errorMessage.value = '';
-
 	// Do nothing if we reach the lowest value
 	if (isMin.value) {
-		errorMessage.value = "Reached Lowest Value";
 		return;
 	}
 
 	// We don't want to increment past the min value - so we define a local increment
-	let increment = Math.abs(props.minValue - model.value);
+	let increment = Math.abs(minValue.value - model.value);
 	increment =
 		increment < Math.abs(props.stepIncrement)
 			? increment
 			: Math.abs(props.stepIncrement);
 
 	// Apply the incrementation, and make sure it is not bigger than the max value
-	let update_value = model.value - increment;
-	update_value =
-		update_value > props.maxValue ? props.maxValue : update_value;
+	model.value = Math.min(maxValue.value, model.value - increment);
 
-	//Mutate the value
-	model.value = update_value;
-	 */
+	// Check validation
+	checkValidation();
 }
 
 function applyIncrement() {
-	/*
-	// Reset error messages
-	errorMessage.value = '';
-
 	// Do nothing if we reach the highest value
 	if (isMax.value) {
-		errorMessage.value = "Reached Maxium Value";
 		return;
 	}
 
 	// We don't want to increment past the max value - so we define a local increment
-	let increment = Math.abs(props.maxValue - model.value);
-	increment =
-		increment < Math.abs(props.stepIncrement)
+	let increment = Math.abs(maxValue.value - model.value);
+	increment = increment < Math.abs(props.stepIncrement)
 			? increment
 			: Math.abs(props.stepIncrement);
 
 	// Apply the incrementation, and make sure it is not lower than the min value
-	let update_value = model.value + increment;
-	update_value =
-		update_value < props.minValue ? props.minValue : update_value;
+	model.value = Math.max(minValue.value, model.value + increment);
 
-	// Mutate the value
-	model.value = update_value;
-	 */
+	// Check validation
+	checkValidation();
 }
 
 function checkValidation() {
@@ -130,11 +137,14 @@ function checkValidation() {
 				class="negative"
 				v-bind:aria-label="`Decrement current value of ${model} by ${props.stepIncrement}`"
 				v-on:click="applyDecrement"
+				:disabled="isMin"
 			>
 				-
 			</button>
 			<input
-				type="number"
+				type="text"
+				inputmode="numeric"
+				pattern="[0-9]*"
 				aria-label="Current value picked"
 				aria-describedby="helper-text-explanation"
 				v-model="model"
@@ -145,6 +155,7 @@ function checkValidation() {
 				class="positive"
 				v-bind:aria-label="`Increment current value of ${model} by ${props.stepIncrement}`"
 				v-on:click="applyIncrement"
+				:disabled="isMax"
 			>
 				+
 			</button>

@@ -5,7 +5,7 @@ import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSele
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types";
+import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/useValidation.ts";
 import { getComponentId } from "../../composables/getComponentId.ts";
 import { showIsRequired} from "../../composables/showIsRequired.ts";
@@ -105,8 +105,7 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="getComponentId(props.label)"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
+			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
 		</label>
 		<select
 			:id="getComponentId(props.label)"

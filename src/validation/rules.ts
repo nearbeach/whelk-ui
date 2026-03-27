@@ -16,6 +16,7 @@ export const minLength = (min: number, message?: string): ValidationRuleInterfac
 		return len >= min || (message ?? `Minimum length is ${len} / ${min}`);
 	};
 	rule._type = MINIMUM_LENGTH;
+	rule._min_value = min;
 	return rule;
 }
 
@@ -34,6 +35,7 @@ export const minValue = (min: number, message?: string): ValidationRuleInterface
 		return value >= min || message;
 	};
 	rule._type = MINIMUM_VALUE;
+	rule._min_value = min;
 	return rule;
 }
 
@@ -43,6 +45,7 @@ export const maxLength = (max: number, message?: string): ValidationRuleInterfac
 		return len <= max || (message ?? `Maximum length is ${len} / ${max}`);
 	};
 	rule._type = MAXIMUM_LENGTH;
+	rule._max_value = max;
 	return rule;
 }
 
@@ -61,6 +64,7 @@ export const maxValue = (max: number, message?: string): ValidationRuleInterface
 		return value <= max || message;
 	};
 	rule._type = MAXIMUM_VALUE;
+	rule._max_value = max;
 	return rule;
 }
 

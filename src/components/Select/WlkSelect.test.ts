@@ -5,6 +5,7 @@ import SelectRenderOptionGroups from "./SelectRenderOptionGroups/WlkSelectRender
 import SelectRenderOptions from "./SelectRenderOptions/WlkSelectRenderOptions.vue";
 import {mount} from "@vue/test-utils";
 import type {SelectOptionInterface} from "../../types/SelectOptionInterface.ts";
+import {required} from "../../validation/rules.ts";
 
 describe("SelectComponent", async() => {
     test("select component renders", async () => {
@@ -44,7 +45,6 @@ describe("SelectComponent", async() => {
     test("select component - renders is required correctly", async () => {
         const wrapper = mount(SelectComponent, {
             props: {
-                isRequired: true,
                 label: "Options",
                 modelValue: "",
                 options: [
@@ -57,6 +57,7 @@ describe("SelectComponent", async() => {
                     {label: "Pear", value: "pear", optGroup: "Fruit"},
                     {label: "Peach", value: "peach", optGroup: "Fruit"},
                 ],
+                validationRules: [required()],
             },
             model: "",
         });
