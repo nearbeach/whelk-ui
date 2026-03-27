@@ -5,7 +5,7 @@ import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSele
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
+import {ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/useValidation.ts";
 import { getComponentId } from "../../composables/getComponentId.ts";
 import { showIsRequired} from "../../composables/showIsRequired.ts";
