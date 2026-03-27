@@ -52,3 +52,65 @@
     --wlk-info: hsl(217 22% 41%);
     --wlk-info-hover: hsl(217 22% 31%);
 }
+
+:root {
+    /*PRIMARY COLOURS*/
+    --primary-colour: #B13546;
+    --primary-colour-1: #000000;
+    --primary-colour-2: #40000D;
+    --primary-colour-3: #68001A;
+    --primary-colour-4: #8B172D;
+    --primary-colour-5: #AB3142;
+    --primary-colour-6: #CC4959;
+    --primary-colour-7: #EE6271;
+    --primary-colour-8: #FF8791;
+    --primary-colour-9: #FFB3B6;
+    --primary-colour-10: #FFDADA;
+    --primary-colour-11: #FFEDEC;
+    --primary-colour-12: #FFFFFF;
+
+    /*SECONDARY COLOURS*/
+    --secondary-colour: #165E83;
+    --secondary-colour-1: #000000;
+    --secondary-colour-2: #001E2E;
+    --secondary-colour-3: #00344D;
+    --secondary-colour-4: #004C6D;
+    --secondary-colour-5: #206489;
+    --secondary-colour-6: #3F7DA4;
+    --secondary-colour-7: #5A97BF;
+    --secondary-colour-8: #76B2DB;
+    --secondary-colour-9: #91CDF8;
+    --secondary-colour-10: #C8E6FF;
+    --secondary-colour-11: #E5F2FF;
+    --secondary-colour-12: #FFFFFF;
+
+    /*TERTIARY COLOURS*/
+    --tertiary-colour: #007150;
+    --tertiary-colour-1: #000000;
+    --tertiary-colour-2: #002115;
+    --tertiary-colour-3: #003826;
+    --tertiary-colour-4: #005139;
+    --tertiary-colour-5: #006C4C;
+    --tertiary-colour-6: #288663;
+    --tertiary-colour-7: #47A17C;
+    --tertiary-colour-8: #63BC96;
+    --tertiary-colour-9: #7ED8B0;
+    --tertiary-colour-10: #9AF5CB;
+    --tertiary-colour-11: #BDFFDE;
+    --tertiary-colour-12: #FFFFFF;
+
+    /*NEUTRAL COLOURS*/
+    --neutral-colour: #F8F4E6;
+    --neutral-colour-1: #000000;
+    --neutral-colour-2: #1C1C14;
+    --neutral-colour-3: #323128;
+    --neutral-colour-4: #48473D;
+    --neutral-colour-5: #605F54;
+    --neutral-colour-6: #605F54;
+    --neutral-colour-7: #939185;
+    --neutral-colour-8: #AEAB9F;
+    --neutral-colour-9: #CAC7B9;
+    --neutral-colour-10: #E6E2D5;
+    --neutral-colour-11: #F5F1E3;
+    --neutral-colour-12: #FFFFFF;
+}
