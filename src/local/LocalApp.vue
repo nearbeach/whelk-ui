@@ -3,7 +3,7 @@ import {ref} from "vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkButton from "@/components/Button/WlkButton.vue";
 import WlkSelect from "@/components/Select/WlkSelect.vue";
-import {required} from "../validation/rules.ts";
+import {required} from "../validation/rules/Required.ts";
 import {SelectOptionInterface} from "../types/SelectOptionInterface.ts";
 
 const options = ref<SelectOptionInterface[]>([

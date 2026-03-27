@@ -1,7 +1,8 @@
 import {describe, expect, test} from 'vitest'
 import {mount} from '@vue/test-utils'
 import WlkNumberInput from './WlkNumberInput.vue'
-import {maxValue, minValue} from "../../validation/rules.ts";
+import {maxValue} from "../../validation/rules/MaxValue.ts"
+import {minValue} from "../../validation/rules/MinValue.ts"
 
 describe("NumberPicker", async () => {
     test("Number picker renders the correct label", async () => {

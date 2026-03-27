@@ -5,6 +5,7 @@ import './styles/style.css'
 export * from './components'
 export * from './utils'
 export * from './types'
+export * from './validation'
 
 export default {
 	install(app: App) {
