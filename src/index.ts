@@ -6,6 +6,7 @@ export * from './components'
 export * from './utils'
 export * from './types'
 export * from './validation'
+export * from './composables'
 
 export default {
 	install(app: App) {
