@@ -1,0 +1,73 @@
+:root {
+    --wlk-red-1: hsl(348, 100%, 13%);
+    --wlk-red-2: hsl(348, 100%, 20%);
+    --wlk-red-3: hsl(348, 72%, 32%);
+    --wlk-red-4: hsl(350, 55%, 43%);
+    --wlk-red-5: hsl(350, 57%, 54%);
+    --wlk-red-6: hsl(351, 80%, 65%);
+    --wlk-red-7: hsl(355, 100%, 76%);
+    --wlk-red-8: hsl(356, 100%, 85%);
+    --wlk-red-9: hsl(0, 100%, 93%);
+    --wlk-red-10: hsl(6, 100%, 96%);
+    --wlk-red-11: hsl(0, 0%, 100%);
+
+    --wlk-blue-colour-1: hsl(200, 100%, 9%);
+    --wlk-blue-colour-2: hsl(200, 100%, 15%);
+    --wlk-blue-colour-3: hsl(200, 100%, 21%);
+    --wlk-blue-colour-4: hsl(202, 62%, 33%);
+    --wlk-blue-colour-5: hsl(204, 45%, 45%);
+    --wlk-blue-colour-6: hsl(205, 45%, 56%);
+    --wlk-blue-colour-7: hsl(205, 64%, 66%);
+    --wlk-blue-colour-8: hsl(206, 89%, 77%);
+    --wlk-blue-colour-9: hsl(203, 100%, 89%);
+    --wlk-blue-colour-10: hsl(210, 100%, 95%);
+    --wlk-blue-colour-11: hsl(0, 0%, 100%);
+
+    --wlk-green-colour-1: hsl(162, 100%, 7%);
+    --wlk-green-colour-2: hsl(162, 100%, 11%);
+    --wlk-green-colour-3: hsl(162, 100%, 16%);
+    --wlk-green-colour-4: hsl(162, 100%, 21%);
+    --wlk-green-colour-5: hsl(158, 53%, 34%);
+    --wlk-green-colour-6: hsl(158, 39%, 45%);
+    --wlk-green-colour-7: hsl(158, 41%, 56%);
+    --wlk-green-colour-8: hsl(158, 57%, 67%);
+    --wlk-green-colour-9: hsl(158, 86%, 78%);
+    --wlk-green-colour-10: hsl(158, 100%, 87%);
+    --wlk-green-colour-11: hsl(0, 0%, 100%);
+
+    --wlk-amber-1: hsl(28, 46%, 15%);
+    --wlk-amber-2: hsl(30, 57%, 25%);
+    --wlk-amber-3: hsl(31, 65%, 31%);
+    --wlk-amber-4: hsl(34, 70%, 39%);
+    --wlk-amber-5: hsl(40, 73%, 50%);
+    --wlk-amber-6: hsl(45, 76%, 61%);
+    --wlk-amber-7: hsl(50, 78%, 68%);
+    --wlk-amber-8: hsl(52, 72%, 76%);
+    --wlk-amber-9: hsl(54, 60%, 84%);
+    --wlk-amber-10: hsl(55, 45%, 90%);
+    --wlk-amber-11: hsl(56, 30%, 95%);
+
+    --wlk-violet-1: hsl(270, 55%, 20%);
+    --wlk-violet-2: hsl(272, 65%, 30%);
+    --wlk-violet-3: hsl(273, 75%, 35%);
+    --wlk-violet-4: hsl(273, 80%, 40%);
+    --wlk-violet-5: hsl(274, 78%, 45%);
+    --wlk-violet-6: hsl(274, 65%, 50%);
+    --wlk-violet-7: hsl(275, 50%, 60%);
+    --wlk-violet-8: hsl(276, 40%, 72%);
+    --wlk-violet-9: hsl(277, 30%, 82%);
+    --wlk-violet-10: hsl(278, 20%, 90%);
+    --wlk-violet-11: hsl(278, 15%, 95%);
+
+    --wlk-neutral-colour-1: hsl(0, 0%, 0%);
+    --wlk-neutral-colour-2: hsl(60, 17%, 10%);
+    --wlk-neutral-colour-3: hsl(57, 11%, 18%);
+    --wlk-neutral-colour-4: hsl(52, 9%, 26%);
+    --wlk-neutral-colour-5: hsl(50, 7%, 36%);
+    --wlk-neutral-colour-6: hsl(50, 7%, 36%);
+    --wlk-neutral-colour-7: hsl(50, 6%, 55%);
+    --wlk-neutral-colour-8: hsl(48, 7%, 65%);
+    --wlk-neutral-colour-9: hsl(50, 12%, 75%);
+    --wlk-neutral-colour-10: hsl(48, 20%, 87%);
+    --wlk-neutral-colour-11: hsl(48, 36%, 92%);
+}

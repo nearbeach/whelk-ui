@@ -181,6 +181,8 @@ function checkValidation() {
 		> .negative {
 			border-radius: var(--wlk-border-radius) 0 0 var(--wlk-border-radius);
 			border-width: var(--wlk-border-width) 0 var(--wlk-border-width) var(--wlk-border-width);
+            background-color: var(--wlk-neutral-colour-5);
+            color: var(--wlk-neutral-colour-11);
 		}
 
 		> input {
@@ -188,20 +190,17 @@ function checkValidation() {
 			border-style: var(--wlk-border-style);
 			border-width: var(--wlk-border-width);
 			border-radius: 0;
-			border-color: var(--wlk-border-color);
 			box-sizing: border-box;
 			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 
-			&:focus {
-				border-color: var(--wlk-border-color-focused);
-				outline: none;
-			}
 		}
 
 		> .positive {
 			border-radius: 0 var(--wlk-border-radius) var(--wlk-border-radius) 0;
 			border-width: var(--wlk-border-width) var(--wlk-border-width) var(--wlk-border-width) 0;
+            background-color: var(--wlk-neutral-colour-5);
+            color: var(--wlk-neutral-colour-11);
 		}
 	}
 

@@ -1,33 +1,21 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
+import {PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+import {ValidationRuleInterface} from "../../types";
+import {useValidation} from "../../composables";
+import {showIsRequired} from "../../composables/showIsRequired.ts";
+import {getComponentId} from "../../composables/getComponentId.ts";
+import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
-    isRequired: {
-        type: Boolean,
-        default: false,
-    },
     label: {
         type: String,
         required: true,
-    },
-    minLength: {
-        type: Number,
-        default: 0,
-        required: false,
-        validator: (val) => !Number.isNaN(val),
-    },
-    maxLength: {
-        type: Number,
-        default: 0,
-        required: false,
-        validator: (val) => !Number.isNaN(val),
     },
     placeholderText: {
         type: String,
@@ -44,6 +32,10 @@ const props = defineProps({
         required: false,
         default: '',
     },
+    validationRules: {
+        type: Array as PropType<ValidationRuleInterface[]>,
+        required: false,
+    },
 });
 
 // Define Models
@@ -53,99 +45,100 @@ const model = defineModel('model', {
     default: '',
 });
 
-// Define ref
-const hasError = ref(false);
-const errorMessage = ref('');
+// Define Refs
+const rulesRef = toRef(props, 'validationRules', []);
 
-// Computed
-const getId = computed(() => {
-    // Return an id made up of input- + title
-    return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
-});
+// Define Validation
+const {errorMessage, validate} = useValidation(model, rulesRef);
 
+// Define functions
 function checkValidation() {
-    // Fall back to defaults
-    hasError.value = false;
-    errorMessage.value = '';
-
-    // Get the length of the model and if NaN fallback to 0
-    let modelLength: number = Number(model?.value?.toString().length);
-    modelLength = isNaN(modelLength) ? 0 : modelLength;
-
-    // Check the first "required" condition
-    if (props.isRequired && modelLength === 0) {
-        hasError.value = true;
-        errorMessage.value = 'This field is required';
-    }
-
-    // Check the minimum "required" condition
-    if (props.minLength > 0 && modelLength < props.minLength) {
-        hasError.value = true;
-        errorMessage.value = `This field has a minimum length ${modelLength} / ${props.minLength}`;
-    }
-
-    // Check the maximum "required" condition
-    if (props.maxLength > 0 && modelLength > props.maxLength) {
-        hasError.value = true;
-        errorMessage.value = `This field has a maximum length ${modelLength} / ${props.maxLength}`;
-    }
-
-    // Set the defined ref and tell parent
-    emit('isValid', !hasError.value);
+    validate();
+    emit('isValid', errorMessage.value === "");
 }
+
+defineExpose({
+    checkValidation,
+});
 </script>
 
 <template>
-    <WlkFormGroup>
-        <label :for="getId">
+    <WlkFormGroup class="text-area">
+        <label :for="getComponentId(props.label)">
             <ToolTip
                 v-if="props.tooltipMessage !== ''"
                 :title="tooltipTitle"
                 :message="tooltipMessage"
-                :id="getId"
+                :id="getComponentId(props.label)"
             />
-            {{ label
-            }}<span v-if="isRequired" aria-description="Field is required"
-                >*</span
-            >
+            {{ label }}
+            <span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
         </label>
         <textarea
             rows="10"
-            :id="getId"
+            :id="getComponentId(props.label)"
             type="text"
             :name="props.label"
             :placeholder="props.placeholderText"
             v-model="model"
             v-on:keyup="checkValidation"
             v-on:focusout="checkValidation"
+            v-on:blur="checkValidation"
         />
-        <RenderErrorMessage :error-message="errorMessage" />
+        <WlkRenderErrorMessage>
+            {{ errorMessage }}
+        </WlkRenderErrorMessage>
     </WlkFormGroup>
 </template>
 
 <style scoped>
-label {
-    margin-bottom: 6px;
-}
+.text-area {
+    margin-bottom: 0.125rem;
 
-span {
-    color: var(--wlk-text-red);
-}
+    > label {
+        margin-bottom: 0.25rem;
 
-textarea {
-    border-style: var(--wlk-border-style);
-    border-width: var(--wlk-border-color-width);
-    border-radius: var(--wlk-border-color-radius);
-    border-color: var(--wlk-border-color);
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+        > span {
+            color: var(--wlk-red-5);
+        }
+    }
 
-    &:focus {
-        border-color: var(--wlk-secondary);
-        border-width: 2px;
-        outline: none;
-        padding: calc(0.5rem - 1px);
+    > input {
+        padding: 0.5rem;
+        border-style: var(--wlk-border-style);
+        border-width: var(--wlk-border-width);
+        border-radius: var(--wlk-border-radius);
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+
+    &.compact {
+        > label {
+            font-size: 1rem;
+            line-height: 1.25rem;
+            margin-bottom: 0.125rem;
+
+            @media (--large-screen) {
+                font-size: 0.75rem;
+                line-height: 1rem;
+            }
+        }
+
+        > input {
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+            padding: 0.25rem;
+
+            &:focus {
+                padding: 0.25rem;
+            }
+
+            @media (--large-screen) {
+                font-size: 1rem;
+                line-height: 1.25rem;
+            }
+        }
     }
 }
 </style>

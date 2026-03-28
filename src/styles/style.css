@@ -1,5 +1,5 @@
 /*Import Colours First*/
-@import "partials/_colour_variables.css";
+@import "variables/_colour_variables.css";
 
 /*Secondary Variables*/
 @import "partials/_border_variables.css";
@@ -7,3 +7,6 @@
 @import "partials/_checkbox_variables.css";
 @import "partials/_input_variables.css";
 @import "partials/_tab_variables.css";
+
+/*Shared Content*/
+@import "shared/_colours.css";

@@ -94,7 +94,7 @@ defineExpose({
 		margin-bottom: 0.25rem;
 
 		> span {
-			color: var(--wlk-text-red);
+			color: var(--wlk-red-5);
 		}
 	}
 
@@ -103,15 +103,9 @@ defineExpose({
 		border-style: var(--wlk-border-style);
 		border-width: var(--wlk-border-width);
 		border-radius: var(--wlk-border-radius);
-		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
-
-		&:focus {
-			border-color: var(--wlk-border-color-focused);
-			outline: none;
-		}
 	}
 
 	&.compact {

@@ -66,9 +66,7 @@ function switchClicked() {
 				:message="tooltipMessage"
 				:id="getId"
 			/>
-			{{
-				label
-			}}
+            {{label}}
 		</label>
 		<div
 			v-on:click="switchClicked"
@@ -88,8 +86,8 @@ function switchClicked() {
 		display: grid;
 		grid-template-columns: [on] 2rem [text] minmax(0, 1fr) [off] 2rem;
 		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-color-width);
-		border-radius: var(--wlk-border-color-radius);
+		border-width: var(--wlk-border-width);
+		border-radius: var(--wlk-border-radius);
 		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;

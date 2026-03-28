@@ -1,0 +1,110 @@
+/*DEFAULTS*/
+input, button, select, textarea {
+    background-color: var(--wlk-neutral-colour-11);
+    border-color: var(--wlk-neutral-colour-6);
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-neutral-colour-10), #0000 var(--wlk-neutral-colour-1));
+    }
+
+    &:focus {
+        border-color: var(--wlk-blue-colour-2);
+        background-color: var(--wlk-amber-8);
+        outline: none;
+    }
+}
+
+/*COLOURS*/
+.primary {
+    background-color: var(--wlk-blue-colour-8);
+    border-color: var(--wlk-blue-colour-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-blue-colour-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-blue-colour-10), #0000 var(--wlk-blue-colour-1));
+    }
+}
+
+.secondary {
+    background-color: var(--wlk-green-colour-8);
+    border-color: var(--wlk-green-colour-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-green-colour-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-green-colour-10), #0000 var(--wlk-green-colour-1));
+    }
+}
+
+.danger {
+    background-color: var(--wlk-red-8);
+    border-color: var(--wlk-red-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-red-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-red-10), #0000 var(--wlk-red-1));
+    }
+}
+
+.warning {
+    background-color: var(--wlk-amber-8);
+    border-color: var(--wlk-amber-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-amber-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-amber-10), #0000 var(--wlk-amber-1));
+    }
+}
+
+.success {
+    background-color: var(--wlk-green-colour-8);
+    border-color: var(--wlk-green-colour-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-green-colour-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-green-colour-10), #0000 var(--wlk-green-colour-1));
+    }
+}
+
+.info {
+    background-color: var(--wlk-violet-8);
+    border-color: var(--wlk-violet-6);
+
+    &:hover {
+        &:enabled {
+            background-color: var(--wlk-violet-6);
+        }
+    }
+
+    &:disabled {
+        background-color: color-mix(in srgb, var(--wlk-violet-10), #0000 var(--wlk-violet-1));
+    }
+}
+
+:disabled {
+    color: color-mix(in srgb, var(--wlk-neutral-colour-2), #0000 var(--wlk-neutral-colour-6));
+}

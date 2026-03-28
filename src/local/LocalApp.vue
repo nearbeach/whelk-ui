@@ -1,71 +1,29 @@
 <script setup lang="ts">
+import WlkTabs from "@/components/Tabs/WlkTabs.vue";
+import {TabHeaderInterface, WlkTextArea} from "@";
 import {ref} from "vue";
-import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkButton from "@/components/Button/WlkButton.vue";
-import WlkSelect from "@/components/Select/WlkSelect.vue";
-import {required} from "../validation/rules/Required.ts";
-import {SelectOptionInterface} from "../types/SelectOptionInterface.ts";
 
-const options = ref<SelectOptionInterface[]>([
-	{
-		disabled: false,
-		label: "First option",
-		optGroup: "",
-		value: "first",
-	},
-	{
-		disabled: true,
-		label: "Second option",
-		optGroup: "",
-		value: "second",
-	},
-	{
-		disabled: false,
-		label: "First option",
-		optGroup: "The Pain",
-		value: "first",
-	},
-	{
-		disabled: false,
-		label: "First option",
-		optGroup: "The Pain",
-		value: "first",
-	},
-])
+const tabList : TabHeaderInterface[] = [
+    {label: 'First tab', for: 'tab1'},
+    {label: 'Second tab', for: 'tab2'},
+    {label: 'Third tab', for: 'tab3'},
+    {label: 'Fourth tab', for: 'tab4'},
+]
 
-const model = ref("")
-const selectRef = ref();
-
-function validate() {
-	selectRef.value.checkValidation();
-}
+const model = ref('');
 </script>
 
 <template>
 	<main id="main" aria-labelledby="main-title" role="main">
-		<h1 id="main-title">Whelk UI - Local Testing</h1>
+        <h1 id="main-title">Local App</h1>
+        <WlkTabs :tab-list="tabList">
+            <template #tab1>The first tab</template>
+            <template #tab2>The Second tab</template>
+            <template #tab3>The Thuir tab</template>
+            <template #tab4>The firstdfasdfasdf tab</template>
+        </WlkTabs>
 
-		<WlkFormGroup id="test">
-			<WlkSelect
-				label="Select something"
-				:validation-rules="[required()]"
-				:options="options"
-				v-model="model"
-				ref="selectRef"
-			></WlkSelect>
-
-		</WlkFormGroup>
-
-		<WlkFormGroup>
-
-		</WlkFormGroup>
-
-		<WlkButton
-			class="success"
-			id="test-button"
-			label="Test Button"
-			v-on:click="validate()"
-		/>
+        <WlkTextArea label="Text Area" v-model="model" />
 	</main>
 </template>
 

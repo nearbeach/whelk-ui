@@ -38,7 +38,6 @@ onMounted(() => {
 <style scoped>
 .wlk-tabs-component {
 	border-radius: var(--wlk-border-radius);
-	background-color: var(--wlk-bg-light);
 }
 
 </style>

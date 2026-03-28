@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineModel, type PropType} from "vue";
-import { TabHeaderInterface} from "../../../utils/interfaces/TabHeaderInterface.ts";
+import type {TabHeaderInterface} from "../../../types/TabHeaderInterface.ts";
 
 // Define model
 const model = defineModel({
@@ -55,7 +55,6 @@ function changeTab(new_value: string) {
 	white-space: nowrap;
 	scroll-behavior: smooth;
 	padding-left: 0.75rem;
-	border-bottom: 1px solid var(--wlk-success);
 
 	> .wlk-tab-item {
 		> button {
@@ -65,15 +64,13 @@ function changeTab(new_value: string) {
 			padding: var(--wlk-tab-button-top-padding) var(--wlk-tab-button-right-padding) var(--wlk-tab-button-bottom-padding) var(--wlk-tab-button-left-padding);
 
 			&:hover {
-				background-color: var(--wlk-success-hover);
-				color: var(--wlk-text-red);
+				background-color: var(--wlk-neutral-colour-11);
+				color: var(--wlk-blue-colour-4);
 			}
 		}
 
 		&.active {
 			> button {
-				color: var(--wlk-success);
-				border-color: var(--wlk-success);
 				border-style: solid;
 				border-width: 0 0 2px 0;
 
