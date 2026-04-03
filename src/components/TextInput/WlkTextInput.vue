@@ -59,7 +59,7 @@ defineExpose({
 </script>
 
 <template>
-	<WlkFormGroup class="text-input">
+	<WlkFormGroup class="wlk-text-input">
 		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -87,7 +87,7 @@ defineExpose({
 </template>
 
 <style scoped>
-.text-input {
+.wlk-text-input {
 	margin-bottom: 0.125rem;
 
 	> label {
