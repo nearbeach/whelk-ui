@@ -52,11 +52,14 @@ const { errorMessage, validate } = useValidation(model, rulesRef);// Define comp
 // Define computed
 const groupOptions = computed(() => {
 	// Get unique list from opt group
-	const list: string[] = [
+	const list: string[] | number[] | undefined = [
 		...new Set(
 			props.options.map(item => item.optGroup)
 		)
 	];
+
+    // If list is undefined, just return empty array
+    if (typeof(list) === "undefined") return [];
 
 	 return list.filter(item => {
 		return item !== "" && item !== undefined && item !== null;
@@ -138,10 +141,6 @@ defineExpose({
 	}
 
 	> select {
-		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-width);
-		border-radius: var(--wlk-border-radius);
-		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
