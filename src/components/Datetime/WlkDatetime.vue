@@ -197,7 +197,7 @@ function handleDate(value: object) {
 </script>
 
 <template>
-	<WlkFormGroup class="wlk-datetime-component">
+	<WlkFormGroup class="wlk-datetime">
 		<label :for="datetimeId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -231,7 +231,7 @@ function handleDate(value: object) {
 </template>
 
 <style scoped>
-.wlk-datetime-component {
+.wlk-datetime {
 	label {
 		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin)
 	}

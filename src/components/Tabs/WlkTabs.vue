@@ -25,7 +25,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="wlk-tabs-component">
+	<div class="wlk-tabs">
 		<TabHeader
 			:tabList="tabList"
 			v-model="currentTab"
@@ -36,7 +36,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.wlk-tabs-component {
+.wlk-tabs {
 	border-radius: var(--wlk-border-radius);
 }
 

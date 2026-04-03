@@ -23,7 +23,7 @@ const buttonIsDisabled = computed(() => {
 
 <template>
 	<button
-		class="wlk-button-component"
+		class="wlk-button"
 		role="button"
 		:disabled="buttonIsDisabled"
 	>
@@ -38,7 +38,7 @@ const buttonIsDisabled = computed(() => {
 </template>
 
 <style scoped>
-.wlk-button-component {
+.wlk-button {
 	padding: 0.5rem 1rem;
 	border-radius: var(--wlk-border-radius);
 	border-width: var(--wlk-border-width);

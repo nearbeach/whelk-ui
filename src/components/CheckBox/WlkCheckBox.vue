@@ -38,7 +38,7 @@ const checkboxId = computed(() => {
 </script>
 
 <template>
-	<div class="wlk-checkbox-component">
+	<div class="wlk-checkbox">
 		<input
 			:id="checkboxId"
 			:name="label"
@@ -60,7 +60,7 @@ const checkboxId = computed(() => {
 </template>
 
 <style scoped>
-.wlk-checkbox-component {
+.wlk-checkbox {
 	label {
 		padding: var(--wlk-checkbox-top-padding) var(--wlk-checkbox-right-padding) var(--wlk-checkbox-bottom-padding) var(--wlk-checkbox-left-padding);
 	}

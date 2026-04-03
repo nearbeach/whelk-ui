@@ -58,7 +58,7 @@ function switchClicked() {
 
 <template>
 
-	<WlkFormGroup class="switch-component">
+	<WlkFormGroup class="switch">
 		<label :for="getId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -79,7 +79,7 @@ function switchClicked() {
 </template>
 
 <style scoped>
-.switch-component {
+.switch {
 	width: 100%;
 
 	> .switch {
