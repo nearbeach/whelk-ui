@@ -35,19 +35,11 @@ function dropDownItemClicked(trigger: string) {
 <style scoped>
 .drop-down-items {
 	position: absolute;
-	background-color: var(--wlk-bg-light);
 	border: solid;
-	border-width: var(--wlk-border-color-width);
-	border-radius: var(--wlk-border-color-radius);
-	border-color: var(--wlk-border-color-muted);
 	z-index: 20;
 
 	> .drop-down-item {
 		padding: 0.25rem 0.5rem;
-
-		&:hover {
-			background-color: var(--wlk-bg-dark);
-		}
 
 		> svg {
 			width: 0.75rem;
