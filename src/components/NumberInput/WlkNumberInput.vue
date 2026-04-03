@@ -12,6 +12,21 @@ const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
+    ariaLabel: {
+        type: String,
+        required: false,
+        default: 'Current value picked',
+    },
+    decrementAriaLabel: {
+        type: String,
+        required: false,
+        default: 'Decrement current value of ${model} by ${stepIncrement}',
+    },
+    incrementAriaLabel: {
+        type: String,
+        required: false,
+        default: 'Increment current value of ${model} by ${stepIncrement}',
+    },
 	label: {
 		type: String,
 		required: true,
@@ -71,6 +86,20 @@ const minValue = computed<number>(() => {
 
 	// If min rule exists, send back the min number. If not default to MIN SAFE INTEGER
 	return min_rule?._min_value ?? Number.MIN_SAFE_INTEGER;
+});
+
+const getDecrementAriaLabel = computed<string>(() =>{
+    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
+    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
+
+    return aria_label;
+});
+
+const getIncrementAriaLabel = computed<string>(() => {
+    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
+    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
+
+    return aria_label;
 });
 
 // FUNCTIONS
@@ -135,9 +164,9 @@ function checkValidation() {
 			<button
 				type="button"
 				class="negative"
-				v-bind:aria-label="`Decrement current value of ${model} by ${props.stepIncrement}`"
-				v-on:click="applyDecrement"
+                :aria-label="getDecrementAriaLabel"
 				:disabled="isMin"
+                v-on:click="applyDecrement"
 			>
 				-
 			</button>
@@ -145,17 +174,16 @@ function checkValidation() {
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
-				aria-label="Current value picked"
-				aria-describedby="helper-text-explanation"
+				:aria-label="ariaLabel"
 				v-model="model"
 				v-on:keyup="checkValidation"
 			/>
 			<button
 				type="button"
 				class="positive"
-				v-bind:aria-label="`Increment current value of ${model} by ${props.stepIncrement}`"
-				v-on:click="applyIncrement"
+                :aria-label="getIncrementAriaLabel"
 				:disabled="isMax"
+                v-on:click="applyIncrement"
 			>
 				+
 			</button>
