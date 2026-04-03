@@ -54,7 +54,6 @@ function changeTab(new_value: string) {
 	overflow: clip;
 	white-space: nowrap;
 	scroll-behavior: smooth;
-	padding-left: 0.75rem;
 
 	> .wlk-tab-item {
 		> button {
