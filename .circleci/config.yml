@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build-and-test-frontend:
+    docker:
+      - image: cimg/node:23.4.0
+    steps:
+      - checkout
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install npm Dependencies
+          command: "npm install"
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run Vitest
+          command: "npm run test:coverage"
+      - store_artifacts:
+          path: ~/project/coverage
+          destination: tr2
+
+workflows:
+  build:
+    jobs:
+      - build-and-test-frontend
