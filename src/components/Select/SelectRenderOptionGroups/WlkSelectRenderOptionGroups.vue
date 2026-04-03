@@ -11,6 +11,16 @@ const props = defineProps({
 		type: Array as PropType<SelectOptionInterface[]>,
 		required: true,
 	},
+	optionsLabel: {
+		type: String,
+		required: false,
+		default: 'label',
+	},
+	optionsValue: {
+		type: String,
+		required: false,
+		default: 'value',
+	},
 })
 
 // Declare computed
@@ -30,6 +40,8 @@ function filterOptions(group: string) : SelectOptionInterface[] {
 	>
 		<SelectRenderOptions
 			:options="filterOptions(group)"
+			:optionsLabel="optionsLabel"
+			:optionsValue="optionsValue"
 		/>
 	</optgroup>
 </template>

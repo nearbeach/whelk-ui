@@ -24,6 +24,16 @@ const props = defineProps({
 		type: Array as PropType<SelectOptionInterface[]>,
 		required: true,
 	},
+	optionsLabel: {
+		type: String,
+		required: false,
+		default: 'label',
+	},
+	optionsValue: {
+		type: String,
+		required: false,
+		default: 'value',
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -52,7 +62,7 @@ const { errorMessage, validate } = useValidation(model, rulesRef);// Define comp
 // Define computed
 const groupOptions = computed(() => {
 	// Get unique list from opt group
-	const list: string[] | number[] | undefined = [
+	const list: (string | null | undefined)[] = [
 		...new Set(
 			props.options.map(item => item.optGroup)
 		)
@@ -118,10 +128,14 @@ defineExpose({
 		>
 			<SelectRenderOptions
 				:options="optionsWithoutGroup"
+				:optionsLabel="optionsLabel"
+				:optionsValue="optionsValue"
 			/>
 			<SelectRenderOptionGroups
-				:options="optionsWithGroup"
 				:groupOptions="groupOptions"
+				:options="optionsWithGroup"
+				:optionsLabel="optionsLabel"
+				:optionsValue="optionsValue"
 			/>
 		</select>
 		<WlkRenderErrorMessage>
