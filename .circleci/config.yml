@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/node:25.1
+    steps:
+      - checkout
+
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Run tests
+          command: npm run test:unit
+      - store_artifacts:
+          path: ~/project/coverage
+          destination: tr2
+
+workflows:
+  test:
+    jobs:
+      - build-and-test
