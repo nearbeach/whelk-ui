@@ -41,7 +41,7 @@ const props = defineProps({
 })
 
 // Define Model
-const model = defineModel({required: true});
+const model = defineModel<string | number>({required: true});
 
 // Define Refs
 const rulesRef = toRef(props, 'validationRules', []);
@@ -133,7 +133,7 @@ defineExpose({
 		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin);
 
 		> span {
-			color: var(--wlk-text-red);
+            color: var(--wlk-red-5);
 		}
 	}
 

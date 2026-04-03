@@ -1,6 +1,6 @@
 export interface SelectOptionInterface {
-    disabled?: boolean;
+    disabled?: boolean | null | undefined;
     label: string;
-    optGroup: string;
-    value: string;
+    optGroup?: string | null | undefined;
+    value: string | number;
 }
