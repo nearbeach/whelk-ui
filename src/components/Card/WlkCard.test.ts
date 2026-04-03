@@ -11,6 +11,6 @@ describe("CardComponent", async () => {
             },
         });
         expect(wrapper.html()).toContain("Main Content");
-        expect(wrapper.find(".wlk-card-component").text()).toContain("Main Content");
+        expect(wrapper.find(".wlk-card").text()).toContain("Main Content");
     });
 });
