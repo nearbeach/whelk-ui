@@ -39,10 +39,9 @@ const props = defineProps({
 });
 
 // Define Models
-const model = defineModel('model', {
-    type: String,
-    required: false,
-    default: '',
+const model = defineModel({
+	type: String,
+	required: true
 });
 
 // Define Refs
@@ -76,11 +75,11 @@ defineExpose({
         </label>
         <textarea
             rows="10"
-            :id="getComponentId(props.label)"
             type="text"
+			:id="getComponentId(props.label)"
             :name="props.label"
             :placeholder="props.placeholderText"
-            v-model="model"
+			v-model="model"
             v-on:keyup="checkValidation"
             v-on:focusout="checkValidation"
             v-on:blur="checkValidation"
