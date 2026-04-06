@@ -167,11 +167,29 @@ defineExpose({
 
 	&.compact {
 		> label {
-			margin: var(--wlk-compact-label-top-margin) var(--wlk-compact-label-right-margin) var(--wlk-compact-label-bottom-margin) var(--wlk-compact-label-left-margin)
+			font-size: 1rem;
+			line-height: 1.25rem;
+			margin-bottom: 0.125rem;
+
+			@media (--large-screen) {
+				font-size: 0.75rem;
+				line-height: 1rem;
+			}
 		}
 
 		> select {
-			padding: var(--wlk-compact-input-top-padding) var(--wlk-compact-input-right-padding) var(--wlk-compact-input-bottom-padding) var(--wlk-compact-input-left-padding);
+			font-size: 1.25rem;
+			line-height: 1.5rem;
+			padding: 0.25rem;
+
+			&:focus {
+				padding: 0.25rem;
+			}
+
+			@media (--large-screen) {
+				font-size: 1rem;
+				line-height: 1.25rem;
+			}
 		}
 	}
 }
