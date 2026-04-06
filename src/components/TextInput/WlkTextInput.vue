@@ -71,8 +71,8 @@ defineExpose({
 			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
 		</label>
 		<input
-			:id="getComponentId(props.label)"
 			type="text"
+			:id="getComponentId(props.label)"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="model"
