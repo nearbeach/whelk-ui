@@ -32,7 +32,7 @@ describe("SelectComponent", async() => {
 
         // Select
         const select = wrapper.find("select");
-        expect(select.element.id).toBe("select-options")
+        expect(select.element.id).toBe("wlk-options-v-1")
         expect(select.element.name).toBe("Options");
         expect(select.element.value).toBe("");
 
