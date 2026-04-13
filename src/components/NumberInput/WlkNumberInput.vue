@@ -196,12 +196,6 @@ function checkValidation() {
 
 <style scoped>
 .number-input {
-	margin-bottom: 0.125rem;
-
-	> label {
-		margin-bottom: 0.25rem;
-	}
-
 	> .number-input-row {
 		display: grid;
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
@@ -233,17 +227,6 @@ function checkValidation() {
 	}
 
 	&.compact {
-		> label {
-			font-size: 1rem;
-			line-height: 1.25rem;
-			margin-bottom: 2px;
-
-			@media (--large-screen) {
-				font-size: 0.75rem;
-				line-height: 1rem;
-			}
-		}
-
 		> .number-input-row {
 			grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
 

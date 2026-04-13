@@ -22,6 +22,11 @@ const props = defineProps({
         required: false,
         default: '',
     },
+	rows: {
+		type: Number,
+		default: 10,
+		required: false,
+	},
     tooltipMessage: {
         type: String,
         required: false,
@@ -62,7 +67,7 @@ defineExpose({
 </script>
 
 <template>
-    <WlkFormGroup class="text-area">
+    <WlkFormGroup class="wlk-text-area">
         <label :for="getComponentId(props.label)">
             <ToolTip
                 v-if="props.tooltipMessage !== ''"
@@ -74,11 +79,11 @@ defineExpose({
             <span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
         </label>
         <textarea
-            rows="10"
             type="text"
 			:id="getComponentId(props.label)"
             :name="props.label"
             :placeholder="props.placeholderText"
+			:rows="rows"
 			v-model="model"
             v-on:keyup="checkValidation"
             v-on:focusout="checkValidation"
@@ -91,53 +96,4 @@ defineExpose({
 </template>
 
 <style scoped>
-.text-area {
-    margin-bottom: 0.125rem;
-
-    > label {
-        margin-bottom: 0.25rem;
-
-        > span {
-            color: var(--wlk-red-5);
-        }
-    }
-
-    > input {
-        padding: 0.5rem;
-        border-style: var(--wlk-border-style);
-        border-width: var(--wlk-border-width);
-        border-radius: var(--wlk-border-radius);
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-    }
-
-    &.compact {
-        > label {
-            font-size: 1rem;
-            line-height: 1.25rem;
-            margin-bottom: 0.125rem;
-
-            @media (--large-screen) {
-                font-size: 0.75rem;
-                line-height: 1rem;
-            }
-        }
-
-        > input {
-            font-size: 1.25rem;
-            line-height: 1.5rem;
-            padding: 0.25rem;
-
-            &:focus {
-                padding: 0.25rem;
-            }
-
-            @media (--large-screen) {
-                font-size: 1rem;
-                line-height: 1.25rem;
-            }
-        }
-    }
-}
 </style>
