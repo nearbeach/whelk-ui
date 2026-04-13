@@ -18,6 +18,15 @@ const model = ref('');
 const dateModel = ref("2013-01-29");
 const timeModel = ref("08:34");
 const datetimeModel = ref("Thu Jan 01 1970 00:00:00");
+const status = ref("");
+
+function applyStatus() {
+	status.value = "Hello, making change";
+
+	setTimeout(() => {
+		status.value = "";
+	}, 5000);
+}
 </script>
 
 <template>
@@ -28,7 +37,9 @@ const datetimeModel = ref("Thu Jan 01 1970 00:00:00");
 			optionsLabel="fruit"
 			optionsValue="orchard"
 			:options="defaultOptions"
+			:status="status"
 			v-model="model"
+			v-on:change="applyStatus"
 		/>
 
 		<WlkDate
