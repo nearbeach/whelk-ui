@@ -33,7 +33,7 @@ function dropDownItemClicked(trigger: string) {
 </script>
 
 <template>
-	<div class="drop-down">
+	<div class="wlk-drop-down">
 		<button
 			type="button"
 			v-on:click="dropDownMenuClicked"
@@ -58,7 +58,7 @@ function dropDownItemClicked(trigger: string) {
 </template>
 
 <style scoped>
-.drop-down {
+.wlk-drop-down {
 	> button {
 		box-shadow: none;
 		font-size: 1rem;
