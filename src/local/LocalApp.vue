@@ -45,16 +45,19 @@ function applyStatus() {
 		<WlkDate
 			label="Please select a date"
 			v-model="dateModel"
+			:status="status"
 		/>
 
 		<WlkTime
 			label="Please select a time"
 			v-model="timeModel"
+			:status="status"
 		/>
 
 		<WlkDatetime
 			:label="`Please pick a date time - ${datetimeModel}`"
 			v-model="datetimeModel"
+			:status="status"
 		/>
 	</main>
 </template>

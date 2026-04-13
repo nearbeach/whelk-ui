@@ -22,6 +22,11 @@ const props = defineProps({
 		required: false,
 		default: '',
 	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -81,11 +86,30 @@ defineExpose({
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
 			{{ errorMessage }}
 		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
+.wlk-date {
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
+
+		@media (--large-screen) {
+			font-size: 0.75rem;
+		}
+	}
+}
 </style>
