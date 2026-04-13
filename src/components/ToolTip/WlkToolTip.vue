@@ -74,7 +74,7 @@ const tooltipClass = ref('tooltip');
 
     > .tooltip-title {
         margin: 0 0 0.125rem 0;
-        color: var(--wlk-text-red);
+        color: var(--wlk-red-3);
     }
 
     > .tooltip-message {
