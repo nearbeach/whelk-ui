@@ -34,6 +34,11 @@ const props = defineProps({
 		required: false,
 		default: 'value',
 	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -138,60 +143,30 @@ defineExpose({
 				:optionsValue="optionsValue"
 			/>
 		</select>
-		<WlkRenderErrorMessage>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
 			{{ errorMessage }}
 		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
 .wlk-select {
-	> label {
-		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin);
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
 
-		> span {
-            color: var(--wlk-red-5);
-		}
-	}
-
-	> select {
-		box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		padding: var(--wlk-input-top-padding) var(--wlk-input-right-padding) var(--wlk-input-bottom-padding) var(--wlk-input-left-padding);
-
-		&:focus {
-			border-color: var(--wlk-border-color-focused);
-		}
-	}
-
-	&.compact {
-		> label {
-			font-size: 1rem;
-			line-height: 1.25rem;
-			margin-bottom: 0.125rem;
-
-			@media (--large-screen) {
-				font-size: 0.75rem;
-				line-height: 1rem;
-			}
-		}
-
-		> select {
-			font-size: 1.25rem;
-			line-height: 1.5rem;
-			padding: 0.25rem;
-
-			&:focus {
-				padding: 0.25rem;
-			}
-
-			@media (--large-screen) {
-				font-size: 1rem;
-				line-height: 1.25rem;
-			}
+		@media (--large-screen) {
+			font-size: 0.75rem;
 		}
 	}
 }
-
 </style>

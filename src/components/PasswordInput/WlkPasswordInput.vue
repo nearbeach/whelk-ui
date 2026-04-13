@@ -59,7 +59,7 @@ defineExpose({
 </script>
 
 <template>
-	<WlkFormGroup class="text-input">
+	<WlkFormGroup class="wlk-password-input">
 		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -87,59 +87,4 @@ defineExpose({
 </template>
 
 <style scoped>
-.text-input {
-	margin-bottom: 0.125rem;
-
-	> label {
-		margin-bottom: 0.25rem;
-
-		> span {
-			color: var(--wlk-text-red);
-		}
-	}
-
-	> input {
-		padding: 0.5rem;
-		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-width);
-		border-radius: var(--wlk-border-radius);
-		border-color: var(--wlk-border-color);
-		box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-
-		&:focus {
-			border-color: var(--wlk-border-color-focused);
-			outline: none;
-		}
-	}
-
-	&.compact {
-		> label {
-			font-size: 1rem;
-			line-height: 1.25rem;
-			margin-bottom: 0.125rem;
-
-			@media (--large-screen) {
-				font-size: 0.75rem;
-				line-height: 1rem;
-			}
-		}
-
-		> input {
-			font-size: 1.25rem;
-			line-height: 1.5rem;
-			padding: 0.25rem;
-
-			&:focus {
-				padding: 0.25rem;
-			}
-
-			@media (--large-screen) {
-				font-size: 1rem;
-				line-height: 1.25rem;
-			}
-		}
-	}
-}
 </style>

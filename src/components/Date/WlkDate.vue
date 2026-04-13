@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {PropType, toRef} from 'vue';
-import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
-import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
-import {ValidationRuleInterface} from "../../types";
+import {getComponentId} from "../../composables/getComponentId.ts";
+import {showIsRequired} from "../../composables/showIsRequired.ts";
+import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import ToolTip from "../ToolTip/WlkToolTip.vue";
+import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
+import {ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
+import {PropType, toRef} from "vue";
 import {useValidation} from "../../composables/useValidation.ts";
-import { getComponentId} from "../../composables/getComponentId.ts";
-import { showIsRequired} from "../../composables/showIsRequired.ts";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
@@ -21,6 +21,11 @@ const props = defineProps({
 		type: String,
 		required: false,
 		default: '',
+	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
 	},
 	tooltipMessage: {
 		type: String,
@@ -59,7 +64,7 @@ defineExpose({
 </script>
 
 <template>
-	<WlkFormGroup class="wlk-text-input">
+	<WlkFormGroup class="wlk-date">
 		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -71,7 +76,8 @@ defineExpose({
 			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
 		</label>
 		<input
-			type="text"
+			type="date"
+			onfocus="this.showPicker()"
 			:id="getComponentId(props.label)"
 			:name="props.label"
 			:placeholder="props.placeholderText"
@@ -80,11 +86,30 @@ defineExpose({
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
 			{{ errorMessage }}
 		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
+.wlk-date {
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
+
+		@media (--large-screen) {
+			font-size: 0.75rem;
+		}
+	}
+}
 </style>

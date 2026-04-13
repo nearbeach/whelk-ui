@@ -1,57 +1,31 @@
 <script setup lang="ts">
-import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {computed, PropType, ref, nextTick} from 'vue';
-import RenderErrorMessage from '../RenderErrorMessage/WlkRenderErrorMessage.vue';
-import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
-
-// Define Model
-const model = defineModel({
-	type: [Date, Number, String] as PropType<Date | number | string>,
-	required: true,
-});
+import {getComponentId} from "../../composables/getComponentId.ts";
+import {showIsRequired} from "../../composables/showIsRequired.ts";
+import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import ToolTip from "../ToolTip/WlkToolTip.vue";
+import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
+import {ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
+import {ref, PropType, toRef, watch} from "vue";
+import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits
 const emit = defineEmits(['isValid']);
 
 // Define Props
 const props = defineProps({
-	invalidDateError: {
-		type: String,
-		required: false,
-		default: "Invalid Date Supplied",
-	},
-	isDisabled: {
-		type: Boolean,
-		required: false,
-		default: false,
-	},
-	isRequired: {
-		type: Boolean,
-		default: false,
-	},
 	label: {
 		type: String,
 		required: true,
 	},
-	maxDate: {
-		type: [Date, Number, String] as PropType<Date | number | string>,
-		required: false,
-		default: "3000-01-01",
-	},
-	minDate: {
-		type: [Date, Number, String] as PropType<Date | number | string>,
-		required: false,
-		default: "2000-01-01",
-	},
-	requiredAriaDescription: {
+	placeholderText: {
 		type: String,
 		required: false,
-		default: 'Field is required',
+		default: '',
 	},
-	requiredText: {
+	status: {
 		type: String,
 		required: false,
-		default: '*',
+		default: "",
 	},
 	tooltipMessage: {
 		type: String,
@@ -63,205 +37,118 @@ const props = defineProps({
 		required: false,
 		default: '',
 	},
+	validationRules: {
+		type: Array as PropType<ValidationRuleInterface[]>,
+		required: false,
+	},
 });
 
-// Define ref
-const hasError = ref(false);
-const errorMessage = ref('');
-
-// Computed
-const datetimeId = computed(() => {
-	// Return an id made up of input- + title
-	return 'input-' + props.label?.toLowerCase()?.replace(/ /g, '-');
-	// return useId();
+// Define Models
+const model = defineModel({
+	required: true,
+	type: String,
+	default: "",
 });
 
-const datetimeModel = computed({
-	// Getter
-	get() {
-		return initHandleDate(model.value, true);
-	},
-	// Setter
-	set(value: string) {
-		// Convert to date object
-		const valueDate = new Date(value);
-		let model_value: number | string | Date;
+// Define Refs
+const rulesRef = toRef(props, 'validationRules', []);
+const modelRef = ref("");
 
-		switch (typeof (model)) {
-			case "number":
-				model_value = valueDate.getTime();
-				break;
-			case "object":
-				model_value = valueDate;
-				break;
-			default:
-				model_value = value;
-				break;
-		}
+// Define Validation
+const {errorMessage, validate} = useValidation(model, rulesRef);
 
-		model.value = model_value;
-	},
-})
-
-const maxDateComputed = computed(() => {
-	return initHandleDate(props.maxDate, false);
-})
-
-const minDateComputed = computed(() => {
-	return initHandleDate(props.minDate, false);
-})
-
-// Define Functions
-function checkValidation() {
-	// Wait till next tick, as the model needs to be updated
-	nextTick(() => {
-		if (datetimeModel.value === "" && props.isRequired) {
-			errorMessage.value = props.invalidDateError;
-			hasError.value = true;
-
-			return;
-		}
-	});
-}
-
-function convertDateToInput(value: Date) {
-	return value.getFullYear() + '-' +
-		String(value.getMonth() + 1).padStart(2, '0') + '-' +
-		String(value.getDate()).padStart(2, '0') + 'T' +
-		String(value.getHours()).padStart(2, '0') + ':' +
-		String(value.getMinutes()).padStart(2, '0');
-}
-
-function initHandleDate(value: Date | number | string, showError: Boolean) {
-	// Depending on the type, depends on how we set the model value
-	switch (typeof (value)) {
-		case "string":
-			return handleStringDate(value);
-		case "number":
-			return handleNumberDate(value);
-		case "object":
-			return handleDate(value);
-		default:
-			break;
-	}
-
-	// If we get here there is an error
-	if (showError) {
-		hasError.value = true;
-		errorMessage.value = props.invalidDateError;
-	}
-
-	return ""
-}
-
-function handleStringDate(value: string) {
-	// If blank - do nothing (have to do this before other checks... due to JS)
-	if (value === "") {
+// Define watch
+watch(model, (new_value: string) => {
+	// Escape conditions
+	if (new_value === null || new_value === "") {
+		// Nothing to do
 		return;
 	}
 
-	// If string is actually a number - return handleNumberDate
-	if (!isNaN(Number(value))) {
-		return handleNumberDate(parseInt(value));
+	// Set and check the date
+	const new_date = new Date(new_value);
+	if (isNaN(new_date?.getTime())) {
+		// Invalid date - reset everything to blank string
+		modelRef.value = "";
+		model.value = "";
+
+		// Nothing else to do
+		return;
 	}
 
-	// Put string into date
-	const date = new Date(value);
+	// Format the date to the required format
+	const year = new_date.getFullYear().toString().padStart(4, "0");
+	const month_value = new_date.getMonth() + 1;
+	const month = month_value.toString().padStart(2, "0");
+	const day = new_date.getDate().toString().padStart(2, "0");
+	const hour = new_date.getHours().toString().padStart(2, "0");
+	const minute = new_date.getMinutes().toString().padStart(2, "0");
 
-	// Return the handle date
-	return handleDate(date);
+	// Set the value
+	modelRef.value = `${year}-${month}-${day}T${hour}:${minute}`;
+});
+
+// Define functions
+function checkValidation() {
+	validate();
+	emit('isValid', errorMessage.value === "");
+
+	// Update the model
+	const new_date = new Date(modelRef.value);
+	model.value = new_date.toISOString();
 }
 
-function handleNumberDate(value: number) {
-	const date = new Date(value);
-
-	// Return the handle date
-	return handleDate(date);
-}
-
-function handleDate(value: object) {
-	// Verify date object
-	const instance = !(value instanceof Date);
-
-	// Verify date object is date set
-	if (instance || Number.isNaN(value.getTime())) {
-		hasError.value = true;
-		errorMessage.value = props.invalidDateError;
-
-		return "";
-	}
-
-	return convertDateToInput(value);
-}
-
+defineExpose({
+	checkValidation,
+});
 </script>
 
 <template>
 	<WlkFormGroup class="wlk-datetime">
-		<label :for="datetimeId">
+		<label :for="getComponentId(props.label)">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="datetimeId"
+				:id="getComponentId(props.label)"
 			/>
 			{{ label }}
-			<span
-				v-if="isRequired"
-				:aria-description="requiredAriaDescription"
-			>
-				{{ props.requiredText }}
-			</span>
+			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
 		</label>
 		<input
 			type="datetime-local"
-			:aria-disabled="isDisabled"
-			:disabled="isDisabled"
-			:id="datetimeId"
+			onfocus="this.showPicker()"
+			:id="getComponentId(props.label)"
 			:name="props.label"
-			:max="maxDateComputed"
-			:min="minDateComputed"
-			v-model="datetimeModel"
+			:placeholder="props.placeholderText"
+			v-model="modelRef"
 			v-on:keyup="checkValidation"
 			v-on:focusout="checkValidation"
-			v-on:submit="checkValidation"
+			v-on:blur="checkValidation"
 		/>
-		<RenderErrorMessage :error-message="errorMessage"/>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
+			{{ errorMessage }}
+		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
 .wlk-datetime {
-	label {
-		margin: var(--wlk-label-top-margin) var(--wlk-label-right-margin) var(--wlk-label-bottom-margin) var(--wlk-label-left-margin)
-	}
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
 
-	span {
-		color: var(--wlk-text-red);
-	}
-
-	input {
-		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-width);
-		border-radius: var(--wlk-border-radius);
-		border-color: var(--wlk-border-color);
-		box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		padding: var(--wlk-input-top-padding) var(--wlk-input-right-padding) var(--wlk-input-bottom-padding) var(--wlk-input-left-padding);
-
-		&:focus {
-			border-color: var(--wlk-secondary);
-		}
-	}
-
-	&.compact {
-		> label {
-			margin: var(--wlk-compact-label-top-margin) var(--wlk-compact-label-right-margin) var(--wlk-compact-label-bottom-margin) var(--wlk-compact-label-left-margin)
-		}
-
-		> input {
-			padding: var(--wlk-compact-input-top-padding) var(--wlk-compact-input-right-padding) var(--wlk-compact-input-bottom-padding) var(--wlk-compact-input-left-padding);
+		@media (--large-screen) {
+			font-size: 0.75rem;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 export { WlkButton } from './Button'
 export { WlkCard } from './Card'
-export { CardFooter } from './Card/CardFooter'
+export { WlkCardFooter } from './Card/CardFooter'
 export { WlkCardHeader } from './Card/CardHeader'
 export { WlkCheckBox } from './CheckBox'
 export { WlkDatetime } from './Datetime'
