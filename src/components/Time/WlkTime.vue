@@ -44,7 +44,10 @@ const props = defineProps({
 });
 
 // Define Models
-const model = defineModel({required: true});
+const model = defineModel({
+	required: true,
+	type: [String, null],
+});
 
 // Define Refs
 const rulesRef = toRef(props, 'validationRules', []);
