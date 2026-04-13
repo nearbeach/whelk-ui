@@ -46,8 +46,7 @@ const props = defineProps({
 // Define Models
 const model = defineModel({
 	required: true,
-	type: String,
-	default: "",
+	type: [String, null],
 });
 
 // Define Refs
