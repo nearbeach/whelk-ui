@@ -56,7 +56,5 @@ const buttonIsDisabled = computed(() => {
 		font-size: 0.75rem;
 		line-height: 0.75rem;
 	}
-
-
 }
 </style>
