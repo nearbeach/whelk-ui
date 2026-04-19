@@ -1,6 +1,6 @@
 // composables/useValidation.ts
 import { ref, type Ref } from 'vue';
-import type { ValidationRuleInterface } from '../types';
+import type { ValidationRuleInterface } from '@/types';
 
 export function useValidation(
 	model: Ref<unknown>,
