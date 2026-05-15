@@ -4,6 +4,7 @@ import WlkSelect from "@/components/Select/WlkSelect.vue";
 import WlkDate from "@/components/Date/WlkDate.vue";
 import WlkTime from "@/components/Time/WlkTime.vue";
 import WlkDatetime from "@/components/Datetime/WlkDatetime.vue";
+import {DropDownItemsInterface, WlkButton, WlkDropDown, WlkModal, WlkModalFooter, WlkModalHeader} from "@";
 
 const defaultOptions = [
 	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},
@@ -14,8 +15,14 @@ const defaultOptions = [
 	{"fruit": "milk", "orchard": "milk", optGroup: "cow"},
 ]
 
+const dropDownItems = ref<DropDownItemsInterface[]>([
+	{ariaLabel: "Create a new folder", icon: "", label: "New Folder", trigger: "new_folder"},
+	{ariaLabel: "Create a new hyperlink", icon: "", label: "New Link", trigger: "new_link"},
+	{ariaLabel: "Upload a document", icon: "", label: "Upload Document", trigger: "upload_document"},
+]);
+
 const model = ref('');
-const dateModel = ref("2013-01-29");
+const dateModel = ref(null);
 const timeModel = ref("08:34");
 const datetimeModel = ref("Thu Jan 01 1970 00:00:00");
 const status = ref("");
@@ -26,6 +33,10 @@ function applyStatus() {
 	setTimeout(() => {
 		status.value = "";
 	}, 5000);
+}
+
+function openModal() {
+	// ADD CODE
 }
 </script>
 
@@ -59,6 +70,20 @@ function applyStatus() {
 			v-model="datetimeModel"
 			:status="status"
 		/>
+
+		<WlkButton v-on:click="openModal"/>
+
+		<WlkDropDown
+			:drop-down-items="dropDownItems"
+		>
+			MY DROP DOWN
+		</WlkDropDown>
+
+		<WlkModal class="large">
+			<WlkModalHeader>HEADER FUNCTION</WlkModalHeader>
+			Hello World
+			<WlkModalFooter>FOOTER FUNCTION</WlkModalFooter>
+		</WlkModal>
 	</main>
 </template>
 

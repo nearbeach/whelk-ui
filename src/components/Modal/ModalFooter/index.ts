@@ -1,0 +1,1 @@
+export { default as WlkModalFooter } from './WlkModalFooter.vue';

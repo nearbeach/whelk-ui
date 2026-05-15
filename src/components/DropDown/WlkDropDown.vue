@@ -23,9 +23,9 @@ function dropDownMenuClicked() {
 	menuOpen.value = !menuOpen.value;
 }
 
-function dropDownItemClicked(trigger: string) {
+function dropDownItemClicked(event: { trigger: string }) {
 	// Emit upstream
-	emits("dropDownItemClicked", trigger);
+	emits("dropDownItemClicked", event);
 
 	// Close the menu
 	menuOpen.value = false;

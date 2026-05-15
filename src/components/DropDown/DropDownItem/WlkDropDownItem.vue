@@ -12,18 +12,13 @@ defineProps({
 
 // Define emits
 const emits = defineEmits(["dropDownItemClicked"]);
-
-// Define methods
-function dropDownItemClicked(trigger: string) {
-	emits("dropDownItemClicked", trigger);
-}
 </script>
 
 <template>
 	<div class="drop-down-items">
 		<div class="drop-down-item"
 			 v-for="item in dropDownItems"
-			 v-on:click="dropDownItemClicked(item.trigger)"
+			 v-on:click="emits('dropDownItemClicked', {'trigger': item.trigger})"
 			 :key="item.label"
 		>
 			<component :is="item.icon" />
@@ -36,6 +31,7 @@ function dropDownItemClicked(trigger: string) {
 .drop-down-items {
 	position: absolute;
 	border: solid;
+	background-color: var(--wlk-neutral-colour-11);
 	z-index: 20;
 
 	> .drop-down-item {
@@ -44,6 +40,10 @@ function dropDownItemClicked(trigger: string) {
 		> svg {
 			width: 0.75rem;
 			height: 0.75rem;
+		}
+
+		&:hover {
+			background-color: var(--wlk-amber-7);
 		}
 	}
 }

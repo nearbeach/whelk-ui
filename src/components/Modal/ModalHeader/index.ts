@@ -1,0 +1,1 @@
+export { default as WlkModalHeader } from './WlkModalHeader.vue';
