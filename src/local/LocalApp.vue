@@ -4,7 +4,15 @@ import WlkSelect from "@/components/Select/WlkSelect.vue";
 import WlkDate from "@/components/Date/WlkDate.vue";
 import WlkTime from "@/components/Time/WlkTime.vue";
 import WlkDatetime from "@/components/Datetime/WlkDatetime.vue";
-import {DropDownItemsInterface, WlkButton, WlkDropDown, WlkModal, WlkModalFooter, WlkModalHeader} from "@";
+import {
+	WlkButton,
+	WlkDropDown,
+	WlkDropDownItem,
+	WlkDropDownSeparator,
+	WlkModal,
+	WlkModalFooter,
+	WlkModalHeader
+} from "@";
 
 const defaultOptions = [
 	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},
@@ -14,12 +22,6 @@ const defaultOptions = [
 	{"fruit": "grape", "orchard": "grape", disabled: true},
 	{"fruit": "milk", "orchard": "milk", optGroup: "cow"},
 ]
-
-const dropDownItems = ref<DropDownItemsInterface[]>([
-	{ariaLabel: "Create a new folder", icon: "", label: "New Folder", trigger: "new_folder"},
-	{ariaLabel: "Create a new hyperlink", icon: "", label: "New Link", trigger: "new_link"},
-	{ariaLabel: "Upload a document", icon: "", label: "Upload Document", trigger: "upload_document"},
-]);
 
 const model = ref('');
 const dateModel = ref(null);
@@ -37,6 +39,10 @@ function applyStatus() {
 
 function openModal() {
 	// ADD CODE
+}
+
+function pain() {
+	console.log("PAIN!");
 }
 </script>
 
@@ -73,10 +79,15 @@ function openModal() {
 
 		<WlkButton v-on:click="openModal"/>
 
-		<WlkDropDown
-			:drop-down-items="dropDownItems"
-		>
-			MY DROP DOWN
+		<WlkDropDown>
+			<template v-slot:button>Push me</template>
+			<template v-slot:drop-down-items>
+				<WlkDropDownItem v-on:click="pain()">Pain</WlkDropDownItem>
+				<WlkDropDownSeparator />
+				<WlkDropDownItem>Even</WlkDropDownItem>
+				<WlkDropDownItem>More</WlkDropDownItem>
+				<WlkDropDownItem>Pain</WlkDropDownItem>
+			</template>
 		</WlkDropDown>
 
 		<WlkModal class="large">

@@ -1,19 +1,5 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import type {PropType} from "vue";
-import type {DropDownItemsInterface} from "../../types/DropDownItemsInterface.ts";
-import DropDownItem from "./DropDownItem/WlkDropDownItem.vue";
-
-// Define props
-defineProps({
-	dropDownItems: {
-		type: Array as PropType<DropDownItemsInterface[]>,
-		required: true,
-	},
-});
-
-// Define emits
-const emits = defineEmits(["dropDownItemClicked"]);
 
 // Define refs
 const menuOpen = ref(false);
@@ -21,14 +7,6 @@ const menuOpen = ref(false);
 // Define methods
 function dropDownMenuClicked() {
 	menuOpen.value = !menuOpen.value;
-}
-
-function dropDownItemClicked(event: { trigger: string }) {
-	// Emit upstream
-	emits("dropDownItemClicked", event);
-
-	// Close the menu
-	menuOpen.value = false;
 }
 </script>
 
@@ -38,14 +16,12 @@ function dropDownItemClicked(event: { trigger: string }) {
 			type="button"
 			v-on:click="dropDownMenuClicked"
 		>
-			<slot />
+			<slot name="button" />
 		</button>
 		<Transition>
-			<DropDownItem
-				v-show="menuOpen"
-				v-on:dropDownItemClicked="dropDownItemClicked"
-				:drop-down-items="dropDownItems"
-			/>
+			<div class="drop-down-items" v-show="menuOpen">
+				<slot name="drop-down-items"/>
+			</div>
 		</Transition>
 		<Transition>
 			<div
@@ -83,6 +59,15 @@ function dropDownItemClicked(event: { trigger: string }) {
 		position: fixed;
 		top: 0;
 		left: 0;
+	}
+
+	.drop-down-items {
+		position: absolute;
+		border: solid;
+		background-color: var(--wlk-neutral-colour-11);
+		z-index: 20;
+		display: flex;
+		flex-direction: column;
 	}
 }
 
