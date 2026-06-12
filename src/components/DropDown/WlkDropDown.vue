@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import {ref} from 'vue';
 
-// Define refs
-const menuOpen = ref(false);
+// Define models
+const menuOpen = defineModel<boolean>({
+	default: false,
+	required: false,
+});
 
 // Define methods
 function dropDownMenuClicked() {
