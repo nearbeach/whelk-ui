@@ -4,8 +4,8 @@ import {showIsRequired} from "../../composables/showIsRequired.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
-import {PropType, toRef} from "vue";
+import {type ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
+import {type PropType, toRef} from "vue";
 import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits

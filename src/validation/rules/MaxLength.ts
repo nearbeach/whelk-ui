@@ -1,5 +1,5 @@
 // validation/rules/MaxLength.ts
-import {MAXIMUM_LENGTH, ValidationRuleInterface} from "../../types";
+import {MAXIMUM_LENGTH, type ValidationRuleInterface} from "../../types";
 
 export const maxLength = (max: number, message?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

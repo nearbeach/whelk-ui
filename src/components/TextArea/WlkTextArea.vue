@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {PropType, toRef} from 'vue';
+import {type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types";
+import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables";
 import {showIsRequired} from "../../composables/showIsRequired.ts";
 import {getComponentId} from "../../composables/getComponentId.ts";

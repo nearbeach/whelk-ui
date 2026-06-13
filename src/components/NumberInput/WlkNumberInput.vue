@@ -2,7 +2,7 @@
 import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {MAXIMUM_VALUE, MINIMUM_VALUE, ValidationRuleInterface} from "../../types";
+import {MAXIMUM_VALUE, MINIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 import {getComponentId} from "../../composables/getComponentId.ts";
 import {useValidation} from "../../composables/useValidation.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";

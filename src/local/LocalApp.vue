@@ -12,7 +12,7 @@ import {
 	WlkModal,
 	WlkModalFooter,
 	WlkModalHeader
-} from "@";
+} from "../components";
 
 const defaultOptions = [
 	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},

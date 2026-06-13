@@ -1,5 +1,5 @@
 // validation/rules/MaxValue.ts
-import {MAXIMUM_VALUE, ValidationRuleInterface} from "../../types";
+import {MAXIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 
 export const maxValue = (max: number, message?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

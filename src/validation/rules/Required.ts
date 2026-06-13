@@ -1,5 +1,5 @@
 // validation/rules/required.ts
-import {REQUIRED_RULE, ValidationRuleInterface} from "../../types";
+import {REQUIRED_RULE, type ValidationRuleInterface} from "../../types";
 
 export const required = (message : string = 'This field is required'): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {
