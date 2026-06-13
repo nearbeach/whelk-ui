@@ -1,16 +1,16 @@
-// CardHeader.spec.ts
+// WlkModalHeader.spec.ts
 import { describe, test, expect } from "vitest";
-import WlkCardHeader from "./WlkModalHeader.vue";
+import WlkModalHeader from "./WlkModalHeader.vue";
 import { mount } from "@vue/test-utils";
 
-describe("CardHeader", async () => {
-    test("card header slot renders main content", () => {
-        const wrapper = mount(WlkCardHeader, {
+describe("WlkModalHeader", async () => {
+    test("modal header slot renders main content", () => {
+        const wrapper = mount(WlkModalHeader, {
             slots: {
                 default: "Main Content",
             },
         });
         expect(wrapper.html()).toContain("Main Content");
-        expect(wrapper.find(".wlk-card-header").text()).toContain("Main Content");
+        expect(wrapper.find(".wlk-modal-header").text()).toContain("Main Content");
     });
 });
