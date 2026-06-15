@@ -13,6 +13,7 @@ import {
 	WlkModalFooter,
 	WlkModalHeader
 } from "../components";
+import {WlkFileUpload} from "@/components/FileUpload";
 
 const defaultOptions = [
 	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},
@@ -24,6 +25,7 @@ const defaultOptions = [
 ]
 
 const model = ref('');
+const fileModel = ref<FileList>();
 const dateModel = ref(null);
 const timeModel = ref("08:34");
 const datetimeModel = ref("Thu Jan 01 1970 00:00:00");
@@ -44,11 +46,37 @@ function openModal() {
 function pain() {
 	console.log("PAIN!");
 }
+
+function uploadFile() {
+	console.log("File Model: ", fileModel.value);
+
+	// Checks
+	if (fileModel.value === undefined || fileModel.value === null || fileModel.value?.length < 1) {
+		// Nothing to do
+		return;
+	}
+
+	// Send data to backend
+	const data_to_send = new FormData();
+	data_to_send.append('file', fileModel.value[0]);
+
+	fetch(`/`, {
+		method: "POST",
+		body: data_to_send,
+	})
+}
 </script>
 
 <template>
 	<main id="main" aria-labelledby="main-title" role="main">
         <h1 id="main-title">Local App</h1>
+		<wlkFileUpload label="Upload a document"  v-model="fileModel" @change="uploadFile" />
+
+		<div style="display:flex;flex-direction:row;">
+			<WlkFileUpload label="Upload a document"  v-model="fileModel" :multiple="true"/>
+			<WlkDatetime label="Upload a document"  v-model="dateModel"/>
+		</div>
+
 		<WlkSelect
 			label="Please select a fruit"
 			optionsLabel="fruit"
