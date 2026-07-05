@@ -13,4 +13,16 @@ describe("CardHeader", async () => {
         expect(wrapper.html()).toContain("Main Content");
         expect(wrapper.find(".wlk-card-header").text()).toContain("Main Content");
     });
+
+    test("card header slot renders different content", () => {
+        const wrapper = mount(WlkCardHeader, {
+            slots: {
+                default: "Different Content",
+            },
+        });
+        expect(wrapper.html()).not.toContain("Main Content");
+        expect(wrapper.find(".wlk-card-header").text()).not.toContain("Main Content");
+        expect(wrapper.html()).toContain("Different Content");
+        expect(wrapper.find(".wlk-card-header").text()).toContain("Different Content");
+    });
 });
