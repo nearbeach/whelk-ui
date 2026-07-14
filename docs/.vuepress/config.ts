@@ -23,8 +23,9 @@ export default defineUserConfig({
             components: {
                 WlkButton: path.resolve(__dirname, '../../src/components/Button/WlkButton.vue'),
                 WlkCard: path.resolve(__dirname, '../../src/components/Card/WlkCard.vue'),
-                WlkSelect: path.resolve(__dirname, '../../src/components/Select/WlkSelect.vue'),
-                WlkSelectRenderOptions: path.resolve(__dirname, '../../src/components/Select/SelectRenderOptions/WlkSelectRenderOptions.vue'),
+                WlkCardFooter: path.resolve(__dirname, '../../src/components/Card/CardFooter/WlkCardFooter.vue'),
+                WlkCardHeader: path.resolve(__dirname, '../../src/components/Card/CardHeader/WlkCardHeader.vue'),
+                WlkCheckBox: path.resolve(__dirname, '../../src/components/CheckBox/WlkCheckBox.vue'),
             }
         })
     ],
@@ -38,10 +39,9 @@ export default defineUserConfig({
                 {
                     text: 'Components',
                     children: [
-                        '/components/wlk-button.md',
-                        '/components/wlk-card.md',
-
-                        '/components/wlk-select.md'
+                        '/components/child_pages/wlk-button.md',
+                        '/components/child_pages/wlk-card.md',
+                        '/components/child_pages/wlk-checkbox.md',
                     ]
                 }
             ]

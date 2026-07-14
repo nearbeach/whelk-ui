@@ -5,6 +5,8 @@ A dumb button component that utilises Vue JS' <slot/> functionality to pass thro
 ## Usage
 
 ```vue
+import { WlkButton } from 'whelk-ui';
+
 <WlkButton>No Class Button</WlkButton>
 <WlkButton class="primary">Primary Button</WlkButton>
 <WlkButton class="secondary">Secondary Button</WlkButton>
@@ -16,19 +18,20 @@ A dumb button component that utilises Vue JS' <slot/> functionality to pass thro
 <WlkButton class="compact primary">Compact Primary Button Example</WlkButton>
 <WlkButton class="tiny secondary">Tiny Secondary Button Example</WlkButton>
 <WlkButton class="danger" :disabled="true">Disabled Danger Button Example</WlkButton>
+<WlkButton class="warning" />
 ```
 
 <WlkButton>No Class Button</WlkButton>
-<WlkButton class="primary">Primary Button</WlkButton>
-<WlkButton class="secondary">Secondary Button</WlkButton>
-<WlkButton class="danger">Danger Button</WlkButton>
-<WlkButton class="warning">Warning Button</WlkButton>
-<WlkButton class="success">Success Button</WlkButton>
-<WlkButton class="info">Info Button</WlkButton>
-
-<WlkButton class="compact primary">Compact Primary Button Example</WlkButton>
-<WlkButton class="tiny secondary">Tiny Secondary Button Example</WlkButton>
-<WlkButton class="danger" :disabled="true">Disabled Danger Button Example</WlkButton>
+<WlkButton class="primary">Primary Button</WlkButton>  
+<WlkButton class="secondary">Secondary Button</WlkButton>  
+<WlkButton class="danger">Danger Button</WlkButton>  
+<WlkButton class="warning">Warning Button</WlkButton>  
+<WlkButton class="success">Success Button</WlkButton>  
+<WlkButton class="info">Info Button</WlkButton>  
+<WlkButton class="compact primary">Compact Primary Button Example</WlkButton>  
+<WlkButton class="tiny secondary">Tiny Secondary Button Example</WlkButton>  
+<WlkButton class="danger" :disabled="true">Disabled Danger Button Example</WlkButton>  
+<WlkButton class="warning" />
 
 ### Classes
 
