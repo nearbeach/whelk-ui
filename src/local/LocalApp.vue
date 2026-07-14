@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import WlkSelect from "@/components/Select/WlkSelect.vue";
-import WlkDate from "@/components/Date/WlkDate.vue";
-import WlkTime from "@/components/Time/WlkTime.vue";
 import WlkDatetime from "@/components/Datetime/WlkDatetime.vue";
-import {
-	WlkButton,
-	WlkDropDown,
-	WlkDropDownItem,
-	WlkDropDownSeparator,
-	WlkModal,
-	WlkModalFooter,
-	WlkModalHeader
-} from "../components";
-import {WlkFileUpload} from "@/components/FileUpload";
+import {WlkFileUpload} from "../components/FileUpload";
+import {WlkMultiSelect} from "../components/MultiSelect";
+import {SelectOptionInterface, WlkSelect} from "@";
 
 const defaultOptions = [
 	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},
@@ -27,8 +17,9 @@ const defaultOptions = [
 const model = ref('');
 const fileModel = ref<FileList>();
 const dateModel = ref(null);
-const timeModel = ref("08:34");
-const datetimeModel = ref("Thu Jan 01 1970 00:00:00");
+const resultsModel = ref<SelectOptionInterface[]>([]);
+const singleModel = ref('');
+const searchModel = ref('');
 const status = ref("");
 
 function applyStatus() {
@@ -83,46 +74,32 @@ function uploadFile() {
 			optionsValue="orchard"
 			:options="defaultOptions"
 			:status="status"
-			v-model="model"
+			v-model="singleModel"
 			v-on:change="applyStatus"
 		/>
 
-		<WlkDate
-			label="Please select a date"
-			v-model="dateModel"
+		<WlkMultiSelect
+			label="Please select a fruit"
+			optionsLabel="fruit"
+			optionsValue="orchard"
+			:options="defaultOptions"
 			:status="status"
+			v-model:results-model="resultsModel"
+			v-model:search-model="searchModel"
+			v-on:change="applyStatus"
 		/>
 
-		<WlkTime
-			label="Please select a time"
-			v-model="timeModel"
-			:status="status"
-		/>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software including versions of Lorem Ipsum.
+			Why do we use it?
 
-		<WlkDatetime
-			:label="`Please pick a date time - ${datetimeModel}`"
-			v-model="datetimeModel"
-			:status="status"
-		/>
+			It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 
-		<WlkButton v-on:click="openModal"/>
+			Where does it come from?
 
-		<WlkDropDown>
-			<template v-slot:button>Push me</template>
-			<template v-slot:drop-down-items>
-				<WlkDropDownItem v-on:click="pain()">Pain</WlkDropDownItem>
-				<WlkDropDownSeparator />
-				<WlkDropDownItem>Even</WlkDropDownItem>
-				<WlkDropDownItem>More</WlkDropDownItem>
-				<WlkDropDownItem>Pain</WlkDropDownItem>
-			</template>
-		</WlkDropDown>
+			Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
-		<WlkModal class="large">
-			<WlkModalHeader>HEADER FUNCTION</WlkModalHeader>
-			Hello World
-			<WlkModalFooter>FOOTER FUNCTION</WlkModalFooter>
-		</WlkModal>
+			The standard chunk of Lorem Ipsum used since 1966 is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+		</p>
 	</main>
 </template>
 

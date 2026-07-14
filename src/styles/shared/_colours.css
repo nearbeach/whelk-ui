@@ -1,5 +1,5 @@
 /*DEFAULTS*/
-input, button, select, textarea {
+input, button, select, textarea, .multi-select-container {
     background-color: var(--wlk-neutral-colour-11);
     border-color: var(--wlk-neutral-colour-6);
 
