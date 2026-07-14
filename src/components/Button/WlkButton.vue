@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
 // Define props
-defineProps({
+const props = defineProps({
 	isActionRunning: {
 		type: Boolean,
 		default: false,
 		required: false,
 	},
+	isDisabled: {
+		type: Boolean,
+		default: false,
+		required: false,
+	},
+});
+
+// Define computed
+const buttonIsDisabled = computed(() => {
+	return props.isDisabled || props.isActionRunning;
 });
 </script>
 
@@ -15,6 +25,7 @@ defineProps({
 	<button
 		class="wlk-button"
 		role="button"
+		:disabled="buttonIsDisabled"
 	>
 		<slot
 			v-if="!isActionRunning"
