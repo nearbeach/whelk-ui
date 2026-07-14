@@ -3,12 +3,12 @@ import { computed, defineProps } from 'vue';
 
 // Define props
 const props = defineProps({
-	isActionRunning: {
+	disabled: {
 		type: Boolean,
 		default: false,
 		required: false,
 	},
-	isDisabled: {
+	isActionRunning: {
 		type: Boolean,
 		default: false,
 		required: false,
@@ -17,7 +17,7 @@ const props = defineProps({
 
 // Define computed
 const buttonIsDisabled = computed(() => {
-	return props.isDisabled || props.isActionRunning;
+	return props.disabled || props.isActionRunning;
 });
 </script>
 
