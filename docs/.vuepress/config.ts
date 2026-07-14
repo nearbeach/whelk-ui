@@ -22,6 +22,7 @@ export default defineUserConfig({
             componentsDir: './src/components',
             components: {
                 WlkButton: path.resolve(__dirname, '../../src/components/Button/WlkButton.vue'),
+                WlkCard: path.resolve(__dirname, '../../src/components/Card/WlkCard.vue'),
                 WlkSelect: path.resolve(__dirname, '../../src/components/Select/WlkSelect.vue'),
                 WlkSelectRenderOptions: path.resolve(__dirname, '../../src/components/Select/SelectRenderOptions/WlkSelectRenderOptions.vue'),
             }
@@ -30,20 +31,18 @@ export default defineUserConfig({
     theme: defaultTheme({
         navbar: [
             {text: 'Home', link: '/'},
-            {text: 'Guide', link: '/guide/getting-started'},
             {text: 'Components', link: '/components/components'}
         ],
         sidebar: {
-            '/guide/': [
-                {
-                    text: 'Guide',
-                    children: ['/guide/getting-started.md']
-                }
-            ],
             '/components/': [
                 {
                     text: 'Components',
-                    children: ['/components/button.md']
+                    children: [
+                        '/components/wlk-button.md',
+                        '/components/wlk-card.md',
+
+                        '/components/wlk-select.md'
+                    ]
                 }
             ]
         }

@@ -2,14 +2,7 @@
 
 A versatile button component with multiple variants.
 
-## Basic Usage
-```vue
-<WlkButton>Default Button</WlkButton>
-```
-
-<WlkButton>Default Button</WlkButton>
-
-## Variants
+## Usage
 ```vue
 <WlkButton class="primary">Primary</WlkButton>
 <WlkButton class="secondary">Secondary</WlkButton>
@@ -31,6 +24,13 @@ A versatile button component with multiple variants.
 |------|------|---------|-------------|
 | variant | 'primary' \| 'secondary' \| 'outline' | 'primary' | Button style variant |
 | disabled | boolean | false | Disables the button |
+
+
+## Classes
+-----------------------
+| Class | Description |
+
+
 
 ## Events
 
