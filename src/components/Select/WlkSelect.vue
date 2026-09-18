@@ -12,7 +12,7 @@ import { showIsRequired} from "../../composables/showIsRequired.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change', 'isValid']);
 
 // Define Props
 const props = defineProps({
@@ -106,6 +106,7 @@ async function checkValidation() {
 	await nextTick();
 	validate();
 	emit('isValid', errorMessage.value === "");
+	emit('change', model.value);
 }
 
 defineExpose({

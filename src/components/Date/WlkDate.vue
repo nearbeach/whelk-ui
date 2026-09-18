@@ -9,7 +9,7 @@ import {type PropType, toRef} from "vue";
 import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change', 'isValid']);
 
 // Define Props
 const props = defineProps({
@@ -57,8 +57,17 @@ const {errorMessage, validate} = useValidation(model, rulesRef);
 
 // Define functions
 function checkValidation() {
+	// Make sure the model is not an empty string
+	if (model.value === "") {
+		return;
+	}
+
+	// Validate
 	validate();
 	emit('isValid', errorMessage.value === "");
+
+	// Emit change
+	emit("change", model.value);
 }
 
 defineExpose({

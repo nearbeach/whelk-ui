@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { defineEmits } from "vue";
+
+// Define emits
+const emit = defineEmits(["change"]);
 
 // Define models
 const menuOpen = defineModel<boolean>({
@@ -9,6 +13,7 @@ const menuOpen = defineModel<boolean>({
 // Define methods
 function dropDownMenuClicked() {
 	menuOpen.value = !menuOpen.value;
+	emit("change", menuOpen.value);
 }
 </script>
 

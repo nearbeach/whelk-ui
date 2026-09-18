@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, defineEmits} from "vue";
 import ToolTip from "@/components/ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
+
+// Define emits
+const emit = defineEmits(["change"]);
 
 // Define props
 const props = defineProps({
@@ -53,6 +56,7 @@ const model = defineModel({
 // Define functions
 function switchClicked() {
 	model.value = !model.value;
+	emit("change", model.value);
 }
 </script>
 

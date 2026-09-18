@@ -9,7 +9,7 @@ import {getComponentId} from "../../composables/getComponentId.ts";
 import {showIsRequired} from "../../composables/showIsRequired.ts";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change', 'isValid']);
 
 // Define Props
 const props = defineProps({
@@ -51,6 +51,7 @@ const {errorMessage, validate} = useValidation(model, rulesRef);
 function checkValidation() {
 	validate();
 	emit('isValid', errorMessage.value === "");
+	emit('change', model.value);
 }
 
 defineExpose({

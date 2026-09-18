@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import {computed} from 'vue';
+import {computed, defineEmits} from 'vue';
+
+// Emits
+const emit = defineEmits(["change"]);
 
 // Model
 const model = defineModel();
@@ -44,6 +47,7 @@ const checkboxId = computed(() => {
 			:name="label"
 			v-model="model"
 			type="checkbox"
+			v-on:change="emit('change', model)"
 		/>
 		<label
 			:for="checkboxId"

@@ -15,6 +15,7 @@ const defaultOptions = [
 ]
 
 const model = ref('');
+const datetimeModel = ref(null);
 const fileModel = ref<FileList>();
 const dateModel = ref(null);
 const resultsModel = ref<SelectOptionInterface[]>([]);
@@ -60,6 +61,7 @@ function uploadFile() {
 
 <template>
 	<main id="main" aria-labelledby="main-title" role="main">
+		<WlkDatetime label="HELLO WORLD" @change="pain" v-model="datetimeModel"></WlkDatetime>
         <h1 id="main-title">Local App</h1>
 		<wlkFileUpload label="Upload a document"  v-model="fileModel" @change="uploadFile" />
 

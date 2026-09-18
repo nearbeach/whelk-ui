@@ -9,7 +9,7 @@ import {ref, type PropType, toRef, watch} from "vue";
 import {useValidation} from "../../composables/useValidation.ts";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change','isValid']);
 
 // Define Props
 const props = defineProps({
@@ -101,6 +101,9 @@ function checkValidation() {
 	// Update the model
 	const new_date = new Date(modelRef.value);
 	model.value = new_date.toISOString();
+
+	// Emit that this has changed
+	emit("change", modelRef.value);
 }
 
 defineExpose({

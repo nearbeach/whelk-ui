@@ -11,9 +11,10 @@ import MultiSelectOptions from "@/components/MultiSelect/MultiSelectOptions/Mult
 
 // TODO - add in the tabulation stuff so users can use their keyboard to navigate through this form
 // TODO - when someone uses the arrow keys it'll allow the user to select manually
+// TODO - when there is a change, flag that there has been a change using the emits
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change', 'isValid']);
 
 // Define props
 const props = defineProps({
@@ -108,9 +109,7 @@ function removeOption(option: SelectOptionInterface) {
 }
 
 function selectOption(option: SelectOptionInterface) {
-	console.log("selectOption", option);
 	resultsModel.value.push(option);
-	console.log("Results MOdel: ", resultsModel.value);
 }
 
 defineExpose({
