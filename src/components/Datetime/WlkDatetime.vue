@@ -89,6 +89,12 @@ watch(model, (new_value: string) => {
 
 // Define functions
 function checkValidation() {
+	// Check to make sure the modelRef is not a null string
+	if (modelRef.value === "") {
+		return;
+	}
+
+	// Validate
 	validate();
 	emit('isValid', errorMessage.value === "");
 
