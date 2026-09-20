@@ -47,7 +47,7 @@ describe('ButtonComponent - Disable', async () => {
             ButtonComponent,
             {
                 props: {
-                    isDisabled: true,
+                    disabled: true,
                 }
             }
         );
@@ -62,7 +62,7 @@ describe('ButtonComponent - Disable', async () => {
             ButtonComponent,
             {
                 props: {
-                    isDisabled: true,
+                    disabled: true,
                 }
             }
         );
