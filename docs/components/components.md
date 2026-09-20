@@ -7,3 +7,5 @@
 
 
 [CheckBox](child_pages/wlk-checkbox.md)
+
+[RichText](child_pages/wlk-rich-text.md)

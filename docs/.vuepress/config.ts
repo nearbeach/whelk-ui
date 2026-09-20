@@ -26,6 +26,7 @@ export default defineUserConfig({
                 WlkCardFooter: path.resolve(__dirname, '../../src/components/Card/CardFooter/WlkCardFooter.vue'),
                 WlkCardHeader: path.resolve(__dirname, '../../src/components/Card/CardHeader/WlkCardHeader.vue'),
                 WlkCheckBox: path.resolve(__dirname, '../../src/components/CheckBox/WlkCheckBox.vue'),
+                WlkRichText: path.resolve(__dirname, '../../src/components/RichText/WlkRichText.vue'),
             }
         })
     ],
