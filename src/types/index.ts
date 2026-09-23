@@ -1,6 +1,7 @@
 export type { DocumentItemInterface } from './DocumentItemInterface'
 export type { FolderItemInterface } from './FolderItemInterface'
 export type { MenuItemInterface } from './MenuItemInterface'
+export type { OnChangeInterface } from './OnChangeInterface'
 export type { SelectOptionInterface } from './SelectOptionInterface'
 export type { TabHeaderInterface } from './TabHeaderInterface'
 

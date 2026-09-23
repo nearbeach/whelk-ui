@@ -8,7 +8,7 @@ import {useValidation} from "../../composables/useValidation.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
@@ -144,7 +144,7 @@ function applyIncrement() {
 
 function checkValidation() {
 	validate();
-	emit('isValid', errorMessage.value === "");
+	emit('change', {isValid: errorMessage.value === ""});
 }
 
 </script>

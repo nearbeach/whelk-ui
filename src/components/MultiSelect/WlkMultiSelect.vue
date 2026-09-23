@@ -13,7 +13,7 @@ import MultiSelectOptions from "@/components/MultiSelect/MultiSelectOptions/Mult
 // TODO - when someone uses the arrow keys it'll allow the user to select manually
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change']);
 
 // Define props
 const props = defineProps({
@@ -96,7 +96,7 @@ const filteredOptions = computed(() => {
 async function checkValidation() {
 	await nextTick();
 	validate();
-	emit('isValid', errorMessage.value === "");
+	emit('change', {isValid: errorMessage.value === ""});
 }
 
 function removeOption(option: SelectOptionInterface) {

@@ -3,7 +3,7 @@ import {PropType} from "vue";
 import type {SelectOptionInterface} from "../../../types";
 
 // Define emits
-const emits = defineEmits(["selectOption"]);
+const emit = defineEmits(["selectOption"]);
 
 // Define props
 defineProps({

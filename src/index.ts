@@ -38,6 +38,7 @@ export { ObjectTypeEnums } from './utils/enums/ObjectTypeEnums'
 export type { DocumentItemInterface } from './types/DocumentItemInterface'
 export type { FolderItemInterface } from './types/FolderItemInterface'
 export type { MenuItemInterface } from './types/MenuItemInterface'
+export type { OnChangeInterface } from './types/OnChangeInterface'
 export type { SelectOptionInterface } from './types/SelectOptionInterface'
 export type { TabHeaderInterface } from './types/TabHeaderInterface'
 
