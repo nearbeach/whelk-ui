@@ -92,6 +92,12 @@ function checkValidation() {
 	validate();
 	emit('isValid', errorMessage.value === "");
 
+	// If model is blank
+	if (modelRef.value === "" || modelRef.value === null) {
+		model.value = "";
+		return;
+	}
+
 	// Update the model
 	const new_date = new Date(modelRef.value);
 	model.value = new_date.toISOString();
