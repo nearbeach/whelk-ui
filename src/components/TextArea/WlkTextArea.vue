@@ -96,4 +96,7 @@ defineExpose({
 </template>
 
 <style scoped>
+.wlk-text-area {
+
+}
 </style>

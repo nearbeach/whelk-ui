@@ -1,93 +1,14 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import WlkDatetime from "@/components/Datetime/WlkDatetime.vue";
-import {WlkFileUpload} from "../components/FileUpload";
-import {WlkMultiSelect} from "../components/MultiSelect";
-import {SelectOptionInterface, WlkSelect} from "@";
+import WlkTextArea from "../components/TextArea/WlkTextArea.vue";
 
-const defaultOptions = [
-	{"fruit": "apple", "orchard": "apple", optGroup: "tree"},
-	{"fruit": "pineapple", "orchard": "pineapple"},
-	{"fruit": "banana", "orchard": "banana", optGroup: "tree"},
-	{"fruit": "peach", "orchard": "peach"},
-	{"fruit": "grape", "orchard": "grape", disabled: true},
-	{"fruit": "milk", "orchard": "milk", optGroup: "cow"},
-]
-
-const model = ref('');
-const fileModel = ref<FileList>();
-const dateModel = ref(null);
-const resultsModel = ref<SelectOptionInterface[]>([]);
-const singleModel = ref('');
-const searchModel = ref('');
-const status = ref("");
-
-function applyStatus() {
-	status.value = "Hello, making change";
-
-	setTimeout(() => {
-		status.value = "";
-	}, 5000);
-}
-
-function openModal() {
-	// ADD CODE
-}
-
-function pain() {
-	console.log("PAIN!");
-}
-
-function uploadFile() {
-	console.log("File Model: ", fileModel.value);
-
-	// Checks
-	if (fileModel.value === undefined || fileModel.value === null || fileModel.value?.length < 1) {
-		// Nothing to do
-		return;
-	}
-
-	// Send data to backend
-	const data_to_send = new FormData();
-	data_to_send.append('file', fileModel.value[0]);
-
-	fetch(`/`, {
-		method: "POST",
-		body: data_to_send,
-	})
-}
+const model = ref<string>('');
 </script>
 
 <template>
 	<main id="main" aria-labelledby="main-title" role="main">
         <h1 id="main-title">Local App</h1>
-		<wlkFileUpload label="Upload a document"  v-model="fileModel" @change="uploadFile" />
-
-		<div style="display:flex;flex-direction:row;">
-			<WlkFileUpload label="Upload a document"  v-model="fileModel" :multiple="true"/>
-			<WlkDatetime label="Upload a document"  v-model="dateModel"/>
-		</div>
-
-		<WlkSelect
-			label="Please select a fruit"
-			optionsLabel="fruit"
-			optionsValue="orchard"
-			:options="defaultOptions"
-			:status="status"
-			v-model="singleModel"
-			v-on:change="applyStatus"
-		/>
-
-		<WlkMultiSelect
-			label="Please select a fruit"
-			optionsLabel="fruit"
-			optionsValue="orchard"
-			:options="defaultOptions"
-			:status="status"
-			v-model:results-model="resultsModel"
-			v-model:search-model="searchModel"
-			v-on:change="applyStatus"
-		/>
+		<WlkTextArea class="compact" v-model="model" label="PAIN"></WlkTextArea>
 
 		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software including versions of Lorem Ipsum.
 			Why do we use it?
