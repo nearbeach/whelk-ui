@@ -2,6 +2,10 @@
 
 A dumb component library built with Vue 3. Simple, effective, and small!
 
+## Please note
+
+Whelk UI is currently in active development and is not recommended for production environments just yet.
+
 ## Why Whelk UI?
 
 Each component is designed to be as simple/dumb as possible. The business logic is left to the consumer to implement.
