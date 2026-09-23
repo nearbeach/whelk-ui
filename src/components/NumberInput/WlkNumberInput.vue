@@ -31,6 +31,11 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	stepIncrement: {
 		type: Number,
 		default: 1,
@@ -188,9 +193,14 @@ function checkValidation() {
 				+
 			</button>
 		</div>
-		<WlkRenderErrorMessage>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
 			{{ errorMessage }}
 		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
@@ -242,6 +252,19 @@ function checkValidation() {
 					line-height: 1.25rem;
 				}
 			}
+		}
+	}
+
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
+
+		@media (--large-screen) {
+			font-size: 0.75rem;
 		}
 	}
 }
