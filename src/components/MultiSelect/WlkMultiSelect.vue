@@ -17,6 +17,11 @@ const emit = defineEmits(['change']);
 
 // Define props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,

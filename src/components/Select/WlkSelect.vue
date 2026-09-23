@@ -16,6 +16,11 @@ const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -128,6 +133,7 @@ defineExpose({
 		<select
 			:id="getComponentId(props.label)"
 			:name="props.label"
+			:disabled="disabled"
 			v-model="model"
 			v-on:change="checkValidation"
 		>

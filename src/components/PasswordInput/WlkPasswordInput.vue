@@ -13,6 +13,11 @@ const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -73,6 +78,7 @@ defineExpose({
 		<input
 			:id="getComponentId(props.label)"
 			type="password"
+			:disabled="disabled"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="model"

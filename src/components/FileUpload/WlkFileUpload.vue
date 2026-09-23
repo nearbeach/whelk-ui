@@ -18,6 +18,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -95,6 +100,7 @@ defineExpose({
 		<input
 			type="file"
 			:accept="accept"
+			:disabled="disabled"
 			:id="getComponentId(props.label)"
 			:multiple="multiple"
 			:name="props.label"

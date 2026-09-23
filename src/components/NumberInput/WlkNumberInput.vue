@@ -22,6 +22,11 @@ const props = defineProps({
         required: false,
         default: 'Decrement current value of ${model} by ${stepIncrement}',
     },
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
     incrementAriaLabel: {
         type: String,
         required: false,
@@ -70,7 +75,7 @@ const { errorMessage, validate } = useValidation(model, rulesRef);
 
 // Define computed
 const isMax = computed(() => {
-	return model.value >= maxValue.value;
+	return model.value >= maxValue.value || props.disabled;
 });
 
 const maxValue = computed(() => {
@@ -82,7 +87,7 @@ const maxValue = computed(() => {
 })
 
 const isMin = computed(() => {
-	return model.value <= minValue.value;
+	return model.value <= minValue.value || props.disabled;
 });
 
 const minValue = computed<number>(() => {

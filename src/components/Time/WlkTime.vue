@@ -13,6 +13,11 @@ const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -80,6 +85,7 @@ defineExpose({
 		</label>
 		<input
 			type="time"
+			:disabled="disabled"
 			:id="getComponentId(props.label)"
 			:name="props.label"
 			:placeholder="props.placeholderText"
