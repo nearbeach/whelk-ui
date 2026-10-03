@@ -1,1 +1,1 @@
-export { default as WlkTextInput } from './WlkTime.vue'
+export { default as WlkTime } from './WlkTime.vue'
