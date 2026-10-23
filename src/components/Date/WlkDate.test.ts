@@ -7,6 +7,7 @@ describe('WlkDate.vue', () => {
         const wrapper = mount(WlkDate, {
             props: {
                 label: 'Test Date',
+                modelValue: null,
                 placeholderText: '',
                 status: '',
                 tooltipMessage: '',
@@ -22,6 +23,7 @@ describe('WlkDate.vue', () => {
         const wrapper = mount(WlkDate, {
             props: {
                 label: 'Test Date',
+                modelValue: null,
                 placeholderText: 'Enter date',
                 status: '',
                 tooltipMessage: '',
@@ -31,5 +33,32 @@ describe('WlkDate.vue', () => {
         });
 
         expect(wrapper.find('input').attributes('placeholder')).toBe('Enter date');
+    });
+
+    test('accepts null modelValue and renders empty input', () => {
+        const wrapper = mount(WlkDate, {
+            props: {
+                label: 'Test Date',
+                modelValue: null
+            }
+        });
+
+        const input = wrapper.find('input');
+        expect(input.element.value).toBe('');
+    });
+
+    test('accepts string modelValue and updates on change', async () => {
+        const wrapper = mount(WlkDate, {
+            props: {
+                label: 'Test Date',
+                modelValue: '2025-01-15'
+            }
+        });
+
+        const input = wrapper.find('input');
+        expect(input.element.value).toBe('2025-01-15');
+
+        await wrapper.setProps({ modelValue: null });
+        expect(input.element.value).toBe('');
     });
 });

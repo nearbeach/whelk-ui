@@ -49,9 +49,8 @@ const props = defineProps({
 });
 
 // Define Models
-const model = defineModel({
+const model = defineModel<string | null>({
 	required: true,
-	type: [String, null],
 });
 
 // Define Refs
@@ -62,10 +61,10 @@ const modelRef = ref("");
 const {errorMessage, validate} = useValidation(model, rulesRef);
 
 // Define watch
-watch(model, (new_value: string) => {
+watch(model, (new_value: string | null) => {
 	// Escape conditions
 	if (new_value === null || new_value === "") {
-		// Nothing to do
+		modelRef.value = "";
 		return;
 	}
 
@@ -90,7 +89,7 @@ watch(model, (new_value: string) => {
 
 	// Set the value
 	modelRef.value = `${year}-${month}-${day}T${hour}:${minute}`;
-});
+}, { immediate: true });
 
 // Define functions
 function checkValidation() {
