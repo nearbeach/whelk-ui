@@ -12,7 +12,11 @@ const {instances, QuillMock} = vi.hoisted(() => {
 			}),
 		}
 		enable = vi.fn()
-		constructor(public el: unknown, public options: any) {
+		el: unknown
+		options: any
+		constructor(el: unknown, options: any) {
+			this.el = el
+			this.options = options
 			instances.push(this)
 		}
 		on(event: string, cb: (...args: any[]) => void) {

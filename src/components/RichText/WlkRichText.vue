@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, onMounted, onBeforeUnmount, watch, shallowRef} from 'vue'
-import Quill from 'quill'
+import Quill, {type Range} from 'quill'
 import 'quill/dist/quill.snow.css'
 
 const props = defineProps({
@@ -12,13 +12,20 @@ const props = defineProps({
 	modules: {type: Object, default: () => ({})}
 })
 
-const emit = defineEmits(['update:modelValue', 'ready', 'text-change', 'selection-change'])
+const emit = defineEmits<{
+	'update:modelValue': [html: string]
+	'ready': [quill: Quill]
+	'text-change': []
+	'selection-change': [range: Range | null]
+}>()
 
-const editorRef = ref(null)
-const quill = shallowRef(null) // shallowRef: don't make Quill instance reactive
+const editorRef = ref<HTMLElement | null>(null)
+const quill = shallowRef<Quill | null>(null) // shallowRef: don't make Quill instance reactive
 
 onMounted(() => {
-	quill.value = new Quill(editorRef.value, {
+	if (!editorRef.value) return
+
+	const instance = new Quill(editorRef.value, {
 		theme: props.theme,
 		placeholder: props.placeholder,
 		readOnly: props.readOnly,
@@ -27,21 +34,22 @@ onMounted(() => {
 			...props.modules
 		}
 	})
+	quill.value = instance
 
 	if (props.modelValue) {
-		quill.value.clipboard.dangerouslyPasteHTML(props.modelValue)
+		instance.clipboard.dangerouslyPasteHTML(props.modelValue)
 	}
 
-	quill.value.on('text-change', () => {
-		emit('update:modelValue', quill.value.root.innerHTML)
+	instance.on('text-change', () => {
+		emit('update:modelValue', instance.root.innerHTML)
 		emit('text-change')
 	})
 
-	quill.value.on('selection-change', (range) => {
+	instance.on('selection-change', (range: Range | null) => {
 		emit('selection-change', range)
 	})
 
-	emit('ready', quill.value)
+	emit('ready', instance)
 })
 
 // Sync external changes into Quill (e.g. programmatic reset)

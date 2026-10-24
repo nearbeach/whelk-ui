@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
-import {nextTick, PropType, toRef, computed} from "vue";
+import {nextTick, type PropType, toRef, computed} from "vue";
 import type {SelectOptionInterface, ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables";
-import {getComponentId} from "@/composables/getComponentId.ts";
-import {showIsRequired} from "@/composables/showIsRequired.ts";
+import {getComponentId} from "../../composables/getComponentId.ts";
+import {showIsRequired} from "../../composables/showIsRequired.ts";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
-import MultiSelectResults from "@/components/MultiSelect/MultiSelectResults/MultiSelectResults.vue";
-import MultiSelectOptions from "@/components/MultiSelect/MultiSelectOptions/MultiSelectOptions.vue";
+import MultiSelectResults from "./MultiSelectResults/MultiSelectResults.vue";
+import MultiSelectOptions from "./MultiSelectOptions/MultiSelectOptions.vue";
 
 // TODO - add in the tabulation stuff so users can use their keyboard to navigate through this form
 // TODO - when someone uses the arrow keys it'll allow the user to select manually

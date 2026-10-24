@@ -79,7 +79,7 @@ describe.each(specs)('input contract: $name', (spec) => {
 			...('emptyValue' in spec ? {modelValue: spec.emptyValue} : {}),
 		})
 		if (spec.trigger === 'expose') {
-			wrapper.vm.checkValidation()
+			(wrapper.vm as unknown as {checkValidation: () => void}).checkValidation()
 			await wrapper.vm.$nextTick()
 		} else {
 			await wrapper.get(spec.field).trigger(spec.trigger)

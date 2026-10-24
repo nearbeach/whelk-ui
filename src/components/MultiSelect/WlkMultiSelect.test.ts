@@ -20,7 +20,7 @@ function mountSelect(props: Record<string, unknown> = {}, initial: typeof option
 				label: 'Fruit',
 				options,
 				resultsModel: results.value,
-				'onUpdate:resultsModel': (v: typeof options) => (results.value = v),
+				'onUpdate:resultsModel': (v: unknown[]) => (results.value = v as typeof options),
 				searchModel: search.value,
 				'onUpdate:searchModel': (v: string) => (search.value = v),
 				...props,

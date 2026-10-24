@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel, type PropType} from "vue";
+import {type PropType} from "vue";
 import type {TabHeaderInterface} from "../../../types/TabHeaderInterface.ts";
 
 // Define model
