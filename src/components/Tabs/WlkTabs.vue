@@ -31,7 +31,15 @@ onMounted(() => {
 			v-model="currentTab"
 		/>
 
-		<slot :name="currentTab"></slot>
+		<!-- Target of each tab's aria-controls, so it must carry the same id as the tab's `for` -->
+		<div
+			v-if="currentTab !== ''"
+			:id="currentTab"
+			role="tabpanel"
+			:aria-labelledby="`${currentTab}-tab`"
+		>
+			<slot :name="currentTab"></slot>
+		</div>
 	</div>
 </template>
 

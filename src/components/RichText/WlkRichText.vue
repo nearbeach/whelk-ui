@@ -19,8 +19,29 @@ const emit = defineEmits<{
 	'selection-change': [range: Range | null]
 }>()
 
+const rootRef = ref<HTMLElement | null>(null)
 const editorRef = ref<HTMLElement | null>(null)
 const quill = shallowRef<Quill | null>(null) // shallowRef: don't make Quill instance reactive
+
+// Quill renders its dropdown toolbar buttons without an accessible name
+const pickerNames: Record<string, string> = {
+	'ql-header': 'Text style',
+	'ql-font': 'Font',
+	'ql-size': 'Font size',
+	'ql-align': 'Text alignment',
+	'ql-color': 'Text colour',
+	'ql-background': 'Background colour',
+}
+
+function nameToolbarPickers() {
+	for (const picker of rootRef.value?.querySelectorAll('.ql-picker') ?? []) {
+		const name = Object.entries(pickerNames).find(([cls]) => picker.classList.contains(cls))?.[1]
+		const label = picker.querySelector('.ql-picker-label')
+		if (name && label && !label.hasAttribute('aria-label')) {
+			label.setAttribute('aria-label', name)
+		}
+	}
+}
 
 onMounted(() => {
 	if (!editorRef.value) return
@@ -49,6 +70,8 @@ onMounted(() => {
 		emit('selection-change', range)
 	})
 
+	nameToolbarPickers()
+
 	emit('ready', instance)
 })
 
@@ -71,7 +94,7 @@ defineExpose({quill});
 </script>
 
 <template>
-	<div class="wlk-rich-text">
+	<div class="wlk-rich-text" ref="rootRef">
 		<div ref="editorRef"></div>
 	</div>
 </template>

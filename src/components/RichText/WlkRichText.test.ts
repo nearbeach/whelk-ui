@@ -1,8 +1,10 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {mount} from '@vue/test-utils'
 
-const {instances, QuillMock} = vi.hoisted(() => {
+const {instances, QuillMock, state} = vi.hoisted(() => {
 	const instances: any[] = []
+	// Real Quill inserts its toolbar before the editor element; the mock only does so on request
+	const state = {toolbarHtml: ''}
 	class QuillMock {
 		handlers: Record<string, (...args: any[]) => void> = {}
 		root = {innerHTML: ''}
@@ -14,7 +16,8 @@ const {instances, QuillMock} = vi.hoisted(() => {
 		enable = vi.fn()
 		el: unknown
 		options: any
-		constructor(el: unknown, options: any) {
+		constructor(el: any, options: any) {
+			if (state.toolbarHtml) el.insertAdjacentHTML('beforebegin', state.toolbarHtml)
 			this.el = el
 			this.options = options
 			instances.push(this)
@@ -23,7 +26,7 @@ const {instances, QuillMock} = vi.hoisted(() => {
 			this.handlers[event] = cb
 		}
 	}
-	return {instances, QuillMock}
+	return {instances, QuillMock, state}
 })
 
 vi.mock('quill', () => ({default: QuillMock}))
@@ -34,6 +37,7 @@ import WlkRichText from './WlkRichText.vue'
 describe('WlkRichText', () => {
 	beforeEach(() => {
 		instances.length = 0
+		state.toolbarHtml = ''
 	})
 
 	it('creates a Quill editor with the given options on mount', () => {
@@ -97,5 +101,15 @@ describe('WlkRichText', () => {
 		expect(instances[0].enable).toHaveBeenLastCalledWith(false)
 		await wrapper.setProps({readOnly: false})
 		expect(instances[0].enable).toHaveBeenLastCalledWith(true)
+	})
+
+	it('gives Quill dropdown toolbar buttons an accessible name', () => {
+		state.toolbarHtml =
+			'<span class="ql-picker ql-header"><span class="ql-picker-label"></span></span>' +
+			'<span class="ql-picker ql-align"><span class="ql-picker-label"></span></span>' +
+			'<span class="ql-picker ql-unknown"><span class="ql-picker-label"></span></span>'
+		const wrapper = mount(WlkRichText)
+		const labels = wrapper.findAll('.ql-picker-label').map((l) => l.attributes('aria-label'))
+		expect(labels).toEqual(['Text style', 'Text alignment', undefined])
 	})
 })

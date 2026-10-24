@@ -48,4 +48,16 @@ describe('WlkTabs', () => {
 	it('has a tablist container', () => {
 		expect(mountTabs().find('[role="tablist"]').exists()).toBe(true)
 	})
+
+	it('renders a labelled tabpanel whose id matches the active tab\'s aria-controls', async () => {
+		const wrapper = mountTabs()
+		await nextTick()
+		const panel = wrapper.get('[role="tabpanel"]')
+		const [first] = wrapper.findAll('[role="tab"]')
+		expect(panel.attributes('id')).toBe(first!.attributes('aria-controls'))
+		expect(panel.attributes('aria-labelledby')).toBe(first!.attributes('id'))
+
+		await wrapper.findAll('[role="tab"]')[1]!.trigger('click')
+		expect(wrapper.get('[role="tabpanel"]').attributes('id')).toBe('two')
+	})
 })
