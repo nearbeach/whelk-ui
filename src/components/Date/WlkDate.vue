@@ -48,6 +48,9 @@ const props = defineProps({
 	},
 });
 
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
+
 // Define Models
 const model = defineModel<string | null>({
 	required: true,
@@ -72,12 +75,12 @@ defineExpose({
 
 <template>
 	<WlkFormGroup class="wlk-date">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}
 			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
@@ -86,7 +89,7 @@ defineExpose({
 			type="date"
 			onfocus="this.showPicker()"
 			:disabled="disabled"
-			:id="getComponentId(props.label)"
+			:id="componentId"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="model"

@@ -6,6 +6,7 @@ export default defineConfig({
 	plugins: [vue()],
 	test: {
 		globals: true,
+		exclude: ['node_modules/', 'dist/', 'e2e/**'],
 		environment: 'jsdom',
 		coverage: {
 			provider: 'v8',
@@ -15,6 +16,7 @@ export default defineConfig({
 				'dev/',
 				'docs/',
 				'tests/**/*',
+				'e2e/',
 				'**/*.config.ts',
 				'**/*.d.ts'
 			]

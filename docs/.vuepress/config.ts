@@ -10,6 +10,8 @@ const __dirname = import.meta.dirname || getDirname(import.meta.url)
 export default defineUserConfig({
     alias: {
         '@': path.resolve(__dirname, '../../src/'),
+        // Lets examples import exactly as consumers do: import { WlkButton } from 'whelk-ui'
+        'whelk-ui': path.resolve(__dirname, '../../src/index.ts'),
     },
     bundler: viteBundler({
         viteOptions: {},
@@ -19,14 +21,9 @@ export default defineUserConfig({
     lang: 'en-US',
     plugins: [
         registerComponentsPlugin({
-            componentsDir: './src/components',
+            // Only the Demo wrapper is global. Examples import components from 'whelk-ui' like consumers do.
             components: {
-                WlkButton: path.resolve(__dirname, '../../src/components/Button/WlkButton.vue'),
-                WlkCard: path.resolve(__dirname, '../../src/components/Card/WlkCard.vue'),
-                WlkCardFooter: path.resolve(__dirname, '../../src/components/Card/CardFooter/WlkCardFooter.vue'),
-                WlkCardHeader: path.resolve(__dirname, '../../src/components/Card/CardHeader/WlkCardHeader.vue'),
-                WlkCheckBox: path.resolve(__dirname, '../../src/components/CheckBox/WlkCheckBox.vue'),
-                WlkRichText: path.resolve(__dirname, '../../src/components/RichText/WlkRichText.vue'),
+                Demo: path.resolve(__dirname, './components/Demo.vue'),
             }
         })
     ],
@@ -38,13 +35,42 @@ export default defineUserConfig({
         sidebar: {
             '/components/': [
                 {
-                    text: 'Components',
+                    text: 'Layout & Content',
                     children: [
                         '/components/child_pages/wlk-button.md',
                         '/components/child_pages/wlk-card.md',
-                        '/components/child_pages/wlk-checkbox.md',
+                        '/components/child_pages/wlk-modal.md',
+                        '/components/child_pages/wlk-tabs.md',
+                        '/components/child_pages/wlk-drop-down.md',
+                        '/components/child_pages/wlk-tool-tip.md',
                     ]
-                }
+                },
+                {
+                    text: 'Form Inputs',
+                    children: [
+                        '/components/child_pages/wlk-text-input.md',
+                        '/components/child_pages/wlk-password-input.md',
+                        '/components/child_pages/wlk-text-area.md',
+                        '/components/child_pages/wlk-number-input.md',
+                        '/components/child_pages/wlk-date.md',
+                        '/components/child_pages/wlk-datetime.md',
+                        '/components/child_pages/wlk-time.md',
+                        '/components/child_pages/wlk-select.md',
+                        '/components/child_pages/wlk-multi-select.md',
+                        '/components/child_pages/wlk-checkbox.md',
+                        '/components/child_pages/wlk-switch.md',
+                        '/components/child_pages/wlk-file-upload.md',
+                        '/components/child_pages/wlk-rich-text.md',
+                    ]
+                },
+                {
+                    text: 'Form Helpers',
+                    children: [
+                        '/components/child_pages/wlk-form-group.md',
+                        '/components/child_pages/wlk-render-error-message.md',
+                        '/components/child_pages/validation.md',
+                    ]
+                },
             ]
         }
     }),

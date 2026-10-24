@@ -61,6 +61,9 @@ const props = defineProps({
 	},
 });
 
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
+
 // Define Model
 const resultsModel = defineModel<SelectOptionInterface[]>("resultsModel", {required: true});
 const searchModel = defineModel<string>("searchModel", {required: false, default: ""});
@@ -125,12 +128,12 @@ defineExpose({
 
 <template>
 	<div class="wlk-multi-select">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
 		</label>
@@ -142,6 +145,7 @@ defineExpose({
 				@removeOption="removeOption"
 			/>
 			<input type="search"
+				   :id="componentId"
 				   v-model="searchModel"
 			/>
 		</div>

@@ -4,14 +4,17 @@ A dumb checkbox component. Content is passed through using the props.
 
 ## Usage
 
-```vue
-import { WlkCheckBox } from 'whelk-ui';
+### Basic
 
-<WlkCheckBox id="privacy_statement" label="Privacy Statement" :isRequired="true" />
-```
+<Demo layout="stack" name="checkbox/Basic" />
 
-<WlkCheckBox id="privacy_statement" label="Privacy Statement" :isRequired="true" />
+### Required
 
+<Demo layout="stack" name="checkbox/Required" />
+
+### Disabled
+
+<Demo layout="stack" name="checkbox/Disabled" />
 
 ### Classes
 
@@ -19,15 +22,14 @@ N/A for this component
 
 ### Props
 
-| Prop                    | Example                                                | Description                                                                                   |
-|-------------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| id                      | privacy_agreement                                      | The id of the component which is added to the `<input>`. It will be prefixed with `checkbox-` |
-| label                   | Do you agree to the privacy statement                  | The label text for the `<intput>`                                                             |
-| isRequired              | false                                                  | Flags if the user has to tick this checkbox                                                   |
-| requiredAriaDescription | You have to agree to the privacy statement to continue | A12Y - Sets the aria description for the required text                                        |
-| requiredText            | *                                                      | Text that appears notifying the user that this field is required. Default is set to '*'       |
-
-
+| Prop                    | Type              | Description                                                                            |
+| ----------------------- | ----------------- | -------------------------------------------------------------------------------------- |
+| id                      | string (required) | The id added to the `<input>`. It will be prefixed with `checkbox-`                    |
+| label                   | string (required) | The label text for the `<input>`                                                       |
+| isRequired              | boolean           | Flags if the user has to tick this checkbox                                            |
+| requiredAriaDescription | string            | A11Y - sets the aria description for the required text. Default is `Field is required` |
+| requiredText            | string            | Text that notifies the user the field is required. Default is `*`                      |
+| disabled                | boolean           | Disables the component. Defaults to `false`                                            |
 
 ### Slots
 

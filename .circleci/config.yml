@@ -25,7 +25,33 @@ jobs:
           path: ~/project/coverage
           destination: tr2
 
+  e2e-docs:
+    docker:
+      # Keep the tag in step with @playwright/test in package.json
+      - image: mcr.microsoft.com/playwright:v1.64.1-noble
+    steps:
+      - checkout
+      - restore_cache:
+          key: e2e-dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install npm Dependencies
+          command: "npm ci"
+      - save_cache:
+          key: e2e-dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run Playwright against the built docs
+          command: "npm run test:e2e"
+      - store_artifacts:
+          path: playwright-report
+          destination: playwright-report
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+
 workflows:
   build:
     jobs:
       - build-and-test-frontend
+      - e2e-docs

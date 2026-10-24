@@ -1,64 +1,35 @@
 # Card
 
-A dumb card component that utilises Vue JS' <slot/> functionality to pass through any content.
+A dumb card component that utilises Vue JS' `<slot/>` functionality to pass through any content.
 
 ## Usage
 
-### Example 1
+### Simple card
 
-```vue
-import { WlkCard } from 'whelk-ui';
+<Demo layout="stack" name="card/Simple" />
 
-<WlkCard>A very simple card</WlkCard>
-```
+### Header and footer
 
-<WlkCard>A very simple card</WlkCard>
+Use `WlkCardHeader` and `WlkCardFooter` inside the card.
 
-### Example 2
+<Demo layout="stack" name="card/HeaderFooter" />
 
-```vue
-import { WlkCard, WlkCardHeader, WlkCardFooter } from 'whelk-ui';
+### Colours
 
-<WlkCard>
-    <WlkCardHeader>Header for card component</WlkCardHeader>
-    The body of the card component can go here
-    <WlkCardFooter>Footer for card component</WlkCardFooter>
-</WlkCard>
+Apply a class to change the colours of the card.
 
-```
-
-<WlkCard>
-    <WlkCardHeader>Header for card component</WlkCardHeader>
-    The body of the card component can go here
-    <WlkCardFooter>Footer for card component</WlkCardFooter>
-</WlkCard>
-
-
-### Example 3
-
-Applying a class to the card to change it's colours
-
-```vue
-import { WlkCard } from 'whelk-ui';
-
-<WlkCard class="info">This is a very informative card</WlkCard>
-```
-
-<WlkCard class="info">This is a very informative card</WlkCard>
-
+<Demo layout="stack" name="card/Colours" />
 
 ### Classes
 
-| Class     | Description                               |
-|-----------|-------------------------------------------|
-| primary   | Applies 'primary' colours to component    |
-| secondary | Applies 'secondary' colours to component  |
-| danger    | Applies 'danger' colours to component     |
-| warning   | Applies 'warning' colours to component    |
-| success   | Applies 'success' colours to component    |
-| info      | Applies 'info' colours to component       |
-
-
+| Class     | Description                              |
+| --------- | ---------------------------------------- |
+| primary   | Applies 'primary' colours to component   |
+| secondary | Applies 'secondary' colours to component |
+| danger    | Applies 'danger' colours to component    |
+| warning   | Applies 'warning' colours to component   |
+| success   | Applies 'success' colours to component   |
+| info      | Applies 'info' colours to component      |
 
 ### Props
 
@@ -66,9 +37,9 @@ N/A for this component
 
 ### Slots
 
-| Slot         | Example     | Description                                                                                             |
-|--------------|-------------|---------------------------------------------------------------------------------------------------------|
-| default      | Hello World | The default <slot/> content that is rendered. If no slot content submitted, no content will be rendered |
+| Slot    | Description                                                           |
+| ------- | --------------------------------------------------------------------- |
+| default | The card content. If no slot content is provided, nothing is rendered |
 
 ### Events
 

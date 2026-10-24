@@ -61,6 +61,9 @@ const props = defineProps({
 	},
 });
 
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
+
 // Define Models
 const model = defineModel({
 	type: Number,
@@ -161,12 +164,12 @@ function checkValidation() {
 
 <template>
 	<WlkFormGroup class="number-input">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}
 		</label>
@@ -181,6 +184,7 @@ function checkValidation() {
 				-
 			</button>
 			<input
+				:id="componentId"
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
