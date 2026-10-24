@@ -116,9 +116,7 @@ function removeOption(option: SelectOptionInterface) {
 }
 
 function selectOption(option: SelectOptionInterface) {
-	console.log("selectOption", option);
 	resultsModel.value.push(option);
-	console.log("Results MOdel: ", resultsModel.value);
 }
 
 defineExpose({
