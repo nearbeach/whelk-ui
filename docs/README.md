@@ -1,6 +1,8 @@
 # Whelk UI
 
-A dumb component library built with Vue 3. Simple, effective, and small!
+A dumb component library built with Vue 3. Simple, effective, and small! 
+
+Whelk-Ui is in Alpha, and we do not recommend using it in a production environment.
 
 ## Why Whelk UI?
 
