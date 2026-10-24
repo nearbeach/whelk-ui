@@ -36,6 +36,7 @@ onMounted(() => {
 			v-if="currentTab !== ''"
 			:id="currentTab"
 			role="tabpanel"
+			tabindex="0"
 			:aria-labelledby="`${currentTab}-tab`"
 		>
 			<slot :name="currentTab"></slot>

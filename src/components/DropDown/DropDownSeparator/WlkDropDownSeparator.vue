@@ -3,8 +3,8 @@
 </script>
 
 <template>
-	<div class="wlk-drop-down-separator">
-		<hr />
+	<div class="wlk-drop-down-separator" role="separator">
+		<hr aria-hidden="true" />
 	</div>
 </template>
 

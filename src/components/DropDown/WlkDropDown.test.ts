@@ -55,4 +55,53 @@ describe('WlkDropDown.vue', () => {
     //
     //     expect(wrapper.find('.drop-down-items').exists()).toBe(false);
     // });
+
+    const mountMenu = () =>
+        mount(WlkDropDown, {
+            attachTo: document.body,
+            slots: {
+                button: 'Actions',
+                'drop-down-items': '<div role="menuitem" tabindex="-1" id="a">A</div><div role="menuitem" tabindex="-1" id="b">B</div>',
+            },
+        });
+
+    test('button exposes menu state to assistive technology', async () => {
+        const wrapper = mountMenu();
+        const button = wrapper.get('button');
+        const menu = wrapper.get('[role="menu"]');
+        expect(button.attributes('aria-haspopup')).toBe('menu');
+        expect(button.attributes('aria-controls')).toBe(menu.attributes('id'));
+        expect(menu.attributes('aria-labelledby')).toBe(button.attributes('id'));
+        expect(button.attributes('aria-expanded')).toBe('false');
+        await button.trigger('click');
+        expect(button.attributes('aria-expanded')).toBe('true');
+        wrapper.unmount();
+    });
+
+    test('ArrowDown opens the menu and focuses the first item, arrows wrap', async () => {
+        const wrapper = mountMenu();
+        await wrapper.get('button').trigger('keydown', {key: 'ArrowDown'});
+        await new Promise((resolve) => setTimeout(resolve));
+        expect(document.activeElement?.id).toBe('a');
+
+        await wrapper.get('[role="menu"]').trigger('keydown', {key: 'ArrowDown'});
+        expect(document.activeElement?.id).toBe('b');
+        await wrapper.get('[role="menu"]').trigger('keydown', {key: 'ArrowDown'});
+        expect(document.activeElement?.id).toBe('a');
+        await wrapper.get('[role="menu"]').trigger('keydown', {key: 'End'});
+        expect(document.activeElement?.id).toBe('b');
+        await wrapper.get('[role="menu"]').trigger('keydown', {key: 'Home'});
+        expect(document.activeElement?.id).toBe('a');
+        wrapper.unmount();
+    });
+
+    test('Escape closes the menu and returns focus to the button', async () => {
+        const wrapper = mountMenu();
+        await wrapper.get('button').trigger('click');
+        await wrapper.get('[role="menu"]').trigger('keydown', {key: 'Escape'});
+        expect(wrapper.get('button').attributes('aria-expanded')).toBe('false');
+        expect(document.activeElement).toBe(wrapper.get('button').element);
+        wrapper.unmount();
+    });
 });
+

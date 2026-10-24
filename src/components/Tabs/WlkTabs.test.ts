@@ -60,4 +60,36 @@ describe('WlkTabs', () => {
 		await wrapper.findAll('[role="tab"]')[1]!.trigger('click')
 		expect(wrapper.get('[role="tabpanel"]').attributes('id')).toBe('two')
 	})
+
+	it('only the selected tab is in the tab order and the panel is focusable', async () => {
+		const wrapper = mountTabs()
+		await nextTick()
+		const tabs = wrapper.findAll('[role="tab"]')
+		expect(tabs.map((t) => t.attributes('tabindex'))).toEqual(['0', '-1'])
+		expect(wrapper.get('[role="tabpanel"]').attributes('tabindex')).toBe('0')
+	})
+
+	it('arrow keys, Home and End select and focus tabs, wrapping around', async () => {
+		const wrapper = mount(WlkTabs, {
+			attachTo: document.body,
+			props: {tabList: [...tabList, {label: 'Three', for: 'three'}]},
+			slots: {one: '1', two: '2', three: '3'},
+		})
+		await nextTick()
+		const list = wrapper.get('[role="tablist"]')
+		const selected = () => wrapper.get('[aria-selected="true"]').text()
+
+		await list.trigger('keydown', {key: 'ArrowRight'})
+		expect(selected()).toBe('Two')
+		expect(document.activeElement?.id).toBe('two-tab')
+		await list.trigger('keydown', {key: 'End'})
+		expect(selected()).toBe('Three')
+		await list.trigger('keydown', {key: 'ArrowRight'})
+		expect(selected()).toBe('One')
+		await list.trigger('keydown', {key: 'ArrowLeft'})
+		expect(selected()).toBe('Three')
+		await list.trigger('keydown', {key: 'Home'})
+		expect(selected()).toBe('One')
+		wrapper.unmount()
+	})
 })

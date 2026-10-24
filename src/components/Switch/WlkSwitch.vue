@@ -68,13 +68,17 @@ function switchClicked() {
 			/>
             {{label}}
 		</label>
-		<div
+		<button
+			type="button"
+			role="switch"
+			:id="getId"
+			:aria-checked="model ? 'true' : 'false'"
 			v-on:click="switchClicked"
 			:class="getClass"
 		>
-			<div class="switch-text">{{ getText }}</div>
-			<div class="switch-block"></div>
-		</div>
+			<span class="switch-text">{{ getText }}</span>
+			<span class="switch-block"></span>
+		</button>
 	</WlkFormGroup>
 </template>
 
@@ -85,6 +89,11 @@ function switchClicked() {
 	> .switch {
 		display: grid;
 		grid-template-columns: [on] 2rem [text] minmax(0, 1fr) [off] 2rem;
+		padding: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		cursor: pointer;
 		border-style: var(--wlk-border-style);
 		border-width: var(--wlk-border-width);
 		border-radius: var(--wlk-border-radius);
@@ -96,7 +105,7 @@ function switchClicked() {
 		> .switch-block {
 			width: 2rem;
 			height: 2rem;
-			background-color: hotpink;
+			display: block;
 		}
 
 		> .switch-text {

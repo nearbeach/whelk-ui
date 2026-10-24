@@ -56,7 +56,7 @@ test('select: choosing an option updates the model', async ({page}) => {
 
 test('switch: clicking toggles on and off', async ({page}) => {
 	await page.goto('/components/child_pages/wlk-switch.html')
-	const target = demo(page, 'switch/Basic').locator('div.switch:not(.wlk-form-group)')
+	const target = demo(page, 'switch/Basic').getByRole('switch')
 	await expect(target).toHaveClass(/off/)
 	await target.click()
 	await expect(target).toHaveClass(/on/)
@@ -108,4 +108,56 @@ test('inputs: labels are associated with their fields', async ({page}) => {
 
 	await page.goto('/components/child_pages/wlk-number-input.html')
 	await expect(demo(page, 'number-input/Basic').getByRole('textbox')).toHaveAttribute('id', /.+/)
+})
+
+test('modal: focus moves in, Tab stays inside, Escape closes and focus returns', async ({page}) => {
+	await page.goto('/components/child_pages/wlk-modal.html')
+	const modal = demo(page, 'modal/Basic')
+	const opener = modal.getByRole('button', {name: 'Open modal'})
+	await opener.focus()
+	await page.keyboard.press('Enter')
+	await expect(modal.getByRole('dialog')).toBeVisible()
+	await expect(modal.getByRole('button', {name: 'Close'})).toBeFocused()
+	await page.keyboard.press('Tab')
+	await expect(modal.getByRole('button', {name: 'Close'})).toBeFocused()
+	await page.keyboard.press('Escape')
+	await expect(modal.getByRole('dialog')).toBeHidden()
+	await expect(opener).toBeFocused()
+})
+
+test('drop down: arrow keys move through items and Escape returns to the button', async ({page}) => {
+	await page.goto('/components/child_pages/wlk-drop-down.html')
+	const dropDown = demo(page, 'drop-down/Basic')
+	const button = dropDown.getByRole('button', {name: 'Actions'})
+	await button.focus()
+	await page.keyboard.press('ArrowDown')
+	await expect(dropDown.getByRole('menuitem', {name: 'Edit'})).toBeFocused()
+	await page.keyboard.press('ArrowDown')
+	await expect(dropDown.getByRole('menuitem', {name: 'Duplicate'})).toBeFocused()
+	await page.keyboard.press('Escape')
+	await expect(dropDown.getByRole('menuitem', {name: 'Duplicate'})).toBeHidden()
+	await expect(button).toBeFocused()
+})
+
+test('tabs: arrow keys move between tabs', async ({page}) => {
+	await page.goto('/components/child_pages/wlk-tabs.html')
+	const tabs = demo(page, 'tabs/Basic')
+	await tabs.getByRole('tab', {name: 'First'}).focus()
+	await page.keyboard.press('ArrowRight')
+	await expect(tabs.getByRole('tab', {name: 'Second'})).toBeFocused()
+	await expect(tabs.getByText('Content of the second tab')).toBeVisible()
+})
+
+test('multi select: choose options with the keyboard only', async ({page}) => {
+	await page.goto('/components/child_pages/wlk-multi-select.html')
+	const select = demo(page, 'multi-select/Basic')
+	const combobox = select.getByRole('combobox', {name: /Frameworks/})
+	await combobox.focus()
+	await expect(combobox).toHaveAttribute('aria-expanded', 'true')
+	await page.keyboard.press('ArrowDown')
+	await page.keyboard.press('ArrowDown')
+	await page.keyboard.press('Enter')
+	await expect(select.getByText('Selected: React')).toBeVisible()
+	await page.keyboard.press('Escape')
+	await expect(combobox).toHaveAttribute('aria-expanded', 'false')
 })

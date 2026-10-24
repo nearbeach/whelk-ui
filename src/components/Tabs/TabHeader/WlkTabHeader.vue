@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type PropType} from "vue";
+import {nextTick, type PropType, ref} from "vue";
 import type {TabHeaderInterface} from "../../../types/TabHeaderInterface.ts";
 
 // Define model
@@ -7,8 +7,11 @@ const model = defineModel({
 	type: String,
 });
 
+// Define refs
+const tabListRef = ref<HTMLElement | null>(null);
+
 // Define props
-defineProps({
+const props = defineProps({
 	tabList: {
 		type: Array as PropType<TabHeaderInterface[]>,
 		required: true,
@@ -22,12 +25,45 @@ defineProps({
 function changeTab(new_value: string) {
 	model.value = new_value;
 }
+
+// Arrow keys, Home and End move between tabs and activate them
+async function onKeydown(event: KeyboardEvent) {
+	const count = props.tabList.length;
+	const current = props.tabList.findIndex((item) => item.for === model.value);
+	let next: number;
+
+	switch (event.key) {
+		case 'ArrowRight':
+			next = (current + 1) % count;
+			break;
+		case 'ArrowLeft':
+			next = (current - 1 + count) % count;
+			break;
+		case 'Home':
+			next = 0;
+			break;
+		case 'End':
+			next = count - 1;
+			break;
+		default:
+			return;
+	}
+
+	event.preventDefault();
+	const target = props.tabList[next];
+	if (!target) return;
+	changeTab(target.for);
+	await nextTick();
+	tabListRef.value?.querySelector<HTMLElement>(`[id="${target.for}-tab"]`)?.focus();
+}
 </script>
 
 <template>
 	<div
 		class="wlk-tab-header"
 		role="tablist"
+		ref="tabListRef"
+		@keydown="onKeydown"
 	>
 		<div
 			v-for="item in tabList"
@@ -41,6 +77,7 @@ function changeTab(new_value: string) {
 				:id="`${item.for}-tab`"
 				:aria-controls="item.for"
 				:aria-selected="item.for === model ? 'true' : 'false'"
+				:tabindex="item.for === model ? 0 : -1"
 				@click="changeTab(item.for)"
 			>
 				{{item.label}}
@@ -52,7 +89,7 @@ function changeTab(new_value: string) {
 <style scoped>
 .wlk-tab-header {
 	display: flex;
-	overflow: clip;
+	overflow-x: auto;
 	white-space: nowrap;
 	scroll-behavior: smooth;
 

@@ -36,12 +36,14 @@ function getKeys(value: unknown, index: number): string {
 
 <template>
 	<div class="multi-select-results">
-		<div
+		<button
+			type="button"
 			class="single-result"
 			v-for="(result, index) in results"
 			:key="getKeys(result[optionsValue], index)"
+			:aria-label="`Remove ${result[optionsLabel]}`"
 			@click="emit('removeOption', result)"
-		>{{result[optionsLabel]}}</div>
+		>{{result[optionsLabel]}}</button>
 
 	</div>
 </template>
@@ -55,9 +57,12 @@ function getKeys(value: unknown, index: number): string {
 	> .single-result {
 		display: flex;
 		align-items: center;
-		font-size: 0.5rem;
+		font-size: 0.75rem;
 		padding: 0 0.5rem;
 		margin-right: 0.25rem;
+		border: none;
+		color: inherit;
+		cursor: pointer;
 		background-color: var(--wlk-blue-colour-8);
 	}
 }

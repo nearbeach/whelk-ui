@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {mount} from '@vue/test-utils'
 import {defineComponent, h, ref} from 'vue'
 import WlkMultiSelect from './WlkMultiSelect.vue'
@@ -114,5 +114,62 @@ describe('WlkMultiSelect', () => {
 		const select = wrapper.findComponent(WlkMultiSelect)
 		await (select.vm as unknown as {checkValidation: () => Promise<void>}).checkValidation()
 		expect(select.emitted('change')?.at(-1)).toEqual([{isValid: true}])
+	})
+
+	describe('keyboard and combobox semantics', () => {
+		const input = (w: ReturnType<typeof mount>) => w.get('input[type="search"]')
+
+		it('exposes combobox state on the input', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			expect(field.attributes('role')).toBe('combobox')
+			expect(field.attributes('aria-expanded')).toBe('false')
+			expect(field.attributes('aria-controls')).toBe(wrapper.get('[role="listbox"]').attributes('id'))
+			await field.trigger('focus')
+			expect(field.attributes('aria-expanded')).toBe('true')
+			expect(wrapper.get('[role="listbox"]').classes()).toContain('open')
+		})
+
+		it('ArrowDown moves the active option and Enter selects it', async () => {
+			const {wrapper, results} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'ArrowDown'})
+			await field.trigger('keydown', {key: 'ArrowDown'})
+			expect(field.attributes('aria-activedescendant')).toBe(wrapper.findAll('[role="option"]')[1]!.attributes('id'))
+
+			await field.trigger('keydown', {key: 'Enter'})
+			expect(results.value.map((r) => r.value)).toEqual(['banana'])
+		})
+
+		it('ArrowUp from nothing highlights the last option', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('keydown', {key: 'ArrowUp'})
+			expect(field.attributes('aria-activedescendant')).toBe(wrapper.findAll('[role="option"]')[2]!.attributes('id'))
+		})
+
+		it('Escape closes the list', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'Escape'})
+			expect(field.attributes('aria-expanded')).toBe('false')
+		})
+
+		it('Enter with nothing highlighted does not select', async () => {
+			const {wrapper, results} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'Enter'})
+			expect(results.value).toEqual([])
+		})
+
+		it('removing a result returns focus to the search input', async () => {
+			const {wrapper} = mountSelect({}, [options[0]!])
+			const focus = vi.spyOn(input(wrapper).element as HTMLElement, 'focus')
+			await wrapper.get('.single-result').trigger('click')
+			expect(focus).toHaveBeenCalled()
+		})
 	})
 })

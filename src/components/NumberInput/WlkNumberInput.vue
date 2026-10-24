@@ -15,7 +15,7 @@ const props = defineProps({
     ariaLabel: {
         type: String,
         required: false,
-        default: 'Current value picked',
+        default: '',
     },
     decrementAriaLabel: {
         type: String,
@@ -106,19 +106,15 @@ const minValue = computed<number>(() => {
 	return min_rule?._min_value ?? Number.MIN_SAFE_INTEGER;
 });
 
-const getDecrementAriaLabel = computed<string>(() =>{
-    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
-    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
+function fillAriaLabel(template: string): string {
+    return template
+        .replace(/\$\{model\}/g, String(model.value))
+        .replace(/\$\{stepIncrement\}/g, String(props.stepIncrement));
+}
 
-    return aria_label;
-});
+const getDecrementAriaLabel = computed<string>(() => fillAriaLabel(props.decrementAriaLabel));
 
-const getIncrementAriaLabel = computed<string>(() => {
-    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
-    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
-
-    return aria_label;
-});
+const getIncrementAriaLabel = computed<string>(() => fillAriaLabel(props.incrementAriaLabel));
 
 const statusMessage = computed(() => {
 	// Error messaging occurs first
@@ -217,7 +213,7 @@ function checkValidation() {
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
-				:aria-label="ariaLabel"
+				:aria-label="ariaLabel || undefined"
 				v-model="model"
 				v-on:keyup="checkValidation"
 			/>

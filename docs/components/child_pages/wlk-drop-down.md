@@ -30,3 +30,7 @@ N/A for this component
 ### Events
 
 N/A for this component
+
+### Accessibility
+
+The button is a `menu` trigger with `aria-expanded`. Arrow Up/Down open the menu and move between `WlkDropDownItem`s, Home/End jump to the first/last item, Enter or Space activates an item, and Escape closes the menu and returns focus to the button.
