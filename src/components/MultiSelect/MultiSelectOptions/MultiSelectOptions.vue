@@ -40,7 +40,7 @@ function getKeys(value: unknown, index: number): string {
 			class="single-option"
 			v-for="(option, index) in options"
 			:key="getKeys(option[optionsValue], index)"
-			@click="emits('selectOption', option)"
+			@click="emit('selectOption', option)"
 		>{{option[optionsLabel]}}</div>
 	</div>
 </template>

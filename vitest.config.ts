@@ -11,7 +11,18 @@ export default defineConfig({
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'json', 'html'],
+			// Count every source file, not just the ones a test happens to import
+			include: ['src/**/*.{ts,vue}'],
+			thresholds: {
+				statements: 90,
+				branches: 85,
+				functions: 90,
+				lines: 90,
+			},
 			exclude: [
+				'src/**/*.test.ts',
+				'src/**/*.spec.ts',
+				'src/local/**',
 				'node_modules/',
 				'dev/',
 				'docs/',
