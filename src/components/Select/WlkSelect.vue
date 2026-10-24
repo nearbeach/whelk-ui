@@ -66,6 +66,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Model
 const model = defineModel<string | number>({required: true});
@@ -157,10 +159,14 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
+			<span :id="labelId">{{ label }}</span><span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<select
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:disabled="disabled"
 			v-model="model"
@@ -179,6 +185,7 @@ defineExpose({
 			/>
 		</select>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>

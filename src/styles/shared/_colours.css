@@ -10,8 +10,13 @@ input, button, select, textarea, .multi-select-container {
     &:focus {
         border-color: var(--wlk-blue-colour-2);
         background-color: var(--wlk-amber-8);
-        outline: none;
     }
+}
+
+/* A visible keyboard focus ring on everything interactive, including custom controls */
+:focus-visible {
+    outline: 2px solid var(--wlk-blue-colour-2);
+    outline-offset: 2px;
 }
 
 /*COLOURS*/

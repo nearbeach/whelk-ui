@@ -44,4 +44,4 @@ N/A for this component
 
 ### Accessibility
 
-The search input is a `combobox` controlling a `listbox`. Arrow Up/Down open the list and highlight options, Enter selects the highlighted option, and Escape closes the list. Selected values are buttons labelled "Remove <label>".
+The search input is a `combobox` controlling a `listbox`. Arrow Up/Down open the list and highlight options, Enter selects the highlighted option, and Escape closes the list. Selected values are buttons labelled `Remove` followed by the option label.

@@ -5,7 +5,7 @@ import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import {MAXIMUM_VALUE, MINIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 
 // Define Emits
 const emit = defineEmits(['change']);
@@ -68,6 +68,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel({
@@ -185,6 +187,11 @@ function checkValidation() {
 	emit('change', {isValid: errorMessage.value === ""});
 }
 
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
 </script>
 
 <template>
@@ -196,7 +203,7 @@ function checkValidation() {
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
+			<span :id="labelId">{{ label }}</span>
 		</label>
 		<div class="number-input-row">
 			<button
@@ -210,12 +217,15 @@ function checkValidation() {
 			</button>
 			<input
 				:id="componentId"
+				:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+				:aria-describedby="errorMessage !== '' ? errorId : undefined"
+				:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
 				:aria-label="ariaLabel || undefined"
 				v-model="model"
-				v-on:keyup="checkValidation"
+				v-on:keyup="onKeyup"
 			/>
 			<button
 				type="button"
@@ -228,6 +238,7 @@ function checkValidation() {
 			</button>
 		</div>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>

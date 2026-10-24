@@ -27,8 +27,8 @@ describe.each([
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountIt().find('[aria-label="required"]').exists()).toBe(false)
-		expect(mountIt({validationRules: [required()]}).find('[aria-label="required"]').exists()).toBe(true)
+		expect(mountIt().find('.required-marker').exists()).toBe(false)
+		expect(mountIt({validationRules: [required()]}).find('.required-marker').exists()).toBe(true)
 	})
 
 	it('renders a tooltip only when a message is given', () => {
@@ -54,7 +54,7 @@ describe.each([
 		await wrapper.get(selector).trigger('blur')
 		await wrapper.setProps({modelValue: sampleValue})
 		await wrapper.get(selector).trigger('blur')
-		expect(wrapper.get('.error').text()).toBe('')
+		expect(wrapper.get('.status-message').text()).toBe('')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: true}])
 	})
 
@@ -127,7 +127,7 @@ describe('WlkDatetime', () => {
 
 	it('shows the required marker and a required error on blur', async () => {
 		const wrapper = mountDt({validationRules: [required('Needed')]})
-		expect(wrapper.find('[aria-label="required"]').exists()).toBe(true)
+		expect(wrapper.find('.required-marker').exists()).toBe(true)
 		await wrapper.get('input').trigger('blur')
 		expect(wrapper.get('.error').text()).toBe('Needed')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: false}])

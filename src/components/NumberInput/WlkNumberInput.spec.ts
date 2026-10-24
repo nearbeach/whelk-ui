@@ -695,6 +695,7 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("15");
+        await input.trigger("keyup", {key: "5"});
 
         // Check the value
         expect(input.element.value).toBe("15");
@@ -717,6 +718,7 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("15");
+        await input.trigger("keyup", {key: "5"});
 
         // Get error message
         const errorMessage = wrapper.findAll(".error")
@@ -740,6 +742,7 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("-15");
+        await input.trigger("keyup", {key: "5"});
 
         // Get error message
         const errorMessage = wrapper.findAll(".error")

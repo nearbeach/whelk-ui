@@ -31,8 +31,8 @@ describe('WlkTextArea', () => {
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountArea().find('[aria-label="required"]').exists()).toBe(false)
-		expect(mountArea({validationRules: [required()]}).find('[aria-label="required"]').exists()).toBe(true)
+		expect(mountArea().find('.required-marker').exists()).toBe(false)
+		expect(mountArea({validationRules: [required()]}).find('.required-marker').exists()).toBe(true)
 	})
 
 	it('shows an error and emits change {isValid:false} on blur', async () => {

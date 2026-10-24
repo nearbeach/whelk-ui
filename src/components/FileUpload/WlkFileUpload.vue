@@ -2,7 +2,6 @@
 import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
 import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId} from "../../composables/get_component_id/getComponentId.ts";
@@ -60,6 +59,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<FileList | null>({required: true});
@@ -132,19 +133,24 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="file"
 			:accept="accept"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:multiple="multiple"
 			:name="props.label"
 			@change="uploadDocument"
 		/>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>

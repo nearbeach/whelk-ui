@@ -60,8 +60,8 @@ describe('WlkFileUpload', () => {
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountUpload().find('[aria-label="required"]').exists()).toBe(false)
-		expect(mountUpload({validationRules: [required()]}).find('[aria-label="required"]').exists()).toBe(true)
+		expect(mountUpload().find('.required-marker').exists()).toBe(false)
+		expect(mountUpload({validationRules: [required()]}).find('.required-marker').exists()).toBe(true)
 	})
 
 	it('shows the error through the exposed checkValidation', async () => {

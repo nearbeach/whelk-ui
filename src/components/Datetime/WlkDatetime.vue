@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
 import {type ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
@@ -54,6 +55,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<string | null>({
@@ -142,6 +145,20 @@ function checkValidation() {
 defineExpose({
 	checkValidation,
 });
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
+
+// Open the native picker on click. showPicker throws if it is already open or blocked
+function openPicker(event: MouseEvent) {
+	try {
+		(event.target as HTMLInputElement).showPicker()
+	} catch {
+		// The browser refused; the field still works by keyboard
+	}
+}
 </script>
 
 <template>
@@ -153,22 +170,27 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="datetime-local"
-			onfocus="this.showPicker()"
+			v-on:click="openPicker"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="modelRef"
-			v-on:keyup="checkValidation"
+			v-on:keyup="onKeyup"
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>

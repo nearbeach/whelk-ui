@@ -6,6 +6,7 @@ import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import { showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 
 // Define Emits
 const emit = defineEmits(['change']);
@@ -54,6 +55,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<string | null>({
@@ -100,6 +103,11 @@ function checkValidation() {
 defineExpose({
 	checkValidation,
 });
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
 </script>
 
 <template>
@@ -111,21 +119,26 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="time"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="model"
-			v-on:keyup="checkValidation"
+			v-on:keyup="onKeyup"
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>

@@ -70,7 +70,7 @@ describe.each(specs)('input contract: $name', (spec) => {
 
 	it('shows no error before any interaction', () => {
 		const wrapper = mountIt({validationRules: [required('Needed')]})
-		expect(wrapper.find('.error').text()).toBe('')
+		expect(wrapper.get('.status-message').text()).toBe('')
 	})
 
 	it('shows the rule message and emits change when validation runs', async () => {
@@ -96,9 +96,58 @@ describe.each(specs)('input contract: $name', (spec) => {
 
 	if (spec.hasRequiredMarker) {
 		it('marks the label as required only with a required rule', () => {
-			const marker = '[aria-label="required"], [aria-description="required"]'
+			const marker = '.required-marker'
 			expect(mountIt().find(marker).exists()).toBe(false)
 			expect(mountIt({validationRules: [required()]}).find(marker).exists()).toBe(true)
 		})
 	}
+
+	it('flags the field invalid and points it at the error only while there is one', async () => {
+		const wrapper = mountIt({
+			validationRules: [required('Needed')],
+			...('emptyValue' in spec ? {modelValue: spec.emptyValue} : {}),
+		})
+		const field = wrapper.get(spec.field)
+		expect(field.attributes('aria-invalid')).toBeUndefined()
+		expect(field.attributes('aria-describedby')).toBeUndefined()
+
+		if (spec.trigger === 'expose') {
+			(wrapper.vm as unknown as {checkValidation: () => void}).checkValidation()
+			await wrapper.vm.$nextTick()
+		} else {
+			await field.trigger(spec.trigger)
+		}
+		expect(field.attributes('aria-invalid')).toBe('true')
+		const error = wrapper.get('.status-message')
+		expect(error.attributes('id')).toBeTruthy()
+		expect(field.attributes('aria-describedby')).toBe(error.attributes('id'))
+	})
+
+	it('names the field by the label text alone when a tooltip is present', () => {
+		expect(mountIt().get(spec.field).attributes('aria-labelledby')).toBeUndefined()
+		const wrapper = mountIt({tooltipMessage: 'Help'})
+		const labelledby = wrapper.get(spec.field).attributes('aria-labelledby')
+		expect(labelledby).toBeTruthy()
+		expect(wrapper.get(`[id="${labelledby}"]`).text()).toBe('Some Label')
+	})
+
+	if (spec.hasRequiredMarker) {
+		it('exposes required to assistive technology and hides the asterisk', () => {
+			const wrapper = mountIt({validationRules: [required()]})
+			expect(wrapper.get(spec.field).attributes('aria-required')).toBe('true')
+			expect(wrapper.get('.required-marker').attributes('aria-hidden')).toBe('true')
+			expect(mountIt().get(spec.field).attributes('aria-required')).toBeUndefined()
+		})
+	}
+
+	if (spec.trigger === 'blur' || spec.trigger === 'keyup') {
+		it.each(['Tab', 'Shift'])('does not validate on a %s keyup', async (key) => {
+			const wrapper = mountIt({validationRules: [required('Needed')], ...('emptyValue' in spec ? {modelValue: spec.emptyValue} : {})})
+			await wrapper.get(spec.field).trigger('keyup', {key})
+			expect(wrapper.get('.status-message').text()).toBe('')
+			await wrapper.get(spec.field).trigger('keyup', {key: 'a'})
+			expect(wrapper.get('.status-message').text()).toBe('Needed')
+		})
+	}
 })
+

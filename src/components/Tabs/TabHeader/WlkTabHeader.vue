@@ -93,6 +93,10 @@ async function onKeydown(event: KeyboardEvent) {
 	white-space: nowrap;
 	scroll-behavior: smooth;
 
+	@media (prefers-reduced-motion: reduce) {
+		scroll-behavior: auto;
+	}
+
 	> .wlk-tab-item {
 		> button {
 			font-weight: bold;

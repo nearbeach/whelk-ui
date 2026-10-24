@@ -81,7 +81,6 @@ function getKeys(value: unknown, index: number): string {
 	border-width: var(--wlk-border-width);
 	border-radius: 0 0 var(--wlk-border-radius) var(--wlk-border-radius);
 	background-color: var(--wlk-amber-8);
-	outline: none;
 
 	> .single-option {
 		padding: 0.125rem 0.5rem;

@@ -48,6 +48,8 @@ const checkboxId = computed(() => {
 			:disabled="disabled"
 			:id="checkboxId"
 			:name="label"
+			:aria-required="isRequired ? 'true' : undefined"
+			:aria-description="isRequired ? requiredAriaDescription : undefined"
 			v-model="model"
 			type="checkbox"
 		/>
@@ -57,7 +59,8 @@ const checkboxId = computed(() => {
 			{{ props.label }}
 			<span
 				v-if="isRequired"
-				:aria-description="requiredAriaDescription"
+				class="required-marker"
+				:aria-hidden="requiredText === '*' ? 'true' : undefined"
 			>
 				{{ props.requiredText}}
 			</span>

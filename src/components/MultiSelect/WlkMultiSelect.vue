@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import {nextTick, type PropType, toRef, computed, ref, watch} from "vue";
 import type {SelectOptionInterface, ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables";
@@ -65,6 +64,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Model
 const resultsModel = defineModel<SelectOptionInterface[]>("resultsModel", {required: true});
@@ -231,7 +232,7 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
+			<span :id="labelId">{{ label }}</span><span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<div class="multi-select-container">
 			<MultiSelectResults
@@ -243,6 +244,10 @@ defineExpose({
 			<input type="search"
 				   ref="inputRef"
 				   :id="componentId"
+				   :aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+				   :aria-invalid="errorMessage !== '' ? 'true' : undefined"
+				   :aria-describedby="errorMessage !== '' ? errorId : undefined"
+				   :aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 				   role="combobox"
 				   aria-autocomplete="list"
 				   autocomplete="off"
@@ -265,6 +270,7 @@ defineExpose({
 			@selectOption="selectOption"
 		/>
 		<div role="alert"
+			 :id="errorId"
 			 :class="statusMessageClass">
 			{{statusMessage}}
 		</div>
@@ -294,7 +300,8 @@ defineExpose({
 			border-color: var(--wlk-blue-colour-2);
 			background-color: var(--wlk-amber-8);
 			border-radius: var(--wlk-border-radius) var(--wlk-border-radius) 0 0;
-			outline: none;
+			outline: 2px solid var(--wlk-blue-colour-2);
+			outline-offset: 2px;
 		}
 	}
 }

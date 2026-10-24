@@ -27,8 +27,8 @@ describe('WlkPasswordInput', () => {
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountInput().find('[aria-label="required"]').exists()).toBe(false)
-		expect(mountInput({validationRules: [required()]}).find('[aria-label="required"]').exists()).toBe(true)
+		expect(mountInput().find('.required-marker').exists()).toBe(false)
+		expect(mountInput({validationRules: [required()]}).find('.required-marker').exists()).toBe(true)
 	})
 
 	it('shows an error and emits change on blur', async () => {

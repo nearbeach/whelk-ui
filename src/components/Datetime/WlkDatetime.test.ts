@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import WlkDatetime from './WlkDatetime.vue';
-import {describe, test, expect} from "vitest";
+import {describe, test, expect, vi} from "vitest";
 
 describe('WlkDatetime.vue', () => {
     test('renders correctly with default props', () => {
@@ -98,4 +98,18 @@ describe('WlkDatetime.vue', () => {
         expect(wrapper.emitted('change')).toBeTruthy();
         expect(wrapper.emitted('change')?.[0]).toEqual([{ isValid: true }]);
     });
+
+    test('opens the native picker on click and survives a refusal', async () => {
+        const wrapper = mount(WlkDatetime, {props: {label: 'Test', modelValue: ''}});
+        const input = wrapper.get('input');
+        const showPicker = vi.fn();
+        (input.element as HTMLInputElement).showPicker = showPicker;
+        await input.trigger('click');
+        expect(showPicker).toHaveBeenCalledTimes(1);
+
+        (input.element as HTMLInputElement).showPicker = () => { throw new DOMException('blocked', 'NotAllowedError'); };
+        await expect(input.trigger('click')).resolves.toBeUndefined();
+        expect(input.attributes('onfocus')).toBeUndefined();
+    });
 });
+

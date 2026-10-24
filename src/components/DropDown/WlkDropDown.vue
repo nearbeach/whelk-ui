@@ -172,4 +172,11 @@ function onMenuKeydown(event: KeyboardEvent) {
 	opacity: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+	.v-enter-active,
+	.v-leave-active {
+		transition: none;
+	}
+}
+
 </style>

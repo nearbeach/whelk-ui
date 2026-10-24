@@ -86,8 +86,8 @@ describe('WlkMultiSelect', () => {
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountSelect().wrapper.find('[aria-description="required"]').exists()).toBe(false)
-		expect(mountSelect({validationRules: [required()]}).wrapper.find('[aria-description="required"]').exists()).toBe(true)
+		expect(mountSelect().wrapper.find('.required-marker').exists()).toBe(false)
+		expect(mountSelect({validationRules: [required()]}).wrapper.find('.required-marker').exists()).toBe(true)
 	})
 
 	it('renders a tooltip only when a message is given', () => {
