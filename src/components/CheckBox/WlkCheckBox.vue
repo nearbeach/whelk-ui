@@ -6,6 +6,11 @@ const model = defineModel();
 
 // Setup Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	id: {
 		type: String,
 		required: true,
@@ -40,6 +45,7 @@ const checkboxId = computed(() => {
 <template>
 	<div class="wlk-checkbox">
 		<input
+			:disabled="disabled"
 			:id="checkboxId"
 			:name="label"
 			v-model="model"

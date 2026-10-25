@@ -1,5 +1,5 @@
 // validation/rules/MinDate.ts
-import {MINIMUM_DATE, ValidationRuleInterface} from "../../types";
+import {MINIMUM_DATE, type ValidationRuleInterface} from "../../types";
 
 export const minDate = (min: string, message?: string, formatMessage?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

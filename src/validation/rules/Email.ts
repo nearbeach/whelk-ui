@@ -1,5 +1,5 @@
 // validation/rules/Email.ts
-import {EMAIL, ValidationRuleInterface} from "../../types";
+import {EMAIL, type ValidationRuleInterface} from "../../types";
 
 export const email = (message = 'Enter a valid email'): ValidationRuleInterface => {
     // const rule: ValidationRuleInterface = (value: unknown) => pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, mesasg);

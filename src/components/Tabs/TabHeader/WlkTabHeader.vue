@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel, type PropType} from "vue";
+import {type PropType} from "vue";
 import type {TabHeaderInterface} from "../../../types/TabHeaderInterface.ts";
 
 // Define model
@@ -38,6 +38,7 @@ function changeTab(new_value: string) {
 			<button
 				type="button"
 				role="tab"
+				:id="`${item.for}-tab`"
 				:aria-controls="item.for"
 				:aria-selected="item.for === model ? 'true' : 'false'"
 				@click="changeTab(item.for)"

@@ -1,5 +1,5 @@
 // validation/rules/MinValue.ts
-import {MINIMUM_VALUE, ValidationRuleInterface} from "../../types";
+import {MINIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 
 export const minValue = (min: number, message?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

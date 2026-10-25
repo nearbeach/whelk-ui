@@ -5,17 +5,22 @@ import SelectRenderOptions from "@/components/Select/SelectRenderOptions/WlkSele
 import SelectRenderOptionGroups from "@/components/Select/SelectRenderOptionGroups/WlkSelectRenderOptionGroups.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types";
+import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId } from "../../composables/get_component_id/getComponentId.ts";
 import { showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -54,6 +59,9 @@ const props = defineProps({
 		required: false,
 	},
 })
+
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
 
 // Define Model
 const model = defineModel<string | number>({required: true});
@@ -105,7 +113,7 @@ const optionsWithGroup = computed(() => {
 async function checkValidation() {
 	await nextTick();
 	validate();
-	emit('isValid', errorMessage.value === "");
+	emit('change', {isValid: errorMessage.value === ""});
 }
 
 defineExpose({
@@ -116,18 +124,19 @@ defineExpose({
 
 <template>
 	<WlkFormGroup class="wlk-select">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
 		</label>
 		<select
-			:id="getComponentId(props.label)"
+			:id="componentId"
 			:name="props.label"
+			:disabled="disabled"
 			v-model="model"
 			v-on:change="checkValidation"
 		>

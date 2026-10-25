@@ -1,39 +1,50 @@
 # Button
 
-A versatile button component with multiple variants.
+A dumb button component that utilises Vue JS' <slot/> functionality to pass through any content.
 
-## Basic Usage
-```vue
-<WlkButton>Default Button</WlkButton>
-```
+## Usage
 
-<WlkButton>Default Button</WlkButton>
+### Variants
 
-## Variants
-```vue
-<WlkButton class="primary">Primary</WlkButton>
-<WlkButton class="secondary">Secondary</WlkButton>
-<WlkButton class="outline">Outline</WlkButton>
-```
+<Demo layout="row" name="button/Variants" />
 
-<WlkButton class="primary">Primary</WlkButton>
-<WlkButton class="secondary">Secondary</WlkButton>
-<WlkButton class="outline">Outline</WlkButton>
+### Sizes
 
-## Disabled State
-```vue
-<WlkButton disabled>Disabled Button</WlkButton>
-```
+<Demo layout="row" name="button/Sizes" />
 
-## Props
+### States
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'primary' \| 'secondary' \| 'outline' | 'primary' | Button style variant |
-| disabled | boolean | false | Disables the button |
+<Demo layout="row" name="button/States" />
 
-## Events
+### Classes
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| click | MouseEvent | Emitted when button is clicked |
+| Class     | Description                               |
+|-----------|-------------------------------------------|
+| primary   | Applies 'primary' colours to component    |
+| secondary | Applies 'secondary' colours to component  |
+| danger    | Applies 'danger' colours to component     |
+| warning   | Applies 'warning' colours to component    |
+| success   | Applies 'success' colours to component    |
+| info      | Applies 'info' colours to component       |
+| compact   | Component will appear in the compact form |
+| tiny      | Component will appear in the tiny form    |
+
+
+
+### Props
+
+| Prop            | Example | Description                                                                                                     |
+|-----------------|---------|-----------------------------------------------------------------------------------------------------------------|
+| isActionRunning | true    | A boolean flag that switches the slot to the action state. Used to tell users if a certain action is occurring. |
+
+
+### Slots
+
+| Slot         | Example                      | Description                                                                                                           |
+|--------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| default      | Click to upload              | The default <slot/> content that is rendered. If no slot content submitted, value will be "Submit"                    |
+| action-state | Please wait whilst uploading | Content that is shown whilst the `isActionRunning` flag is true. Use this to notify the user of any actions occurring |
+
+### Events
+
+N/A for this component

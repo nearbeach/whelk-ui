@@ -2,13 +2,13 @@
 import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import {MAXIMUM_VALUE, MINIMUM_VALUE, ValidationRuleInterface} from "../../types";
+import {MAXIMUM_VALUE, MINIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
@@ -22,6 +22,11 @@ const props = defineProps({
         required: false,
         default: 'Decrement current value of ${model} by ${stepIncrement}',
     },
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
     incrementAriaLabel: {
         type: String,
         required: false,
@@ -30,6 +35,11 @@ const props = defineProps({
 	label: {
 		type: String,
 		required: true,
+	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
 	},
 	stepIncrement: {
 		type: Number,
@@ -51,6 +61,9 @@ const props = defineProps({
 	},
 });
 
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
+
 // Define Models
 const model = defineModel({
 	type: Number,
@@ -65,7 +78,7 @@ const { errorMessage, validate } = useValidation(model, rulesRef);
 
 // Define computed
 const isMax = computed(() => {
-	return model.value >= maxValue.value;
+	return model.value >= maxValue.value || props.disabled;
 });
 
 const maxValue = computed(() => {
@@ -77,7 +90,7 @@ const maxValue = computed(() => {
 })
 
 const isMin = computed(() => {
-	return model.value <= minValue.value;
+	return model.value <= minValue.value || props.disabled;
 });
 
 const minValue = computed<number>(() => {
@@ -144,19 +157,19 @@ function applyIncrement() {
 
 function checkValidation() {
 	validate();
-	emit('isValid', errorMessage.value === "");
+	emit('change', {isValid: errorMessage.value === ""});
 }
 
 </script>
 
 <template>
 	<WlkFormGroup class="number-input">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}
 		</label>
@@ -171,6 +184,7 @@ function checkValidation() {
 				-
 			</button>
 			<input
+				:id="componentId"
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
@@ -188,9 +202,14 @@ function checkValidation() {
 				+
 			</button>
 		</div>
-		<WlkRenderErrorMessage>
+		<WlkRenderErrorMessage
+			v-if="status === ''"
+		>
 			{{ errorMessage }}
 		</WlkRenderErrorMessage>
+		<div class="status-message" role="alert">
+			{{status}}
+		</div>
 	</WlkFormGroup>
 </template>
 
@@ -242,6 +261,19 @@ function checkValidation() {
 					line-height: 1.25rem;
 				}
 			}
+		}
+	}
+
+	> .status-message {
+		color: var(--wlk-green-colour-3);
+		font-weight: lighter;
+		font-size: 0.75rem;
+		line-height: 1.125rem;
+		padding: 0;
+		margin: 0;
+
+		@media (--large-screen) {
+			font-size: 0.75rem;
 		}
 	}
 }

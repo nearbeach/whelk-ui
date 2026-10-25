@@ -4,15 +4,20 @@ import {showIsRequired} from "../../composables/show_is_required/showIsRequired.
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
-import {ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
-import {ref, PropType, toRef, watch} from "vue";
+import {type ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
+import {ref, type PropType, toRef, watch} from "vue";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 
 // Define Emits
-const emit = defineEmits(['isValid']);
+const emit = defineEmits(['change']);
 
 // Define Props
 const props = defineProps({
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	label: {
 		type: String,
 		required: true,
@@ -43,10 +48,12 @@ const props = defineProps({
 	},
 });
 
+// Generate the id once, so the label's `for` always matches the input's `id`
+const componentId = getComponentId(props.label);
+
 // Define Models
-const model = defineModel({
+const model = defineModel<string | null>({
 	required: true,
-	type: [String, null],
 });
 
 // Define Refs
@@ -57,10 +64,10 @@ const modelRef = ref("");
 const {errorMessage, validate} = useValidation(model, rulesRef);
 
 // Define watch
-watch(model, (new_value: string) => {
+watch(model, (new_value: string | null) => {
 	// Escape conditions
 	if (new_value === null || new_value === "") {
-		// Nothing to do
+		modelRef.value = "";
 		return;
 	}
 
@@ -85,12 +92,18 @@ watch(model, (new_value: string) => {
 
 	// Set the value
 	modelRef.value = `${year}-${month}-${day}T${hour}:${minute}`;
-});
+}, { immediate: true });
 
 // Define functions
 function checkValidation() {
 	validate();
-	emit('isValid', errorMessage.value === "");
+	emit('change', {isValid: errorMessage.value === ""});
+
+	// If model is blank
+	if (modelRef.value === "" || modelRef.value === null) {
+		model.value = "";
+		return;
+	}
 
 	// Update the model
 	const new_date = new Date(modelRef.value);
@@ -104,12 +117,12 @@ defineExpose({
 
 <template>
 	<WlkFormGroup class="wlk-datetime">
-		<label :for="getComponentId(props.label)">
+		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
 				:title="tooltipTitle"
 				:message="tooltipMessage"
-				:id="getComponentId(props.label)"
+				:id="componentId"
 			/>
 			{{ label }}
 			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
@@ -117,7 +130,8 @@ defineExpose({
 		<input
 			type="datetime-local"
 			onfocus="this.showPicker()"
-			:id="getComponentId(props.label)"
+			:disabled="disabled"
+			:id="componentId"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="modelRef"

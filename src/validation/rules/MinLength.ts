@@ -1,5 +1,5 @@
 // validation/rules/MinLength.ts
-import {MINIMUM_LENGTH, ValidationRuleInterface} from "../../types";
+import {MINIMUM_LENGTH, type ValidationRuleInterface} from "../../types";
 
 export const minLength = (min: number, message?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

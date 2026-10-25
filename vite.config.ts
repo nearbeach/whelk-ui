@@ -12,7 +12,8 @@ export default defineConfig({
 			include: ['src/**/*.ts', 'src/**/*.vue'],
 			outDir: 'dist',
 			staticImport: true,
-			rollupTypes: true
+			rollupTypes: false,
+			tsconfigPath: './tsconfig.app.json',
 		})
 	],
 	build: {

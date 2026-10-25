@@ -1,5 +1,5 @@
 // validation/rules/MaxDate.ts
-import {MAXIMUM_DATE, ValidationRuleInterface} from "../../types";
+import {MAXIMUM_DATE, type ValidationRuleInterface} from "../../types";
 
 export const maxDate = (max: string, message?: string, formatMessage?: string): ValidationRuleInterface => {
     const rule: ValidationRuleInterface = (value) => {

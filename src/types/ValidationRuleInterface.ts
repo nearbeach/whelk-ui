@@ -1,4 +1,3 @@
-// types/validation.ts
 export const REQUIRED_RULE = Symbol('required');
 export const MINIMUM_LENGTH = Symbol('minimum_length');
 export const MINIMUM_DATE = Symbol('minimum_datetime');

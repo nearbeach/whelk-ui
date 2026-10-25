@@ -1,0 +1,7 @@
+/* Whelk UI sets backgrounds but leaves text colour to the host app. The docs theme
+   switches to light text in dark mode, so give demos (and modals, which sit outside
+   the preview box) a readable text colour. */
+.demo-preview,
+.wlk-modal {
+	color: var(--wlk-neutral-colour-2);
+}
