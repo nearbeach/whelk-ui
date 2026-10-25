@@ -81,10 +81,7 @@ const groupOptions = computed(() => {
 		)
 	];
 
-    // If list is undefined, just return empty array
-    if (typeof(list) === "undefined") return [];
-
-	 return list.filter(item => {
+	return list.filter((item): item is string => {
 		return item !== "" && item !== undefined && item !== null;
 	});
 });
