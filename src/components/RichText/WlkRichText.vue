@@ -99,6 +99,46 @@ defineExpose({quill});
 	</div>
 </template>
 
-<style scoped>
+<style>
+/* Quill snow hardcodes light colours; map them onto the whelk tokens so dark mode works */
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+	border-color: var(--wlk-border-color);
+}
 
+.ql-container.ql-snow {
+	background-color: var(--wlk-neutral-colour-11);
+	color: var(--wlk-text);
+}
+
+.ql-snow .ql-stroke {
+	stroke: var(--wlk-text);
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+	fill: var(--wlk-text);
+}
+
+.ql-snow .ql-picker,
+.ql-snow .ql-picker-label {
+	color: var(--wlk-text);
+}
+
+.ql-snow .ql-picker-options,
+.ql-snow .ql-tooltip {
+	background-color: var(--wlk-neutral-colour-11);
+	color: var(--wlk-text);
+	border-color: var(--wlk-border-color);
+}
+
+.ql-snow .ql-tooltip input[type=text] {
+	background-color: var(--wlk-neutral-colour-11);
+	color: var(--wlk-text);
+	border-color: var(--wlk-border-color);
+}
+
+.ql-editor.ql-blank::before {
+	color: var(--wlk-text-muted);
+}
 </style>

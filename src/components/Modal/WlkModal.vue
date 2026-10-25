@@ -18,7 +18,7 @@
 	left: 0;
 	width: 100vw;
 	height: 100dvh;
-	background-color: hsl(from var(--wlk-neutral-colour-3) h s l / 0.5);
+	background-color: var(--wlk-overlay);
 	z-index: -1;
 
 	> .modal {
@@ -27,6 +27,7 @@
 		padding: 0.5rem;
 		border-radius: var(--wlk-border-radius);
 		background-color: var(--wlk-neutral-colour-11);
+		color: var(--wlk-text);
 		border-color: var(--wlk-neutral-colour-8);
 		border-width: var(--wlk-border-width);
 		border-style: var(--wlk-border-style);

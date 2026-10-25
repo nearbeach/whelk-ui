@@ -1,5 +1,7 @@
 /*Import Colours First*/
 @import "variables/_colour_variables.css";
+@import "variables/_dark_colour_variables.css";
+@import "variables/_semantic_variables.css";
 
 /*Secondary Variables*/
 @import "partials/_border_variables.css";

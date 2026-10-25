@@ -67,6 +67,7 @@ function dropDownMenuClicked() {
 		position: absolute;
 		border: solid;
 		background-color: var(--wlk-neutral-colour-11);
+		color: var(--wlk-text);
 		z-index: 20;
 		display: flex;
 		flex-direction: column;

@@ -1,0 +1,10 @@
+/* Semantic tokens. They derive from the palette, so they follow the dark theme automatically. */
+:root {
+    --wlk-bg-light: var(--wlk-neutral-colour-11);
+    --wlk-border-color: var(--wlk-neutral-colour-8);
+    --wlk-text-muted: var(--wlk-neutral-colour-5);
+    --wlk-text: var(--wlk-neutral-colour-2);
+    --wlk-success: var(--wlk-green-colour-6);
+    --wlk-info: var(--wlk-violet-6);
+    --wlk-overlay: hsl(60 17% 10% / 0.5);
+}
