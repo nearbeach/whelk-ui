@@ -1,9 +1,9 @@
 import {describe, expect, it, vi} from 'vitest'
 import {ref} from 'vue'
 import {useValidation} from './useValidation'
-import {required} from '../validation/rules/Required'
-import {minLength} from '../validation/rules/MinLength'
-import type {ValidationRuleInterface} from '../types'
+import {required} from '../../validation/rules/Required'
+import {minLength} from '../../validation/rules/MinLength'
+import type {ValidationRuleInterface} from '../../types'
 
 describe('useValidation', () => {
 	it('starts with no error', () => {

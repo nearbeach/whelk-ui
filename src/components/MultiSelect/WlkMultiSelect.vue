@@ -3,8 +3,8 @@ import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.v
 import {nextTick, type PropType, toRef, computed} from "vue";
 import type {SelectOptionInterface, ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables";
-import {getComponentId} from "../../composables/getComponentId.ts";
-import {showIsRequired} from "../../composables/showIsRequired.ts";
+import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
+import {showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import MultiSelectResults from "./MultiSelectResults/MultiSelectResults.vue";
 import MultiSelectOptions from "./MultiSelectOptions/MultiSelectOptions.vue";

@@ -71,7 +71,7 @@ export { pattern } from './validation/rules/Pattern'
 export { required } from './validation/rules/Required'
 
 // Composables
-export { useValidation } from './composables/useValidation'
+export { useValidation } from './composables/use_validation/useValidation'
 
 // Vue plugin default export
 export default {

@@ -1,10 +1,10 @@
 import {describe, expect, it} from 'vitest'
 import {mount} from '@vue/test-utils'
 import {h} from 'vue'
-import WlkTextInput from '../components/TextInput/WlkTextInput.vue'
-import WlkNumberInput from '../components/NumberInput/WlkNumberInput.vue'
-import WlkSelect from '../components/Select/WlkSelect.vue'
-import WlkMultiSelect from '../components/MultiSelect/WlkMultiSelect.vue'
+import WlkTextInput from '../../components/TextInput/WlkTextInput.vue'
+import WlkNumberInput from '../../components/NumberInput/WlkNumberInput.vue'
+import WlkSelect from '../../components/Select/WlkSelect.vue'
+import WlkMultiSelect from '../../components/MultiSelect/WlkMultiSelect.vue'
 
 // The label's `for` must match the id of the field it labels
 function expectLabelMatchesField(wrapper: ReturnType<typeof mount>, fieldSelector: string) {

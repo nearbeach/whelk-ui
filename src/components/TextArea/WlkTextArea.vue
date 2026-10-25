@@ -4,8 +4,8 @@ import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables";
-import {showIsRequired} from "../../composables/showIsRequired.ts";
-import {getComponentId} from "../../composables/getComponentId.ts";
+import {showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
+import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits

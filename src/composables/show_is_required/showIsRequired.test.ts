@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {showIsRequired} from './showIsRequired'
-import {required} from '../validation/rules/Required'
-import {minLength} from '../validation/rules/MinLength'
+import {required} from '../../validation/rules/Required'
+import {minLength} from '../../validation/rules/MinLength'
 
 describe('showIsRequired', () => {
 	it('is true when a required rule is present', () => {
