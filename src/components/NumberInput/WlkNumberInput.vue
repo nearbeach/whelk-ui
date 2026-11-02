@@ -41,6 +41,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	stepIncrement: {
 		type: Number,
 		default: 1,
@@ -115,6 +120,30 @@ const getIncrementAriaLabel = computed<string>(() => {
     return aria_label;
 });
 
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
+
 // FUNCTIONS
 function applyDecrement() {
 	// Do nothing if we reach the lowest value
@@ -163,7 +192,7 @@ function checkValidation() {
 </script>
 
 <template>
-	<WlkFormGroup class="number-input">
+	<WlkFormGroup class="wlk-number-input">
 		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -202,19 +231,15 @@ function checkValidation() {
 				+
 			</button>
 		</div>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
-.number-input {
+.wlk-number-input {
 	> .number-input-row {
 		display: grid;
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
@@ -261,19 +286,6 @@ function checkValidation() {
 					line-height: 1.25rem;
 				}
 			}
-		}
-	}
-
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
 		}
 	}
 }

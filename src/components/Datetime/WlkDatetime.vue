@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
 import {type ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
-import {ref, type PropType, toRef, watch} from "vue";
+import {ref, type PropType, toRef, watch, computed} from "vue";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 
 // Define Emits
@@ -28,6 +27,11 @@ const props = defineProps({
 		default: '',
 	},
 	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
+	statusClass: {
 		type: String,
 		required: false,
 		default: "",
@@ -62,6 +66,31 @@ const modelRef = ref("");
 
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
+
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
 
 // Define watch
 watch(model, (new_value: string | null) => {
@@ -139,30 +168,10 @@ defineExpose({
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
 
-<style scoped>
-.wlk-datetime {
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
-		}
-	}
-}
-</style>

@@ -719,7 +719,7 @@ describe("NumberInput - Decrementing", async () => {
         await input.setValue("15");
 
         // Get error message
-        const errorMessage = wrapper.findAll(".render-error-message")
+        const errorMessage = wrapper.findAll(".error")
         expect(errorMessage.length).toBe(1);
     });
 
@@ -742,7 +742,7 @@ describe("NumberInput - Decrementing", async () => {
         await input.setValue("-15");
 
         // Get error message
-        const errorMessage = wrapper.findAll(".render-error-message")
+        const errorMessage = wrapper.findAll(".error")
         expect(errorMessage.length).toBe(1);
     });
 });

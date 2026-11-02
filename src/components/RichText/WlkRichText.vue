@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import {ref, onMounted, onBeforeUnmount, watch, shallowRef} from 'vue'
+import {ref, onMounted, onBeforeUnmount, watch, shallowRef, computed, type PropType} from 'vue'
 import Quill, {type Range} from 'quill'
 import 'quill/dist/quill.snow.css'
+import type {ValidationRuleInterface} from "@/types";
 
 const props = defineProps({
 	modelValue: {type: String, default: ''},
 	placeholder: {type: String, default: ''},
 	readOnly: {type: Boolean, default: false},
+	status: {type: String, required: false, default: ''},
+	statusClass: {type: String, required: false, default: ''},
 	toolbar: {type: [Array, Boolean, Object], default: true},
 	theme: {type: String, default: 'snow'},
-	modules: {type: Object, default: () => ({})}
+	modules: {type: Object, default: () => ({})},
+	validationRules: {
+		type: Array as PropType<ValidationRuleInterface[]>,
+		required: false,
+	},
 })
 
 const emit = defineEmits<{
@@ -90,12 +97,27 @@ onBeforeUnmount(() => {
 	quill.value = null
 });
 
+// Define computed
+const statusMessageClass = computed(() => {
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
+
 defineExpose({quill});
 </script>
 
 <template>
 	<div class="wlk-rich-text" ref="rootRef">
 		<div ref="editorRef"></div>
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{ status }}
+		</div>
 	</div>
 </template>
 

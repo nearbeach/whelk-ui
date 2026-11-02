@@ -98,14 +98,14 @@ describe('WlkMultiSelect', () => {
 	it('shows the status message and hides the validation error when a status is set', () => {
 		const {wrapper} = mountSelect({status: 'Loading...'})
 		expect(wrapper.get('.status-message').text()).toBe('Loading...')
-		expect(wrapper.find('.render-error-message').exists()).toBe(false)
+		expect(wrapper.find('.error').exists()).toBe(false)
 	})
 
 	it('validates through the exposed checkValidation', async () => {
 		const {wrapper} = mountSelect({validationRules: [required('Pick one')]})
 		const select = wrapper.findComponent(WlkMultiSelect)
 		await (select.vm as unknown as {checkValidation: () => Promise<void>}).checkValidation()
-		expect(wrapper.get('.render-error-message').text()).toBe('Pick one')
+		expect(wrapper.get('.error').text()).toBe('Pick one')
 		expect(select.emitted('change')?.at(-1)).toEqual([{isValid: false}])
 	})
 

@@ -70,7 +70,7 @@ describe.each(specs)('input contract: $name', (spec) => {
 
 	it('shows no error before any interaction', () => {
 		const wrapper = mountIt({validationRules: [required('Needed')]})
-		expect(wrapper.find('.render-error-message').text()).toBe('')
+		expect(wrapper.find('.error').text()).toBe('')
 	})
 
 	it('shows the rule message and emits change when validation runs', async () => {
@@ -84,7 +84,7 @@ describe.each(specs)('input contract: $name', (spec) => {
 		} else {
 			await wrapper.get(spec.field).trigger(spec.trigger)
 		}
-		expect(wrapper.get('.render-error-message').text()).toBe('Needed')
+		expect(wrapper.get('.error').text()).toBe('Needed')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: false}])
 	})
 

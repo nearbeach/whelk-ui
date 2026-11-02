@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type PropType, toRef} from 'vue';
+import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
@@ -32,6 +32,16 @@ const props = defineProps({
 		required: false,
 		default: false,
 	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -59,6 +69,31 @@ const rulesRef = toRef(props, 'validationRules', []);
 
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
+
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
 
 // Define functions
 function checkValidation() {
@@ -109,9 +144,10 @@ defineExpose({
 			:name="props.label"
 			@change="uploadDocument"
 		/>
-		<WlkRenderErrorMessage>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{statusMessage}}
+		</div>
 	</WlkFormGroup>
 </template>
 

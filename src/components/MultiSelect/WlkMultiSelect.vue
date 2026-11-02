@@ -45,6 +45,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -100,6 +105,30 @@ const filteredOptions = computed(() => {
 	});
 })
 
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
+
 // Define functions
 async function checkValidation() {
 	await nextTick();
@@ -153,13 +182,9 @@ defineExpose({
 			:optionsValue="optionsValue"
 			@selectOption="selectOption"
 		/>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</div>
 </template>
@@ -188,19 +213,6 @@ defineExpose({
 			background-color: var(--wlk-amber-8);
 			border-radius: var(--wlk-border-radius) var(--wlk-border-radius) 0 0;
 			outline: none;
-		}
-	}
-
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
 		}
 	}
 

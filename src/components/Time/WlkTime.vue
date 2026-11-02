@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {type PropType, toRef} from 'vue';
+import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
 import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId} from "../../composables/get_component_id/getComponentId.ts";
@@ -28,6 +27,11 @@ const props = defineProps({
 		default: '',
 	},
 	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
+	statusClass: {
 		type: String,
 		required: false,
 		default: "",
@@ -61,6 +65,31 @@ const rulesRef = toRef(props, 'validationRules', []);
 
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
+
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
 
 // Define functions
 function checkValidation() {
@@ -96,30 +125,9 @@ defineExpose({
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
-
-<style scoped>
-.wlk-time {
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
-		}
-	}
-}
-</style>
