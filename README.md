@@ -58,6 +58,18 @@ To install Whelk UI, you can use NPM
 npm install -D whelk-ui
 ```
 
+## Dark mode
+
+Dark mode is a toggle, not tied to the OS setting. Whelk UI is light until you switch it. Use the `useTheme` composable, which sets `data-theme` on `<html>` and remembers the choice in `localStorage`:
+
+```ts
+import { useTheme } from 'whelk-ui'
+
+const { theme, toggleTheme, setTheme } = useTheme() // setTheme('dark' | 'light')
+```
+
+If you already manage themes yourself, set `data-theme="dark"` on `<html>` directly.
+
 Use the component guides on how to utilise each component on your Vue project.
 
 

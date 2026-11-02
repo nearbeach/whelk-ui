@@ -9,7 +9,6 @@ import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId } from "../../composables/get_component_id/getComponentId.ts";
 import { showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
 
 // Define Emits
 const emit = defineEmits(['change']);
@@ -44,6 +43,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -62,6 +66,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Model
 const model = defineModel<string | number>({required: true});
@@ -73,6 +79,31 @@ const rulesRef = toRef(props, 'validationRules', []);
 const { errorMessage, validate } = useValidation(model, rulesRef);// Define computed
 
 // Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
+
+// Define computed
 const groupOptions = computed(() => {
 	// Get unique list from opt group
 	const list: (string | null | undefined)[] = [
@@ -81,10 +112,7 @@ const groupOptions = computed(() => {
 		)
 	];
 
-    // If list is undefined, just return empty array
-    if (typeof(list) === "undefined") return [];
-
-	 return list.filter(item => {
+	return list.filter((item): item is string => {
 		return item !== "" && item !== undefined && item !== null;
 	});
 });
@@ -131,10 +159,14 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}<span v-if="showIsRequired(props.validationRules)" aria-description="required">*</span>
+			<span :id="labelId">{{ label }}</span><span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<select
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:disabled="disabled"
 			v-model="model"
@@ -152,30 +184,10 @@ defineExpose({
 				:optionsValue="optionsValue"
 			/>
 		</select>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :id="errorId"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
-
-<style scoped>
-.wlk-select {
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
-		}
-	}
-}
-</style>

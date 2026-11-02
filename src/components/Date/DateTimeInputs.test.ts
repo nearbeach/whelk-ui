@@ -27,8 +27,8 @@ describe.each([
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountIt().find('[aria-label="required"]').exists()).toBe(false)
-		expect(mountIt({validationRules: [required()]}).find('[aria-label="required"]').exists()).toBe(true)
+		expect(mountIt().find('.required-marker').exists()).toBe(false)
+		expect(mountIt({validationRules: [required()]}).find('.required-marker').exists()).toBe(true)
 	})
 
 	it('renders a tooltip only when a message is given', () => {
@@ -45,7 +45,7 @@ describe.each([
 	it.each(['blur', 'keyup', 'focusout'])('validates on %s', async (event) => {
 		const wrapper = mountIt({validationRules: [required('Needed')]})
 		await wrapper.get(selector).trigger(event)
-		expect(wrapper.get('.render-error-message').text()).toBe('Needed')
+		expect(wrapper.get('.error').text()).toBe('Needed')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: false}])
 	})
 
@@ -54,7 +54,7 @@ describe.each([
 		await wrapper.get(selector).trigger('blur')
 		await wrapper.setProps({modelValue: sampleValue})
 		await wrapper.get(selector).trigger('blur')
-		expect(wrapper.get('.render-error-message').text()).toBe('')
+		expect(wrapper.get('.status-message').text()).toBe('')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: true}])
 	})
 
@@ -62,7 +62,7 @@ describe.each([
 		const wrapper = mountIt({validationRules: [required('Needed')]})
 		;(wrapper.vm as any).checkValidation()
 		await wrapper.vm.$nextTick()
-		expect(wrapper.get('.render-error-message').text()).toBe('Needed')
+		expect(wrapper.get('.error').text()).toBe('Needed')
 	})
 })
 
@@ -77,7 +77,7 @@ describe.each([
 			props: {label: 'Field', modelValue: '', status: 'Checking...', validationRules: [required()]},
 		})
 		expect(wrapper.get('.status-message').text()).toBe('Checking...')
-		expect(wrapper.find('.render-error-message').exists()).toBe(false)
+		expect(wrapper.find('.error').exists()).toBe(false)
 	})
 })
 
@@ -87,7 +87,7 @@ describe('WlkDate with date rules', () => {
 			props: {label: 'Start', modelValue: '2020-01-01', validationRules: [minDate('2024-01-01', 'Too early')]},
 		})
 		await wrapper.get('input').trigger('blur')
-		expect(wrapper.get('.render-error-message').text()).toBe('Too early')
+		expect(wrapper.get('.error').text()).toBe('Too early')
 	})
 })
 
@@ -127,9 +127,9 @@ describe('WlkDatetime', () => {
 
 	it('shows the required marker and a required error on blur', async () => {
 		const wrapper = mountDt({validationRules: [required('Needed')]})
-		expect(wrapper.find('[aria-label="required"]').exists()).toBe(true)
+		expect(wrapper.find('.required-marker').exists()).toBe(true)
 		await wrapper.get('input').trigger('blur')
-		expect(wrapper.get('.render-error-message').text()).toBe('Needed')
+		expect(wrapper.get('.error').text()).toBe('Needed')
 		expect(wrapper.emitted('change')?.at(-1)).toEqual([{isValid: false}])
 	})
 })

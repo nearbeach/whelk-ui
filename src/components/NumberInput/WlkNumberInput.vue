@@ -5,7 +5,7 @@ import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
 import {MAXIMUM_VALUE, MINIMUM_VALUE, type ValidationRuleInterface} from "../../types";
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 
 // Define Emits
 const emit = defineEmits(['change']);
@@ -15,7 +15,7 @@ const props = defineProps({
     ariaLabel: {
         type: String,
         required: false,
-        default: 'Current value picked',
+        default: '',
     },
     decrementAriaLabel: {
         type: String,
@@ -37,6 +37,11 @@ const props = defineProps({
 		required: true,
 	},
 	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
+	statusClass: {
 		type: String,
 		required: false,
 		default: "",
@@ -63,6 +68,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel({
@@ -101,18 +108,38 @@ const minValue = computed<number>(() => {
 	return min_rule?._min_value ?? Number.MIN_SAFE_INTEGER;
 });
 
-const getDecrementAriaLabel = computed<string>(() =>{
-    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
-    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
+function fillAriaLabel(template: string): string {
+    return template
+        .replace(/\$\{model\}/g, String(model.value))
+        .replace(/\$\{stepIncrement\}/g, String(props.stepIncrement));
+}
 
-    return aria_label;
+const getDecrementAriaLabel = computed<string>(() => fillAriaLabel(props.decrementAriaLabel));
+
+const getIncrementAriaLabel = computed<string>(() => fillAriaLabel(props.incrementAriaLabel));
+
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
 });
 
-const getIncrementAriaLabel = computed<string>(() => {
-    let aria_label = props.decrementAriaLabel.replace(/\$\{model\}/g, model.value.toString());
-    aria_label = aria_label.replace(/\$\{model\}/g, props.stepIncrement.toString());
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
 
-    return aria_label;
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
 });
 
 // FUNCTIONS
@@ -160,10 +187,15 @@ function checkValidation() {
 	emit('change', {isValid: errorMessage.value === ""});
 }
 
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
 </script>
 
 <template>
-	<WlkFormGroup class="number-input">
+	<WlkFormGroup class="wlk-number-input">
 		<label :for="componentId">
 			<ToolTip
 				v-if="props.tooltipMessage !== ''"
@@ -171,7 +203,7 @@ function checkValidation() {
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
+			<span :id="labelId">{{ label }}</span>
 		</label>
 		<div class="number-input-row">
 			<button
@@ -185,12 +217,15 @@ function checkValidation() {
 			</button>
 			<input
 				:id="componentId"
+				:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+				:aria-describedby="errorMessage !== '' ? errorId : undefined"
+				:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 				type="text"
 				inputmode="numeric"
 				pattern="[0-9]*"
-				:aria-label="ariaLabel"
+				:aria-label="ariaLabel || undefined"
 				v-model="model"
-				v-on:keyup="checkValidation"
+				v-on:keyup="onKeyup"
 			/>
 			<button
 				type="button"
@@ -202,19 +237,16 @@ function checkValidation() {
 				+
 			</button>
 		</div>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :id="errorId"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
 
 <style scoped>
-.number-input {
+.wlk-number-input {
 	> .number-input-row {
 		display: grid;
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
@@ -261,19 +293,6 @@ function checkValidation() {
 					line-height: 1.25rem;
 				}
 			}
-		}
-	}
-
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
 		}
 	}
 }

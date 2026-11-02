@@ -7,7 +7,7 @@ const open = ref(false);
 
 <template>
 	<WlkButton class="primary" @click="open = true">Open modal</WlkButton>
-	<WlkModal :class="{ open }">
+	<WlkModal :class="{ open }" @close="open = false">
 		<WlkModalHeader>Modal header</WlkModalHeader>
 		The body of the modal goes here.
 		<WlkModalFooter>

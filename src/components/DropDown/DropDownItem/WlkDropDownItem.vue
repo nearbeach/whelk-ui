@@ -1,8 +1,18 @@
 <script setup lang="ts">
+function activate(event: KeyboardEvent) {
+	// Behave like a button: Enter and Space click the item
+	(event.currentTarget as HTMLElement).click();
+}
 </script>
 
 <template>
-	<div class="drop-down-item">
+	<div
+		class="drop-down-item"
+		role="menuitem"
+		tabindex="-1"
+		v-on:keydown.enter.prevent="activate"
+		v-on:keydown.space.prevent="activate"
+	>
 		<slot/>
 	</div>
 </template>
@@ -16,7 +26,8 @@
 		height: 0.75rem;
 	}
 
-	&:hover {
+	&:hover,
+	&:focus-visible {
 		background-color: var(--wlk-amber-7);
 	}
 }

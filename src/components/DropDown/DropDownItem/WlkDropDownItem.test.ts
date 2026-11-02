@@ -25,4 +25,15 @@ describe('WlkDropDownItem.vue', () => {
     //
     //     expect(wrapper.classes()).toContain('hover');
     // });
+
+    test('is a focusable menu item that Enter and Space activate', async () => {
+        const wrapper = mount(WlkDropDownItem, {slots: {default: 'Edit'}});
+        expect(wrapper.attributes('role')).toBe('menuitem');
+        expect(wrapper.attributes('tabindex')).toBe('-1');
+
+        await wrapper.trigger('keydown', {key: 'Enter'});
+        await wrapper.trigger('keydown', {key: ' '});
+        expect(wrapper.emitted('click')).toHaveLength(2);
+    });
 });
+

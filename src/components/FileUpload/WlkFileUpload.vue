@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {type PropType, toRef} from 'vue';
+import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
 import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId} from "../../composables/get_component_id/getComponentId.ts";
@@ -32,6 +31,16 @@ const props = defineProps({
 		required: false,
 		default: false,
 	},
+	status: {
+		type: String,
+		required: false,
+		default: "",
+	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -50,6 +59,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<FileList | null>({required: true});
@@ -59,6 +70,31 @@ const rulesRef = toRef(props, 'validationRules', []);
 
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
+
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
 
 // Define functions
 function checkValidation() {
@@ -97,21 +133,27 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="file"
 			:accept="accept"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:multiple="multiple"
 			:name="props.label"
 			@change="uploadDocument"
 		/>
-		<WlkRenderErrorMessage>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
+		<div role="alert"
+			 :id="errorId"
+			 :class="statusMessageClass">
+			{{statusMessage}}
+		</div>
 	</WlkFormGroup>
 </template>
 

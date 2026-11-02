@@ -695,6 +695,7 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("15");
+        await input.trigger("keyup", {key: "5"});
 
         // Check the value
         expect(input.element.value).toBe("15");
@@ -717,9 +718,10 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("15");
+        await input.trigger("keyup", {key: "5"});
 
         // Get error message
-        const errorMessage = wrapper.findAll(".render-error-message")
+        const errorMessage = wrapper.findAll(".error")
         expect(errorMessage.length).toBe(1);
     });
 
@@ -740,9 +742,29 @@ describe("NumberInput - Decrementing", async () => {
 
         // Mutate to 15
         await input.setValue("-15");
+        await input.trigger("keyup", {key: "5"});
 
         // Get error message
-        const errorMessage = wrapper.findAll(".render-error-message")
+        const errorMessage = wrapper.findAll(".error")
         expect(errorMessage.length).toBe(1);
+    });
+});
+
+describe("NumberInput - Accessible names", () => {
+    test("Increment and decrement buttons announce their own action", () => {
+        const wrapper = mount(WlkNumberInput, {
+            props: {label: "Number Picker", modelValue: 4, stepIncrement: 2},
+        });
+
+        expect(wrapper.find("button.negative").attributes("aria-label")).toBe("Decrement current value of 4 by 2");
+        expect(wrapper.find("button.positive").attributes("aria-label")).toBe("Increment current value of 4 by 2");
+    });
+
+    test("Input is named by its visible label unless an aria label is given", async () => {
+        const wrapper = mount(WlkNumberInput, {props: {label: "Number Picker", modelValue: 0}});
+        expect(wrapper.find("input").attributes("aria-label")).toBeUndefined();
+
+        await wrapper.setProps({ariaLabel: "Quantity"});
+        expect(wrapper.find("input").attributes("aria-label")).toBe("Quantity");
     });
 });

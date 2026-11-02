@@ -29,4 +29,11 @@ describe('MultiSelectResults', () => {
 		await wrapper.findAll('.single-result')[0]!.trigger('click')
 		expect(wrapper.emitted('removeOption')?.[0]).toEqual([results[0]])
 	})
+
+	it('renders removable results as buttons with a descriptive name', () => {
+		const chip = mount(MultiSelectResults, {props: {results}}).get('.single-result')
+		expect(chip.element.tagName).toBe('BUTTON')
+		expect(chip.attributes('type')).toBe('button')
+		expect(chip.attributes('aria-label')).toBe('Remove Apple')
+	})
 })

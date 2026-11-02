@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {mount} from '@vue/test-utils'
 import {defineComponent, h, ref} from 'vue'
 import WlkMultiSelect from './WlkMultiSelect.vue'
@@ -86,8 +86,8 @@ describe('WlkMultiSelect', () => {
 	})
 
 	it('shows the required marker only with a required rule', () => {
-		expect(mountSelect().wrapper.find('[aria-description="required"]').exists()).toBe(false)
-		expect(mountSelect({validationRules: [required()]}).wrapper.find('[aria-description="required"]').exists()).toBe(true)
+		expect(mountSelect().wrapper.find('.required-marker').exists()).toBe(false)
+		expect(mountSelect({validationRules: [required()]}).wrapper.find('.required-marker').exists()).toBe(true)
 	})
 
 	it('renders a tooltip only when a message is given', () => {
@@ -98,14 +98,14 @@ describe('WlkMultiSelect', () => {
 	it('shows the status message and hides the validation error when a status is set', () => {
 		const {wrapper} = mountSelect({status: 'Loading...'})
 		expect(wrapper.get('.status-message').text()).toBe('Loading...')
-		expect(wrapper.find('.render-error-message').exists()).toBe(false)
+		expect(wrapper.find('.error').exists()).toBe(false)
 	})
 
 	it('validates through the exposed checkValidation', async () => {
 		const {wrapper} = mountSelect({validationRules: [required('Pick one')]})
 		const select = wrapper.findComponent(WlkMultiSelect)
 		await (select.vm as unknown as {checkValidation: () => Promise<void>}).checkValidation()
-		expect(wrapper.get('.render-error-message').text()).toBe('Pick one')
+		expect(wrapper.get('.error').text()).toBe('Pick one')
 		expect(select.emitted('change')?.at(-1)).toEqual([{isValid: false}])
 	})
 
@@ -114,5 +114,62 @@ describe('WlkMultiSelect', () => {
 		const select = wrapper.findComponent(WlkMultiSelect)
 		await (select.vm as unknown as {checkValidation: () => Promise<void>}).checkValidation()
 		expect(select.emitted('change')?.at(-1)).toEqual([{isValid: true}])
+	})
+
+	describe('keyboard and combobox semantics', () => {
+		const input = (w: ReturnType<typeof mount>) => w.get('input[type="search"]')
+
+		it('exposes combobox state on the input', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			expect(field.attributes('role')).toBe('combobox')
+			expect(field.attributes('aria-expanded')).toBe('false')
+			expect(field.attributes('aria-controls')).toBe(wrapper.get('[role="listbox"]').attributes('id'))
+			await field.trigger('focus')
+			expect(field.attributes('aria-expanded')).toBe('true')
+			expect(wrapper.get('[role="listbox"]').classes()).toContain('open')
+		})
+
+		it('ArrowDown moves the active option and Enter selects it', async () => {
+			const {wrapper, results} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'ArrowDown'})
+			await field.trigger('keydown', {key: 'ArrowDown'})
+			expect(field.attributes('aria-activedescendant')).toBe(wrapper.findAll('[role="option"]')[1]!.attributes('id'))
+
+			await field.trigger('keydown', {key: 'Enter'})
+			expect(results.value.map((r) => r.value)).toEqual(['banana'])
+		})
+
+		it('ArrowUp from nothing highlights the last option', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('keydown', {key: 'ArrowUp'})
+			expect(field.attributes('aria-activedescendant')).toBe(wrapper.findAll('[role="option"]')[2]!.attributes('id'))
+		})
+
+		it('Escape closes the list', async () => {
+			const {wrapper} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'Escape'})
+			expect(field.attributes('aria-expanded')).toBe('false')
+		})
+
+		it('Enter with nothing highlighted does not select', async () => {
+			const {wrapper, results} = mountSelect()
+			const field = input(wrapper)
+			await field.trigger('focus')
+			await field.trigger('keydown', {key: 'Enter'})
+			expect(results.value).toEqual([])
+		})
+
+		it('removing a result returns focus to the search input', async () => {
+			const {wrapper} = mountSelect({}, [options[0]!])
+			const focus = vi.spyOn(input(wrapper).element as HTMLElement, 'focus')
+			await wrapper.get('.single-result').trigger('click')
+			expect(focus).toHaveBeenCalled()
+		})
 	})
 })

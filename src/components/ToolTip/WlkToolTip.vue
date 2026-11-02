@@ -15,6 +15,10 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    triggerLabel: {
+        type: String,
+        default: 'More information',
+    },
 });
 
 // Computed
@@ -41,17 +45,20 @@ const tooltipClass = ref('tooltip');
         <p class="tooltip-message">{{ props.message }}</p>
     </div>
 
-    <span
+    <button
+        type="button"
+        class="tooltip-trigger"
         :data-tooltip-target="tooltipId"
-        type="tooltip"
+        :aria-describedby="tooltipId"
+        :aria-label="triggerLabel"
         @mouseenter="tooltipClass = 'tooltip show'"
         @mouseleave="tooltipClass = 'tooltip'"
         @focus="tooltipClass = 'tooltip show'"
         @blur="tooltipClass = 'tooltip'"
         @keydown.esc="tooltipClass = 'tooltip'"
     >
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    </span>
+		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    </button>
 </template>
 
 <style scoped>
@@ -86,6 +93,17 @@ const tooltipClass = ref('tooltip');
     @media (--large-screen) {
         max-width: 50vw;
     }
+}
+
+.tooltip-trigger {
+    display: inline;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    color: inherit;
+    font: inherit;
+    cursor: help;
 }
 
 svg {

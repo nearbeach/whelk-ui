@@ -58,7 +58,7 @@ describe("WlkTextArea", async () => {
 		);
 
 		// Span
-		const spanList = wrapper.findAll("span");
+		const spanList = wrapper.findAll(".required-marker");
 		expect(spanList.length).toBe(0);
 	});
 
@@ -75,7 +75,7 @@ describe("WlkTextArea", async () => {
 		);
 
 		// Span
-		const spanList = wrapper.findAll("span");
+		const spanList = wrapper.findAll(".required-marker");
 		expect(spanList.length).toBe(1);
 	});
 

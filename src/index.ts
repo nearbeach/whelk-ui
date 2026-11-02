@@ -72,6 +72,8 @@ export { required } from './validation/rules/Required'
 
 // Composables
 export { useValidation } from './composables/use_validation/useValidation'
+export { useTheme, setTheme } from './composables/useTheme'
+export type { ThemeType } from './composables/useTheme'
 
 // Vue plugin default export
 export default {

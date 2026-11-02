@@ -41,3 +41,7 @@ N/A for this component
 | Event  | Description                                                      |
 | ------ | ---------------------------------------------------------------- |
 | change | Emitted after validation runs. Payload is `{ isValid: boolean }` |
+
+### Accessibility
+
+The search input is a `combobox` controlling a `listbox`. Arrow Up/Down open the list and highlight options, Enter selects the highlighted option, and Escape closes the list. Selected values are buttons labelled `Remove` followed by the option label.

@@ -96,7 +96,9 @@ describe("CheckBox", async () => {
 
 		const span = wrapper.find("span");
 
-		expect(span.element.ariaDescription).toBe("Field is required");
+		expect(wrapper.find("input").attributes("aria-description")).toBe("Field is required");
+		expect(wrapper.find("input").attributes("aria-required")).toBe("true");
+		expect(span.attributes("aria-hidden")).toBe("true");
 		expect(span.element.textContent).toBe("*");
 	});
 
@@ -126,9 +128,9 @@ describe("CheckBox", async () => {
 			},
 		});
 
-		const span = wrapper.find("span");
+		const input = wrapper.find("input");
 
-		expect(span.element.ariaDescription).toBe("Please tick");
-		expect(span.element.ariaDescription).not.toBe("Field is required");
+		expect(input.attributes("aria-description")).toBe("Please tick");
+		expect(input.attributes("aria-description")).not.toBe("Field is required");
 	});
 });

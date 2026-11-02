@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {type PropType, toRef} from 'vue';
+import {computed, type PropType, toRef} from 'vue';
 import ToolTip from '@/components/ToolTip/WlkToolTip.vue';
 import WlkFormGroup from "@/components/FormGroup/WlkFormGroup.vue";
-import WlkRenderErrorMessage from "@/components/RenderErrorMessage/WlkRenderErrorMessage.vue";
 import {type ValidationRuleInterface} from "../../types";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 import { getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import { showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 
 // Define Emits
 const emit = defineEmits(['change']);
@@ -32,6 +32,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -50,6 +55,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<string | null>({
@@ -62,6 +69,31 @@ const rulesRef = toRef(props, 'validationRules', []);
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
 
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
+
 // Define functions
 function checkValidation() {
 	validate();
@@ -71,6 +103,11 @@ function checkValidation() {
 defineExpose({
 	checkValidation,
 });
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
 </script>
 
 <template>
@@ -82,44 +119,28 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="time"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="model"
-			v-on:keyup="checkValidation"
+			v-on:keyup="onKeyup"
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :id="errorId"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
-
-<style scoped>
-.wlk-time {
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
-		}
-	}
-}
-</style>

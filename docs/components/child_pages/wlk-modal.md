@@ -21,7 +21,9 @@ Bind the `open` class to your own state. The modal does not close itself.
 
 ### Props
 
-N/A for this component
+| Prop  | Type   | Description                                                                                          |
+| ----- | ------ | ---------------------------------------------------------------------------------------------------- |
+| label | string | Accessible name for the dialog. When empty, the `WlkModalHeader` text names the dialog instead |
 
 ### Slots
 
@@ -31,4 +33,10 @@ N/A for this component
 
 ### Events
 
-N/A for this component
+| Event | Description                                                          |
+| ----- | -------------------------------------------------------------------- |
+| close | Emitted when the user presses Escape. Remove the `open` class to hide the modal |
+
+### Accessibility
+
+The modal is a `role="dialog"` with `aria-modal`. When it opens, focus moves inside and Tab cycles within it; when it closes, focus returns to the element that had it before.

@@ -1,10 +1,112 @@
 <script setup lang="ts">
+import {nextTick, onBeforeUnmount, onMounted, provide, ref, useId} from 'vue';
+import {modalLabelIdKey} from './modalLabelId.ts';
 
+// Define emits
+const emit = defineEmits(['close']);
+
+// Define props
+defineProps({
+	label: {
+		type: String,
+		required: false,
+		default: '',
+	},
+});
+
+// The header slot labels the dialog, when there is one
+const labelId = `wlk-modal-label-${useId()}`;
+provide(modalLabelIdKey, labelId);
+
+// Define refs
+const rootRef = ref<HTMLElement | null>(null);
+const modalRef = ref<HTMLElement | null>(null);
+
+let observer: MutationObserver | null = null;
+let wasOpen = false;
+let returnFocusTo: HTMLElement | null = null;
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+// Define functions
+function getFocusable(): HTMLElement[] {
+	return Array.from(modalRef.value?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []);
+}
+
+async function opened() {
+	returnFocusTo = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+	await nextTick();
+	(getFocusable()[0] ?? modalRef.value)?.focus();
+}
+
+function closed() {
+	returnFocusTo?.focus();
+	returnFocusTo = null;
+}
+
+// The parent controls visibility with the `open` class, so watch for it
+function syncOpenState() {
+	const isOpen = rootRef.value?.classList.contains('open') ?? false;
+	if (isOpen === wasOpen) return;
+	wasOpen = isOpen;
+	if (isOpen) {
+		opened();
+	} else {
+		closed();
+	}
+}
+
+function onKeydown(event: KeyboardEvent) {
+	if (event.key === 'Escape') {
+		event.stopPropagation();
+		emit('close');
+		return;
+	}
+
+	if (event.key !== 'Tab') return;
+
+	// Keep focus inside the dialog
+	const focusable = getFocusable();
+	if (focusable.length === 0) {
+		event.preventDefault();
+		modalRef.value?.focus();
+		return;
+	}
+
+	const first = focusable[0]!;
+	const last = focusable[focusable.length - 1]!;
+	if (event.shiftKey && (document.activeElement === first || document.activeElement === modalRef.value)) {
+		event.preventDefault();
+		last.focus();
+	} else if (!event.shiftKey && document.activeElement === last) {
+		event.preventDefault();
+		first.focus();
+	}
+}
+
+onMounted(() => {
+	if (!rootRef.value) return;
+	observer = new MutationObserver(syncOpenState);
+	observer.observe(rootRef.value, {attributes: true, attributeFilter: ['class']});
+	syncOpenState();
+});
+
+onBeforeUnmount(() => {
+	observer?.disconnect();
+});
 </script>
 
 <template>
-	<div class="wlk-modal">
-		<div class="modal">
+	<div class="wlk-modal" ref="rootRef" v-on:keydown="onKeydown">
+		<div
+			class="modal"
+			ref="modalRef"
+			role="dialog"
+			aria-modal="true"
+			tabindex="-1"
+			:aria-label="label || undefined"
+			:aria-labelledby="label ? undefined : labelId"
+		>
 			<slot></slot>
 		</div>
 	</div>

@@ -7,6 +7,21 @@ const emit = defineEmits(["selectOption"]);
 
 // Define props
 defineProps({
+	activeIndex: {
+		type: Number,
+		required: false,
+		default: -1,
+	},
+	id: {
+		type: String,
+		required: false,
+		default: undefined,
+	},
+	open: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 	options: {
 		type: Array as PropType<SelectOptionInterface[]>,
 		required: true,
@@ -34,12 +49,23 @@ function getKeys(value: unknown, index: number): string {
 </script>
 
 <template>
-<!--	TODO - Implement the tab index correctly, how can we setup the site with the correct tab index-->
-	<div class="multi-select-options" tabindex="10">
+	<!-- mousedown is prevented so the search input keeps focus while an option is clicked -->
+	<div
+		class="multi-select-options"
+		:class="{open: open}"
+		:id="id"
+		role="listbox"
+		aria-multiselectable="true"
+		v-on:mousedown.prevent
+	>
 		<div
 			class="single-option"
+			:class="{active: index === activeIndex}"
 			v-for="(option, index) in options"
 			:key="getKeys(option[optionsValue], index)"
+			:id="id ? `${id}-option-${index}` : undefined"
+			role="option"
+			aria-selected="false"
 			@click="emit('selectOption', option)"
 		>{{option[optionsLabel]}}</div>
 	</div>
@@ -55,17 +81,17 @@ function getKeys(value: unknown, index: number): string {
 	border-width: var(--wlk-border-width);
 	border-radius: 0 0 var(--wlk-border-radius) var(--wlk-border-radius);
 	background-color: var(--wlk-amber-8);
-	outline: none;
 
 	> .single-option {
 		padding: 0.125rem 0.5rem;
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: var(--wlk-amber-10);
 		}
 	}
 
-	&:focus {
+	&.open {
 		display: block;
 	}
 }

@@ -13,7 +13,14 @@ describe('WlkToolTip', () => {
 	})
 
 	it('links the trigger to the tooltip', () => {
-		expect(mountTip().get('span').attributes('data-tooltip-target')).toBe('tooltip-abc')
+		expect(mountTip().get('button').attributes('data-tooltip-target')).toBe('tooltip-abc')
+	})
+
+	it('is a focusable button that describes itself with the tooltip', () => {
+		const trigger = mountTip().get('button')
+		expect(trigger.attributes('type')).toBe('button')
+		expect(trigger.attributes('aria-describedby')).toBe('tooltip-abc')
+		expect(trigger.attributes('aria-label')).toBe('More information')
 	})
 
 	it('renders the title only when given', () => {
@@ -30,16 +37,16 @@ describe('WlkToolTip', () => {
 		['focus', 'blur'],
 	])('shows on %s and hides on %s', async (on, off) => {
 		const wrapper = mountTip()
-		await wrapper.get('span').trigger(on)
+		await wrapper.get('button').trigger(on)
 		expect(wrapper.get('[role="tooltip"]').classes()).toContain('show')
-		await wrapper.get('span').trigger(off)
+		await wrapper.get('button').trigger(off)
 		expect(wrapper.get('[role="tooltip"]').classes()).not.toContain('show')
 	})
 
 	it('hides on Escape', async () => {
 		const wrapper = mountTip()
-		await wrapper.get('span').trigger('mouseenter')
-		await wrapper.get('span').trigger('keydown', {key: 'Escape'})
+		await wrapper.get('button').trigger('mouseenter')
+		await wrapper.get('button').trigger('keydown', {key: 'Escape'})
 		expect(wrapper.get('[role="tooltip"]').classes()).not.toContain('show')
 	})
 })

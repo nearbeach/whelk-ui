@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {getComponentId} from "../../composables/get_component_id/getComponentId.ts";
 import {showIsRequired} from "../../composables/show_is_required/showIsRequired.ts";
-import WlkRenderErrorMessage from "../RenderErrorMessage/WlkRenderErrorMessage.vue";
+import {isNavigationKey} from "../../composables/isNavigationKey.ts";
 import ToolTip from "../ToolTip/WlkToolTip.vue";
 import WlkFormGroup from "../FormGroup/WlkFormGroup.vue";
 import {type ValidationRuleInterface} from "../../types/ValidationRuleInterface.ts";
-import {ref, type PropType, toRef, watch} from "vue";
+import {ref, type PropType, toRef, watch, computed} from "vue";
 import {useValidation} from "../../composables/use_validation/useValidation.ts";
 
 // Define Emits
@@ -32,6 +32,11 @@ const props = defineProps({
 		required: false,
 		default: "",
 	},
+	statusClass: {
+		type: String,
+		required: false,
+		default: "",
+	},
 	tooltipMessage: {
 		type: String,
 		required: false,
@@ -50,6 +55,8 @@ const props = defineProps({
 
 // Generate the id once, so the label's `for` always matches the input's `id`
 const componentId = getComponentId(props.label);
+const errorId = `${componentId}-error`;
+const labelId = `${componentId}-label`;
 
 // Define Models
 const model = defineModel<string | null>({
@@ -62,6 +69,31 @@ const modelRef = ref("");
 
 // Define Validation
 const {errorMessage, validate} = useValidation(model, rulesRef);
+
+// Define computed
+const statusMessage = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return errorMessage.value;
+	}
+
+	return props.status;
+});
+
+const statusMessageClass = computed(() => {
+	// Error messaging occurs first
+	if (errorMessage.value !== null && errorMessage.value.length > 0) {
+		return "status-message error";
+	}
+
+	// Look at status types
+	if (props.statusClass !== null && props.statusClass.length > 0) {
+		return `status-message ${props.statusClass}`;
+	}
+
+	// Default
+	return "status-message";
+});
 
 // Define watch
 watch(model, (new_value: string | null) => {
@@ -113,6 +145,20 @@ function checkValidation() {
 defineExpose({
 	checkValidation,
 });
+
+function onKeyup(event: KeyboardEvent) {
+	if (isNavigationKey(event)) return;
+	checkValidation();
+}
+
+// Open the native picker on click. showPicker throws if it is already open or blocked
+function openPicker(event: MouseEvent) {
+	try {
+		(event.target as HTMLInputElement).showPicker()
+	} catch {
+		// The browser refused; the field still works by keyboard
+	}
+}
 </script>
 
 <template>
@@ -124,45 +170,30 @@ defineExpose({
 				:message="tooltipMessage"
 				:id="componentId"
 			/>
-			{{ label }}
-			<span v-if="showIsRequired(props.validationRules)" aria-label="required">*</span>
+			<span :id="labelId">{{ label }}</span>
+			<span v-if="showIsRequired(props.validationRules)" class="required-marker" aria-hidden="true">*</span>
 		</label>
 		<input
 			type="datetime-local"
-			onfocus="this.showPicker()"
+			v-on:click="openPicker"
 			:disabled="disabled"
 			:id="componentId"
+			:aria-required="showIsRequired(props.validationRules) ? 'true' : undefined"
+			:aria-invalid="errorMessage !== '' ? 'true' : undefined"
+			:aria-describedby="errorMessage !== '' ? errorId : undefined"
+			:aria-labelledby="props.tooltipMessage !== '' ? labelId : undefined"
 			:name="props.label"
 			:placeholder="props.placeholderText"
 			v-model="modelRef"
-			v-on:keyup="checkValidation"
+			v-on:keyup="onKeyup"
 			v-on:focusout="checkValidation"
 			v-on:blur="checkValidation"
 		/>
-		<WlkRenderErrorMessage
-			v-if="status === ''"
-		>
-			{{ errorMessage }}
-		</WlkRenderErrorMessage>
-		<div class="status-message" role="alert">
-			{{status}}
+		<div role="alert"
+			 :id="errorId"
+			 :class="statusMessageClass">
+			{{statusMessage}}
 		</div>
 	</WlkFormGroup>
 </template>
 
-<style scoped>
-.wlk-datetime {
-	> .status-message {
-		color: var(--wlk-green-colour-3);
-		font-weight: lighter;
-		font-size: 0.75rem;
-		line-height: 1.125rem;
-		padding: 0;
-		margin: 0;
-
-		@media (--large-screen) {
-			font-size: 0.75rem;
-		}
-	}
-}
-</style>

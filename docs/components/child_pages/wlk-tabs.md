@@ -29,3 +29,7 @@ N/A for this component
 ### Events
 
 N/A for this component
+
+### Accessibility
+
+Only the selected tab is in the Tab order. Left/Right arrows move between tabs (wrapping), Home/End jump to the first/last, and the selected panel is focusable.
