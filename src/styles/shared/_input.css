@@ -41,6 +41,24 @@
         @media (--large-screen) {
             font-size: 0.75rem;
         }
+
+        /* Status types - passed through the statusClass prop. `error` is applied
+           automatically while a validation rule is failing. */
+        &.error {
+            color: var(--wlk-red-3);
+        }
+
+        &.success {
+            color: var(--wlk-green-colour-3);
+        }
+
+        &.info {
+            color: var(--wlk-blue-colour-3);
+        }
+
+        &.warning {
+            color: var(--wlk-amber-3);
+        }
     }
 
     &.compact {
