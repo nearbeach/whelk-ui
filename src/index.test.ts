@@ -38,6 +38,11 @@ describe('public API', () => {
 		expect(typeof (lib as any)[name]).toBe('symbol')
 	})
 
+	it('exports the theme helpers', () => {
+		expect(typeof lib.useTheme).toBe('function')
+		expect(typeof lib.setTheme).toBe('function')
+	})
+
 	it('exports the useValidation composable', () => {
 		expect(typeof lib.useValidation).toBe('function')
 	})
@@ -51,7 +56,7 @@ describe('public API', () => {
 	it('has no unexpected exports', () => {
 		const expected = new Set([
 			...componentNames, ...ruleNames, ...ruleSymbols,
-			'useValidation', 'ObjectStateEnum', 'ObjectTitleCaseEnums', 'ObjectTypeEnums', 'default',
+			'useValidation', 'useTheme', 'setTheme', 'ObjectStateEnum', 'ObjectTitleCaseEnums', 'ObjectTypeEnums', 'default',
 		])
 		expect(Object.keys(lib).filter((k) => !expected.has(k))).toEqual([])
 	})
