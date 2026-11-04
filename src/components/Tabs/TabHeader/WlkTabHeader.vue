@@ -105,7 +105,7 @@ async function onKeydown(event: KeyboardEvent) {
 			padding: var(--wlk-tab-button-top-padding) var(--wlk-tab-button-right-padding) var(--wlk-tab-button-bottom-padding) var(--wlk-tab-button-left-padding);
 
 			&:hover {
-				background-color: var(--wlk-neutral-colour-11);
+				background-color: var(--wlk-tab-bg-hover, var(--wlk-bg-surface));
 				color: var(--wlk-blue-colour-4);
 			}
 		}

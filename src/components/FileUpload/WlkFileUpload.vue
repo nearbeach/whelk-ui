@@ -165,12 +165,12 @@ defineExpose({
 		&::file-selector-button {
 			padding: 0.5rem 1rem;
 			border: none;
-			background-color: var(--wlk-blue-colour-8);
+			background-color: var(--wlk-bg-drop);
 		}
 
 		&:disabled {
 			&::file-selector-button {
-				background-color: var(--wlk-blue-colour-6);
+				background-color: var(--wlk-bg-drop-hover);
 			}
 		}
 	}

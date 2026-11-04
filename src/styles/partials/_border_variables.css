@@ -1,17 +1,12 @@
+/*
+ * Shape tokens. Only the base values are declared here; the per-corner and
+ * per-side tokens (--wlk-r-tl/tr/br/bl, --wlk-bw-t/r/b/l, --wlk-bs-t/r/b/l) are
+ * deliberately left undefined. Components read them with a fallback
+ * (var(--wlk-r-tl, var(--wlk-r))), so an override works on :root AND on any
+ * wrapper element. Component tokens (e.g. --wlk-btn-r-tl) sit in front of that chain.
+ */
 :root {
-    --wlk-border-radius: 0.25rem;
-    --wlk-border-top-left-radius: var(--wlk-border-radius);
-    --wlk-border-top-right-radius: var(--wlk-border-radius);
-    --wlk-border-bottom-left-radius: var(--wlk-border-radius);
-    --wlk-border-bottom-right-radius: var(--wlk-border-radius);
-    --wlk-border-style: solid;
-    --wlk-border-top-style: var(--wlk-border-style);
-    --wlk-border-right-style: var(--wlk-border-style);
-    --wlk-border-bottom-style: var(--wlk-border-style);
-    --wlk-border-left-style: var(--wlk-border-style);
-    --wlk-border-width: 0.125rem;
-    --wlk-border-top-width: var(--wlk-border-width);
-    --wlk-border-right-width: var(--wlk-border-width);
-    --wlk-border-bottom-width: var(--wlk-border-width);
-    --wlk-border-left-width: var(--wlk-border-width);
+    --wlk-r: 0.25rem;
+    --wlk-bw: 0.125rem;
+    --wlk-bs: solid;
 }

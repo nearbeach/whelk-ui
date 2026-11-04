@@ -252,16 +252,16 @@ function onKeyup(event: KeyboardEvent) {
 		grid-template-columns: 3rem minmax(0, 1fr) 3rem;
 
 		> .negative {
-			border-radius: var(--wlk-border-radius) 0 0 var(--wlk-border-radius);
-			border-width: var(--wlk-border-width) 0 var(--wlk-border-width) var(--wlk-border-width);
-            background-color: var(--wlk-neutral-colour-5);
+			border-radius: var(--wlk-num-r-tl, var(--wlk-r-tl, var(--wlk-r))) 0 0 var(--wlk-num-r-bl, var(--wlk-r-bl, var(--wlk-r)));
+			border-width: var(--wlk-bw-t, var(--wlk-bw)) 0 var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
+            background-color: var(--wlk-num-bg, var(--wlk-bg-stepper));
             color: var(--wlk-neutral-colour-11);
 		}
 
 		> input {
 			padding: 0.5rem;
-			border-style: var(--wlk-border-style);
-			border-width: var(--wlk-border-width);
+			border-style: var(--wlk-bs-t, var(--wlk-bs)) var(--wlk-bs-r, var(--wlk-bs)) var(--wlk-bs-b, var(--wlk-bs)) var(--wlk-bs-l, var(--wlk-bs));
+			border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
 			border-radius: 0;
 			box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -270,9 +270,9 @@ function onKeyup(event: KeyboardEvent) {
 		}
 
 		> .positive {
-			border-radius: 0 var(--wlk-border-radius) var(--wlk-border-radius) 0;
-			border-width: var(--wlk-border-width) var(--wlk-border-width) var(--wlk-border-width) 0;
-            background-color: var(--wlk-neutral-colour-5);
+			border-radius: 0 var(--wlk-num-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-num-r-br, var(--wlk-r-br, var(--wlk-r))) 0;
+			border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) 0;
+            background-color: var(--wlk-num-bg, var(--wlk-bg-stepper));
             color: var(--wlk-neutral-colour-11);
 		}
 	}

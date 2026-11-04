@@ -145,7 +145,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 		width: 100vw;
 		height: 100dvh;
 		z-index: 5;
-		background-color: hsla(0, 0%, 0%, 0.7);
+		background-color: var(--wlk-backdrop);
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -154,7 +154,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 	.drop-down-items {
 		position: absolute;
 		border: solid;
-		background-color: var(--wlk-neutral-colour-11);
+		background-color: var(--wlk-menu-bg, var(--wlk-bg-surface));
 		color: var(--wlk-text);
 		z-index: 20;
 		display: flex;

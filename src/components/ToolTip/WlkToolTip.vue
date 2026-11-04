@@ -67,12 +67,12 @@ const tooltipClass = ref('tooltip');
     position: absolute;
     z-index: 10;
     padding: 0.25rem;
-    background-color: var(--wlk-bg-light);
+    background-color: var(--wlk-tip-bg, var(--wlk-bg-light));
     color: var(--wlk-text);
     border-color: var(--wlk-border-color);
-    border-width: var(--wlk-border-width);
-    border-style: var(--wlk-border-style);
-    border-radius: var(--wlk-border-radius);
+    border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
+    border-style: var(--wlk-bs-t, var(--wlk-bs)) var(--wlk-bs-r, var(--wlk-bs)) var(--wlk-bs-b, var(--wlk-bs)) var(--wlk-bs-l, var(--wlk-bs));
+    border-radius: var(--wlk-tip-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-tip-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-tip-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-tip-r-bl, var(--wlk-r-bl, var(--wlk-r)));
     transform: translateY(-100%) translateY(-0.5rem);
     max-width: 75vw;
 

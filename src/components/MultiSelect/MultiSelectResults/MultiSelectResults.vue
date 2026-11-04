@@ -63,7 +63,7 @@ function getKeys(value: unknown, index: number): string {
 		border: none;
 		color: inherit;
 		cursor: pointer;
-		background-color: var(--wlk-blue-colour-8);
+		background-color: var(--wlk-tag-bg, var(--wlk-bg-drop));
 	}
 }
 

@@ -284,9 +284,9 @@ defineExpose({
 		flex-direction: row;
 		flex-wrap: wrap;
 		padding: 0.5rem;
-		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-width);
-		border-radius: var(--wlk-border-radius);
+		border-style: var(--wlk-bs-t, var(--wlk-bs)) var(--wlk-bs-r, var(--wlk-bs)) var(--wlk-bs-b, var(--wlk-bs)) var(--wlk-bs-l, var(--wlk-bs));
+		border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
+		border-radius: var(--wlk-menu-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-menu-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-menu-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-menu-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
@@ -297,10 +297,10 @@ defineExpose({
 		}
 
 		&:has(> input:focus) {
-			border-color: var(--wlk-blue-colour-2);
-			background-color: var(--wlk-amber-8);
-			border-radius: var(--wlk-border-radius) var(--wlk-border-radius) 0 0;
-			outline: 2px solid var(--wlk-blue-colour-2);
+			border-color: var(--wlk-focus-color);
+			background-color: var(--wlk-bg-input-focus);
+			border-radius: var(--wlk-menu-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-menu-r-tr, var(--wlk-r-tr, var(--wlk-r))) 0 0;
+			outline: 2px solid var(--wlk-focus-color);
 			outline-offset: 2px;
 		}
 	}

@@ -120,19 +120,19 @@ onBeforeUnmount(() => {
 	left: 0;
 	width: 100vw;
 	height: 100dvh;
-	background-color: var(--wlk-overlay);
+	background-color: var(--wlk-modal-backdrop, var(--wlk-overlay));
 	z-index: -1;
 
 	> .modal {
 		width: 100vw;
 		height: calc(100dvh - 1rem);
 		padding: 0.5rem;
-		border-radius: var(--wlk-border-radius);
-		background-color: var(--wlk-neutral-colour-11);
+		border-radius: var(--wlk-modal-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-modal-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-modal-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-modal-r-bl, var(--wlk-r-bl, var(--wlk-r)));
+		background-color: var(--wlk-modal-bg, var(--wlk-bg-surface));
 		color: var(--wlk-text);
-		border-color: var(--wlk-neutral-colour-8);
-		border-width: var(--wlk-border-width);
-		border-style: var(--wlk-border-style);
+		border-color: var(--wlk-modal-border-color, var(--wlk-border-color));
+		border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
+		border-style: var(--wlk-bs-t, var(--wlk-bs)) var(--wlk-bs-r, var(--wlk-bs)) var(--wlk-bs-b, var(--wlk-bs)) var(--wlk-bs-l, var(--wlk-bs));
 
 		@media (min-width: 640px) {
 			width: calc(640px - 2rem);

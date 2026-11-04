@@ -129,7 +129,7 @@ defineExpose({quill});
 }
 
 .ql-container.ql-snow {
-	background-color: var(--wlk-neutral-colour-11);
+	background-color: var(--wlk-rte-bg, var(--wlk-bg-surface));
 	color: var(--wlk-text);
 }
 
@@ -149,13 +149,13 @@ defineExpose({quill});
 
 .ql-snow .ql-picker-options,
 .ql-snow .ql-tooltip {
-	background-color: var(--wlk-neutral-colour-11);
+	background-color: var(--wlk-rte-bg, var(--wlk-bg-surface));
 	color: var(--wlk-text);
 	border-color: var(--wlk-border-color);
 }
 
 .ql-snow .ql-tooltip input[type=text] {
-	background-color: var(--wlk-neutral-colour-11);
+	background-color: var(--wlk-rte-bg, var(--wlk-bg-surface));
 	color: var(--wlk-text);
 	border-color: var(--wlk-border-color);
 }

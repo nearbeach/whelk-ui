@@ -94,9 +94,9 @@ function switchClicked() {
 		color: inherit;
 		font: inherit;
 		cursor: pointer;
-		border-style: var(--wlk-border-style);
-		border-width: var(--wlk-border-width);
-		border-radius: var(--wlk-border-radius);
+		border-style: var(--wlk-bs-t, var(--wlk-bs)) var(--wlk-bs-r, var(--wlk-bs)) var(--wlk-bs-b, var(--wlk-bs)) var(--wlk-bs-l, var(--wlk-bs));
+		border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
+		border-radius: var(--wlk-switch-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-switch-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-switch-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-switch-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 		border-color: var(--wlk-border-color);
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;

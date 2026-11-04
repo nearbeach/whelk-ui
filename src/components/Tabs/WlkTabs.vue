@@ -46,7 +46,7 @@ onMounted(() => {
 
 <style scoped>
 .wlk-tabs {
-	border-radius: var(--wlk-border-radius);
+	border-radius: var(--wlk-tabs-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-tabs-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-tabs-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-tabs-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 }
 
 </style>

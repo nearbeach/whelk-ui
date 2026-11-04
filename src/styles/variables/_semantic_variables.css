@@ -1,10 +1,59 @@
 /* Semantic tokens. They derive from the palette, so they follow the dark theme automatically. */
 :root {
-    --wlk-bg-light: var(--wlk-neutral-colour-11);
-    --wlk-border-color: var(--wlk-neutral-colour-8);
+    /* Text and borders */
     --wlk-text-muted: var(--wlk-neutral-colour-5);
     --wlk-text: var(--wlk-neutral-colour-2);
+    --wlk-border-color: var(--wlk-neutral-colour-8);
+    --wlk-input-border-color: var(--wlk-neutral-colour-6);
+    --wlk-focus-color: var(--wlk-blue-colour-2);
+
+    /* Backgrounds */
+    --wlk-bg-surface: var(--wlk-neutral-colour-11);   /* card, modal, menus, rich text */
+    --wlk-bg-light: var(--wlk-neutral-colour-11);     /* tooltip, subtle areas */
+    --wlk-bg-input: var(--wlk-neutral-colour-11);
+    --wlk-bg-input-focus: var(--wlk-amber-8);
+    --wlk-bg-hover: var(--wlk-amber-10);
+    --wlk-bg-selected: var(--wlk-amber-8);
+    --wlk-bg-item-hover: var(--wlk-amber-7);
+    --wlk-bg-disabled: var(--wlk-neutral-colour-10);
+    --wlk-bg-stepper: var(--wlk-neutral-colour-5);
+    --wlk-bg-drop: var(--wlk-blue-colour-8);
+    --wlk-bg-drop-hover: var(--wlk-blue-colour-6);
+    --wlk-overlay: hsl(60 17% 10% / 0.5);
+    --wlk-backdrop: hsla(0, 0%, 0%, 0.7);
+
+    /* Status */
     --wlk-success: var(--wlk-green-colour-6);
     --wlk-info: var(--wlk-violet-6);
-    --wlk-overlay: hsl(60 17% 10% / 0.5);
+
+    /* Variant backgrounds: <variant>-bg, -bg-hover, -bg-subtle (disabled), -border */
+    --wlk-primary-bg: var(--wlk-blue-colour-8);
+    --wlk-primary-bg-hover: var(--wlk-blue-colour-6);
+    --wlk-primary-bg-subtle: var(--wlk-blue-colour-10);
+    --wlk-primary-border: var(--wlk-blue-colour-6);
+
+    --wlk-secondary-bg: var(--wlk-green-colour-8);
+    --wlk-secondary-bg-hover: var(--wlk-green-colour-6);
+    --wlk-secondary-bg-subtle: var(--wlk-green-colour-10);
+    --wlk-secondary-border: var(--wlk-green-colour-6);
+
+    --wlk-danger-bg: var(--wlk-red-8);
+    --wlk-danger-bg-hover: var(--wlk-red-6);
+    --wlk-danger-bg-subtle: var(--wlk-red-10);
+    --wlk-danger-border: var(--wlk-red-6);
+
+    --wlk-warning-bg: var(--wlk-amber-8);
+    --wlk-warning-bg-hover: var(--wlk-amber-6);
+    --wlk-warning-bg-subtle: var(--wlk-amber-10);
+    --wlk-warning-border: var(--wlk-amber-6);
+
+    --wlk-success-bg: var(--wlk-green-colour-8);
+    --wlk-success-bg-hover: var(--wlk-green-colour-6);
+    --wlk-success-bg-subtle: var(--wlk-green-colour-10);
+    --wlk-success-border: var(--wlk-green-colour-6);
+
+    --wlk-info-bg: var(--wlk-violet-8);
+    --wlk-info-bg-hover: var(--wlk-violet-6);
+    --wlk-info-bg-subtle: var(--wlk-violet-10);
+    --wlk-info-border: var(--wlk-violet-6);
 }

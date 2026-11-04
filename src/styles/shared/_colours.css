@@ -1,112 +1,112 @@
 /*DEFAULTS*/
 input, button, select, textarea, .multi-select-container {
-    background-color: var(--wlk-neutral-colour-11);
-    border-color: var(--wlk-neutral-colour-6);
+    background-color: var(--wlk-bg-input);
+    border-color: var(--wlk-input-border-color);
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-neutral-colour-10), #0000 var(--wlk-neutral-colour-1));
+        background-color: var(--wlk-bg-disabled);
     }
 
     &:focus {
-        border-color: var(--wlk-blue-colour-2);
-        background-color: var(--wlk-amber-8);
+        border-color: var(--wlk-focus-color);
+        background-color: var(--wlk-bg-input-focus);
     }
 }
 
 /* A visible keyboard focus ring on everything interactive, including custom controls */
 :focus-visible {
-    outline: 2px solid var(--wlk-blue-colour-2);
+    outline: 2px solid var(--wlk-focus-color);
     outline-offset: 2px;
 }
 
 /*COLOURS*/
 .primary {
-    background-color: var(--wlk-blue-colour-8);
-    border-color: var(--wlk-blue-colour-6);
+    background-color: var(--wlk-primary-bg);
+    border-color: var(--wlk-primary-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-blue-colour-6);
+            background-color: var(--wlk-primary-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-blue-colour-10), #0000 var(--wlk-blue-colour-1));
+        background-color: var(--wlk-primary-bg-subtle);
     }
 }
 
 .secondary {
-    background-color: var(--wlk-green-colour-8);
-    border-color: var(--wlk-green-colour-6);
+    background-color: var(--wlk-secondary-bg);
+    border-color: var(--wlk-secondary-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-green-colour-6);
+            background-color: var(--wlk-secondary-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-green-colour-10), #0000 var(--wlk-green-colour-1));
+        background-color: var(--wlk-secondary-bg-subtle);
     }
 }
 
 .danger {
-    background-color: var(--wlk-red-8);
-    border-color: var(--wlk-red-6);
+    background-color: var(--wlk-danger-bg);
+    border-color: var(--wlk-danger-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-red-6);
+            background-color: var(--wlk-danger-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-red-10), #0000 var(--wlk-red-1));
+        background-color: var(--wlk-danger-bg-subtle);
     }
 }
 
 .warning {
-    background-color: var(--wlk-amber-8);
-    border-color: var(--wlk-amber-6);
+    background-color: var(--wlk-warning-bg);
+    border-color: var(--wlk-warning-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-amber-6);
+            background-color: var(--wlk-warning-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-amber-10), #0000 var(--wlk-amber-1));
+        background-color: var(--wlk-warning-bg-subtle);
     }
 }
 
 .success {
-    background-color: var(--wlk-green-colour-8);
-    border-color: var(--wlk-green-colour-6);
+    background-color: var(--wlk-success-bg);
+    border-color: var(--wlk-success-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-green-colour-6);
+            background-color: var(--wlk-success-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-green-colour-10), #0000 var(--wlk-green-colour-1));
+        background-color: var(--wlk-success-bg-subtle);
     }
 }
 
 .info {
-    background-color: var(--wlk-violet-8);
-    border-color: var(--wlk-violet-6);
+    background-color: var(--wlk-info-bg);
+    border-color: var(--wlk-info-border);
 
     &:hover {
         &:enabled {
-            background-color: var(--wlk-violet-6);
+            background-color: var(--wlk-info-bg-hover);
         }
     }
 
     &:disabled {
-        background-color: color-mix(in srgb, var(--wlk-violet-10), #0000 var(--wlk-violet-1));
+        background-color: var(--wlk-info-bg-subtle);
     }
 }
 

@@ -28,7 +28,7 @@ function activate(event: KeyboardEvent) {
 
 	&:hover,
 	&:focus-visible {
-		background-color: var(--wlk-amber-7);
+		background-color: var(--wlk-bg-item-hover);
 	}
 }
 </style>
