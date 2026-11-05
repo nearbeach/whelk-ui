@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # Theming with CSS variables
 
 Every variable is prefixed `--wlk-`. Set them on `:root` for the whole app, or on any

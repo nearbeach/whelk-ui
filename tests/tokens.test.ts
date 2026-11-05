@@ -74,4 +74,80 @@ describe('theming tokens', () => {
 		const dark = read(join(SRC, 'styles/variables/_dark_colour_variables.css'))
 		expect(dark).not.toMatch(/--wlk-(bg|text|r|bw|bs)-/)
 	})
+	it('gives the dark theme exactly the same palette tokens as the light theme', () => {
+		const palette = /^\s*(--wlk-(?:red|blue|green|amber|violet|neutral)(?:-colour)?-\d+)\s*:/gm
+		const names = (text: string) => [...text.matchAll(palette)].map((m) => m[1]).sort()
+		const light = names(read(join(SRC, 'styles/variables/_colour_variables.css')))
+		const dark = names(read(join(SRC, 'styles/variables/_dark_colour_variables.css')))
+		expect(light.length).toBeGreaterThan(0)
+		expect(dark).toEqual(light)
+	})
+
+	it('defines and uses all four tokens for every colour variant', () => {
+		const colours = read(join(SRC, 'styles/shared/_colours.css'))
+		const missing: string[] = []
+		for (const v of ['primary', 'secondary', 'danger', 'warning', 'success', 'info']) {
+			for (const part of ['bg', 'bg-hover', 'bg-subtle', 'border']) {
+				const name = `--wlk-${v}-${part}`
+				if (!defined.has(name)) missing.push(`${name} is not defined`)
+				if (!colours.includes(`var(${name})`)) missing.push(`${name} is not used in _colours.css`)
+			}
+			// each variant class must use its own tokens, not another variant's
+			const block = colours.match(new RegExp(`\\.${v} \\{[\\s\\S]*?\\n\\}`))?.[0] ?? ''
+			const foreign = [...block.matchAll(/--wlk-(primary|secondary|danger|warning|success|info)-/g)]
+				.map((m) => m[1])
+				.filter((x) => x !== v)
+			if (foreign.length) missing.push(`.${v} uses ${foreign.join(', ')} tokens`)
+		}
+		expect(missing).toEqual([])
+	})
+
+	it('writes radius chains with one component, in corner order, each falling back to the same corner', () => {
+		const order = ['tl', 'tr', 'br', 'bl']
+		const problems: string[] = []
+		for (const f of files) {
+			for (const m of read(f).matchAll(/border-radius:\s*([^;]+);/g)) {
+				const value = m[1]
+				const prefixed = [...value.matchAll(/--wlk-([a-z-]+)-r-(tl|tr|br|bl),\s*var\(--wlk-r-\2,\s*var\(--wlk-r\)\)\)/g)]
+				const mentions = (value.match(/--wlk-[a-z-]+-r-(tl|tr|br|bl),/g) ?? []).length
+				if (!prefixed.length) continue
+				const where = `${rel(f)}: ${value.slice(0, 60)}`
+				if (prefixed.length !== mentions) problems.push(`${where} has a broken chain`)
+				if (new Set(prefixed.map((x) => x[1])).size > 1) problems.push(`${where} mixes components`)
+				const idx = prefixed.map((x) => order.indexOf(x[2]))
+				if (idx.some((n, i) => i > 0 && n <= idx[i - 1])) problems.push(`${where} has corners out of order`)
+			}
+		}
+		expect(problems).toEqual([])
+	})
+
+	it('writes padding chains with one component and all four sides in t, r, b, l order', () => {
+		const problems: string[] = []
+		for (const f of files) {
+			for (const m of read(f).matchAll(/padding:\s*([^;]+);/g)) {
+				const value = m[1]
+				const chain = [...value.matchAll(/var\(--wlk-([a-z-]+)-p-([trbl]),\s*var\(--wlk-\1-p,\s*[^)]+\)\)/g)]
+				const mentions = (value.match(/--wlk-[a-z-]+-p-[trbl],/g) ?? []).length
+				if (!mentions) continue
+				const where = `${rel(f)}: ${value.slice(0, 60)}`
+				if (chain.length !== mentions) problems.push(`${where} has a broken chain`)
+				if (chain.map((x) => x[2]).join('') !== 'trbl') problems.push(`${where} is not t, r, b, l`)
+				if (new Set(chain.map((x) => x[1])).size > 1) problems.push(`${where} mixes components`)
+			}
+		}
+		expect(problems).toEqual([])
+	})
+
+	it('only documents tokens that exist', () => {
+		const docs = read(join(SRC, '..', 'docs/theming.md')).split('## Renamed')[0]
+		const everything = files.map(read).join('\n')
+		const unknown = [...new Set(docs.match(/--wlk-[a-z0-9]+(?:-[a-z0-9]+)*/g) ?? [])]
+			.filter((name) => !everything.includes(name))
+		expect(unknown).toEqual([])
+	})
+
+	it('removes motion under prefers-reduced-motion', () => {
+		const css = read(join(SRC, 'styles/variables/_semantic_variables.css'))
+		expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\{[^}]*--wlk-dur:\s*0s/)
+	})
 })
