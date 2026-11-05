@@ -3,7 +3,8 @@ import {readdirSync, readFileSync, statSync} from 'node:fs'
 import {join} from 'node:path'
 
 // Guards the theming contract documented in docs/theming.md.
-const SRC = join(__dirname, '..')
+// Lives outside src/ so the library's type declarations build never sees the Node imports.
+const SRC = join(import.meta.dirname, '..', 'src')
 
 const walk = (dir: string): string[] =>
 	readdirSync(dir).flatMap((name) => {
@@ -13,8 +14,9 @@ const walk = (dir: string): string[] =>
 	})
 
 const files = walk(SRC)
-const styleFiles = files.filter((f) => f.includes('/styles/'))
+const styleFiles = files.filter((f) => f.endsWith('.css'))
 const read = (f: string) => readFileSync(f, 'utf8')
+const rel = (f: string) => f.replace(SRC, 'src')
 
 // Every custom property declared anywhere in the shared styles
 const defined = new Set<string>()
@@ -35,7 +37,7 @@ describe('theming tokens', () => {
 		for (const f of files) {
 			// var(--wlk-name) with no fallback value
 			for (const m of read(f).matchAll(/var\(\s*(--wlk-[a-z0-9-]+)\s*\)/g)) {
-				if (!defined.has(m[1])) missing.push(`${f.replace(SRC, 'src')}: ${m[1]}`)
+				if (!defined.has(m[1])) missing.push(`${rel(f)}: ${m[1]}`)
 			}
 		}
 		expect(missing).toEqual([])
@@ -46,7 +48,7 @@ describe('theming tokens', () => {
 		const offenders = files
 			.filter((f) => !f.endsWith('.test.ts'))
 			.filter((f) => legacy.test(read(f)))
-			.map((f) => f.replace(SRC, 'src'))
+			.map((f) => rel(f))
 		expect(offenders).toEqual([])
 	})
 
@@ -61,7 +63,7 @@ describe('theming tokens', () => {
 			for (const m of read(f).matchAll(/border-radius:\s*([^;]+);/g)) {
 				const value = m[1].trim()
 				if (!value.includes('--wlk-r') && !/^(0|none|inherit)$/.test(value)) {
-					offenders.push(`${f.replace(SRC, 'src')}: ${value}`)
+					offenders.push(`${rel(f)}: ${value}`)
 				}
 			}
 		}
