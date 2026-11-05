@@ -284,13 +284,13 @@ function onKeyup(event: KeyboardEvent) {
 			> input {
 
 
-				font-size: 1.25rem;
-				line-height: 1.5rem;
+				font-size: var(--wlk-fs-l);
+				line-height: var(--wlk-lh-l);
 				padding: 0.25rem;
 
 				@media (--large-screen) {
-					font-size: 1rem;
-					line-height: 1.25rem;
+					font-size: var(--wlk-fs-m);
+					line-height: var(--wlk-lh-m);
 				}
 			}
 		}

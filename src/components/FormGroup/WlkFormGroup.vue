@@ -10,10 +10,10 @@
 .wlk-form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.75rem;
+    margin-bottom: var(--wlk-field-gap, var(--wlk-s-6));
 
 	&.compact {
-		margin-bottom: 0.5rem;
+		margin-bottom: var(--wlk-field-gap-compact, var(--wlk-s-3));
 	}
 }
 </style>

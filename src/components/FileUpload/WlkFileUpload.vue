@@ -177,7 +177,7 @@ defineExpose({
 
 	&.compact {
 		> input {
-			font-size: 0.75rem;
+			font-size: var(--wlk-fs-s);
 
 			&::file-selector-button {
 				padding: 0.125rem 0.5rem;

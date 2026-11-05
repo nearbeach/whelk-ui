@@ -9,10 +9,10 @@
 .wlk-text-input,
 .wlk-time
 {
-    margin-bottom: 0.125rem;
+    margin-bottom: var(--wlk-s-1);
 
     > label {
-        margin-bottom: 0.25rem;
+        margin-bottom: var(--wlk-label-gap, var(--wlk-s-2));
 
         > span {
             color: var(--wlk-text-required);
@@ -32,14 +32,14 @@
 
     > .status-message {
         color: var(--wlk-text-success);
-        font-weight: lighter;
-        font-size: 0.75rem;
-        line-height: 1.125rem;
+        font-weight: var(--wlk-fw-light);
+        font-size: var(--wlk-fs-s);
+        line-height: var(--wlk-lh-msg);
         padding: 0;
         margin: 0;
 
         @media (--large-screen) {
-            font-size: 0.75rem;
+            font-size: var(--wlk-fs-s);
         }
 
         /* Status types - passed through the statusClass prop. `error` is applied
@@ -63,21 +63,21 @@
 
     &.compact {
         > label {
-            font-size: 1rem;
-            line-height: 1.25rem;
+            font-size: var(--wlk-fs-m);
+            line-height: var(--wlk-lh-m);
             margin-bottom: 0.125rem;
 
             @media (--large-screen) {
-                font-size: 0.75rem;
-                line-height: 1rem;
+                font-size: var(--wlk-fs-s);
+                line-height: var(--wlk-lh-s);
             }
         }
 
         > select,
         > input,
         > textarea {
-            font-size: 1.25rem;
-            line-height: 1.5rem;
+            font-size: var(--wlk-fs-l);
+            line-height: var(--wlk-lh-l);
             padding: 0.25rem;
 
             &:focus {
@@ -85,14 +85,14 @@
             }
 
             @media (--large-screen) {
-                font-size: 1rem;
-                line-height: 1.25rem;
+                font-size: var(--wlk-fs-m);
+                line-height: var(--wlk-lh-m);
             }
         }
 
         > textarea {
-            font-size: 0.75rem;
-            line-height: 1rem;
+            font-size: var(--wlk-fs-s);
+            line-height: var(--wlk-lh-s);
         }
     }
 }

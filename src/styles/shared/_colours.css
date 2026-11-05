@@ -2,6 +2,7 @@
 input, button, select, textarea, .multi-select-container {
     background-color: var(--wlk-bg-input);
     border-color: var(--wlk-input-border-color);
+    font-family: var(--wlk-font, revert);
 
     &:disabled {
         background-color: var(--wlk-bg-disabled);

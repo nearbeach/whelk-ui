@@ -99,7 +99,7 @@ async function onKeydown(event: KeyboardEvent) {
 
 	> .wlk-tab-item {
 		> button {
-			font-weight: bold;
+			font-weight: var(--wlk-fw-bold);
 			border: none;
 			background: none;
 			padding: var(--wlk-tab-p-t, var(--wlk-tab-p, 0.5rem)) var(--wlk-tab-p-r, var(--wlk-tab-p, 1rem)) var(--wlk-tab-p-b, var(--wlk-tab-p, 0.5rem)) var(--wlk-tab-p-l, var(--wlk-tab-p, 1rem));

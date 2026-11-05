@@ -36,6 +36,27 @@ Pattern: `--wlk-<comp>-p` sets all sides, `--wlk-<comp>-p-t/r/b/l` sets one side
 | `modal` / `modal-body` | Modal frame / content | `0.5rem` / `1rem` |
 | `item` | Dropdown item | `0.25rem 0.5rem` |
 
+## Typography
+
+| Token | Default | Notes |
+|---|---|---|
+| `--wlk-font` | unset | Applied to inputs, selects, textareas and buttons. Unset keeps the browser/inherited font. |
+| `--wlk-fs-s` / `-m` / `-l` | `0.75` / `1` / `1.25rem` | Font sizes |
+| `--wlk-lh-xs` / `-s` / `-msg` / `-m` / `-l` | `0.75` / `1` / `1.125` / `1.25` / `1.5rem` | Line heights (`msg` is status messages) |
+| `--wlk-fw-light` / `--wlk-fw-bold` | `lighter` / `bold` | Messages / tab buttons |
+
+## Spacing
+
+Scale: `--wlk-s-1` … `--wlk-s-6` = `0.125, 0.25, 0.5, 0.75, 1, 1.75rem`.
+Named gaps fall back to the scale: `--wlk-field-gap` (form group, `s-6`), `--wlk-field-gap-compact` (`s-3`),
+`--wlk-label-gap` (`s-2`), `--wlk-modal-gap` (`s-5`).
+
+## Shadow and motion
+
+`--wlk-shadow-btn|card|menu|modal|tip` default to `none`; each has a per-component form
+(`--wlk-card-shadow`, `--wlk-menu-shadow`, …) that wins. `--wlk-dur` (`0.5s`) and `--wlk-ease` (`ease`)
+drive the dropdown fade; `--wlk-dur` becomes `0s` under `prefers-reduced-motion`.
+
 ## Text colours
 
 `--wlk-text`, `--wlk-text-muted`, `--wlk-text-hover` (tab hover), `--wlk-text-disabled`,

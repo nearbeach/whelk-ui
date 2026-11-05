@@ -21,6 +21,38 @@
     --wlk-text-info: var(--wlk-blue-colour-3);
     --wlk-text-warning: var(--wlk-amber-3);
 
+    /* Typography: scale is used for size + line-height pairs (s=0.75, m=1, l=1.25rem).
+       --wlk-font is unset by default so controls keep the browser/inherited font. */
+    --wlk-fs-s: 0.75rem;
+    --wlk-fs-m: 1rem;
+    --wlk-fs-l: 1.25rem;
+    --wlk-lh-xs: 0.75rem;
+    --wlk-lh-s: 1rem;
+    --wlk-lh-msg: 1.125rem;
+    --wlk-lh-m: 1.25rem;
+    --wlk-lh-l: 1.5rem;
+    --wlk-fw-light: lighter;
+    --wlk-fw-bold: bold;
+
+    /* Spacing scale */
+    --wlk-s-1: 0.125rem;
+    --wlk-s-2: 0.25rem;
+    --wlk-s-3: 0.5rem;
+    --wlk-s-4: 0.75rem;
+    --wlk-s-5: 1rem;
+    --wlk-s-6: 1.75rem;
+
+    /* Shadows: none by default */
+    --wlk-shadow-btn: none;
+    --wlk-shadow-card: none;
+    --wlk-shadow-menu: none;
+    --wlk-shadow-modal: none;
+    --wlk-shadow-tip: none;
+
+    /* Motion */
+    --wlk-dur: 0.5s;
+    --wlk-ease: ease;
+
     /* Layering */
     --wlk-z-drop-backdrop: 5;
     --wlk-z-drop: 10;
@@ -77,4 +109,10 @@
     --wlk-info-bg-hover: var(--wlk-violet-6);
     --wlk-info-bg-subtle: var(--wlk-violet-10);
     --wlk-info-border: var(--wlk-violet-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --wlk-dur: 0s;
+    }
 }

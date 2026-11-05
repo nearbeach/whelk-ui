@@ -68,6 +68,7 @@ const tooltipClass = ref('tooltip');
     z-index: var(--wlk-z-tip);
     padding: var(--wlk-tip-p-t, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-r, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-b, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-l, var(--wlk-tip-p, 0.25rem));
     background-color: var(--wlk-tip-bg, var(--wlk-bg-light));
+    box-shadow: var(--wlk-tip-shadow, var(--wlk-shadow-tip));
     color: var(--wlk-text);
     border-color: var(--wlk-border-color);
     border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
@@ -81,12 +82,12 @@ const tooltipClass = ref('tooltip');
     }
 
     > .tooltip-title {
-        margin: 0 0 0.125rem 0;
+        margin: 0 0 var(--wlk-s-1) 0;
         color: var(--wlk-red-3);
     }
 
     > .tooltip-message {
-        font-weight: lighter;
+        font-weight: var(--wlk-fw-light);
         margin: 0;
     }
 

@@ -135,8 +135,8 @@ function switchClicked() {
 
 	&.compact {
 		> label {
-			font-size: 1rem;
-			line-height: 1.25rem;
+			font-size: var(--wlk-fs-m);
+			line-height: var(--wlk-lh-m);
 		}
 
 		> .switch {
@@ -149,8 +149,8 @@ function switchClicked() {
 			}
 
 			> .switch-text {
-				font-size: 0.75rem;
-				line-height: 1rem;
+				font-size: var(--wlk-fs-s);
+				line-height: var(--wlk-lh-s);
 			}
 		}
 	}

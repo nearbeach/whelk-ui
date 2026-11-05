@@ -129,6 +129,7 @@ onBeforeUnmount(() => {
 		padding: var(--wlk-modal-p-t, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-r, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-b, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-l, var(--wlk-modal-p, 0.5rem));
 		border-radius: var(--wlk-modal-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-modal-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-modal-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-modal-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 		background-color: var(--wlk-modal-bg, var(--wlk-bg-surface));
+		box-shadow: var(--wlk-modal-shadow, var(--wlk-shadow-modal));
 		color: var(--wlk-text);
 		border-color: var(--wlk-modal-border-color, var(--wlk-border-color));
 		border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));

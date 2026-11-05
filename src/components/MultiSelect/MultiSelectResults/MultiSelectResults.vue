@@ -57,9 +57,9 @@ function getKeys(value: unknown, index: number): string {
 	> .single-result {
 		display: flex;
 		align-items: center;
-		font-size: 0.75rem;
+		font-size: var(--wlk-fs-s);
 		padding: 0 0.5rem;
-		margin-right: 0.25rem;
+		margin-right: var(--wlk-s-2);
 		border: none;
 		color: inherit;
 		cursor: pointer;

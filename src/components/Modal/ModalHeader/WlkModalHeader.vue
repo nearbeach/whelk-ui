@@ -14,6 +14,6 @@ const labelId = inject(modalLabelIdKey, undefined);
 <style scoped>
 .wlk-modal-header {
 	border-bottom: var(--wlk-divider-w) var(--wlk-bs) var(--wlk-divider-color);
-	margin-bottom: 1rem;
+	margin-bottom: var(--wlk-modal-gap, var(--wlk-s-5));
 }
 </style>

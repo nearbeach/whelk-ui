@@ -127,8 +127,8 @@ function onMenuKeydown(event: KeyboardEvent) {
 .wlk-drop-down {
 	> button {
 		box-shadow: none;
-		font-size: 1rem;
-		line-height: 1.25rem;
+		font-size: var(--wlk-fs-m);
+		line-height: var(--wlk-lh-m);
 		height: 2rem;
 		padding: 0 1rem;
 		position: relative;
@@ -157,6 +157,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 		border-width: var(--wlk-menu-bw, var(--wlk-bw));
 		border-color: var(--wlk-menu-border-color, currentcolor);
 		background-color: var(--wlk-menu-bg, var(--wlk-bg-surface));
+		box-shadow: var(--wlk-menu-shadow, var(--wlk-shadow-menu));
 		color: var(--wlk-text);
 		z-index: var(--wlk-z-drop-items);
 		display: flex;
@@ -166,7 +167,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 
 .v-enter-active,
 .v-leave-active {
-	transition: opacity 0.5s ease;
+	transition: opacity var(--wlk-dur) var(--wlk-ease);
 }
 
 .v-enter-from,
