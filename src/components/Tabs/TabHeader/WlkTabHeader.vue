@@ -102,18 +102,18 @@ async function onKeydown(event: KeyboardEvent) {
 			font-weight: bold;
 			border: none;
 			background: none;
-			padding: var(--wlk-tab-button-top-padding) var(--wlk-tab-button-right-padding) var(--wlk-tab-button-bottom-padding) var(--wlk-tab-button-left-padding);
+			padding: var(--wlk-tab-p-t, var(--wlk-tab-p, 0.5rem)) var(--wlk-tab-p-r, var(--wlk-tab-p, 1rem)) var(--wlk-tab-p-b, var(--wlk-tab-p, 0.5rem)) var(--wlk-tab-p-l, var(--wlk-tab-p, 1rem));
 
 			&:hover {
 				background-color: var(--wlk-tab-bg-hover, var(--wlk-bg-surface));
-				color: var(--wlk-blue-colour-4);
+				color: var(--wlk-text-hover);
 			}
 		}
 
 		&.active {
 			> button {
 				border-style: solid;
-				border-width: 0 0 2px 0;
+				border-width: 0 0 var(--wlk-tab-line-w, 2px) 0;
 
 				&:hover {
 					background: none;

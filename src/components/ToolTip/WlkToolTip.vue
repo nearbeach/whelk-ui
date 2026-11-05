@@ -65,8 +65,8 @@ const tooltipClass = ref('tooltip');
 .tooltip {
     display: none;
     position: absolute;
-    z-index: 10;
-    padding: 0.25rem;
+    z-index: var(--wlk-z-tip);
+    padding: var(--wlk-tip-p-t, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-r, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-b, var(--wlk-tip-p, 0.25rem)) var(--wlk-tip-p-l, var(--wlk-tip-p, 0.25rem));
     background-color: var(--wlk-tip-bg, var(--wlk-bg-light));
     color: var(--wlk-text);
     border-color: var(--wlk-border-color);

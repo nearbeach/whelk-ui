@@ -255,7 +255,7 @@ function onKeyup(event: KeyboardEvent) {
 			border-radius: var(--wlk-num-r-tl, var(--wlk-r-tl, var(--wlk-r))) 0 0 var(--wlk-num-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 			border-width: var(--wlk-bw-t, var(--wlk-bw)) 0 var(--wlk-bw-b, var(--wlk-bw)) var(--wlk-bw-l, var(--wlk-bw));
             background-color: var(--wlk-num-bg, var(--wlk-bg-stepper));
-            color: var(--wlk-neutral-colour-11);
+            color: var(--wlk-text-on-stepper);
 		}
 
 		> input {
@@ -273,7 +273,7 @@ function onKeyup(event: KeyboardEvent) {
 			border-radius: 0 var(--wlk-num-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-num-r-br, var(--wlk-r-br, var(--wlk-r))) 0;
 			border-width: var(--wlk-bw-t, var(--wlk-bw)) var(--wlk-bw-r, var(--wlk-bw)) var(--wlk-bw-b, var(--wlk-bw)) 0;
             background-color: var(--wlk-num-bg, var(--wlk-bg-stepper));
-            color: var(--wlk-neutral-colour-11);
+            color: var(--wlk-text-on-stepper);
 		}
 	}
 

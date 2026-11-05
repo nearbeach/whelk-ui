@@ -19,7 +19,7 @@ function activate(event: KeyboardEvent) {
 
 <style scoped>
 .drop-down-item {
-	padding: 0.25rem 0.5rem;
+	padding: var(--wlk-item-p-t, var(--wlk-item-p, 0.25rem)) var(--wlk-item-p-r, var(--wlk-item-p, 0.5rem)) var(--wlk-item-p-b, var(--wlk-item-p, 0.25rem)) var(--wlk-item-p-l, var(--wlk-item-p, 0.5rem));
 
 	> svg {
 		width: 0.75rem;

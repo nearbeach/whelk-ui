@@ -126,7 +126,7 @@ onBeforeUnmount(() => {
 	> .modal {
 		width: 100vw;
 		height: calc(100dvh - 1rem);
-		padding: 0.5rem;
+		padding: var(--wlk-modal-p-t, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-r, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-b, var(--wlk-modal-p, 0.5rem)) var(--wlk-modal-p-l, var(--wlk-modal-p, 0.5rem));
 		border-radius: var(--wlk-modal-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-modal-r-tr, var(--wlk-r-tr, var(--wlk-r))) var(--wlk-modal-r-br, var(--wlk-r-br, var(--wlk-r))) var(--wlk-modal-r-bl, var(--wlk-r-bl, var(--wlk-r)));
 		background-color: var(--wlk-modal-bg, var(--wlk-bg-surface));
 		color: var(--wlk-text);
@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
 		@media (min-width: 640px) {
 			width: calc(640px - 2rem);
 			height: auto;
-			padding: 1rem;
+			padding: var(--wlk-modal-body-p-t, var(--wlk-modal-body-p, 1rem)) var(--wlk-modal-body-p-r, var(--wlk-modal-body-p, 1rem)) var(--wlk-modal-body-p-b, var(--wlk-modal-body-p, 1rem)) var(--wlk-modal-body-p-l, var(--wlk-modal-body-p, 1rem));
 		}
 
 	}
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		z-index: 10;
+		z-index: var(--wlk-z-modal);
 	}
 
 	&.medium > .modal {

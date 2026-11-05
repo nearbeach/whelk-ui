@@ -132,7 +132,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 		height: 2rem;
 		padding: 0 1rem;
 		position: relative;
-		z-index: 10;
+		z-index: var(--wlk-z-drop);
 
 		> svg {
 			width: 1rem;
@@ -144,7 +144,7 @@ function onMenuKeydown(event: KeyboardEvent) {
 	.drop-down-backdrop {
 		width: 100vw;
 		height: 100dvh;
-		z-index: 5;
+		z-index: var(--wlk-z-drop-backdrop);
 		background-color: var(--wlk-backdrop);
 		position: fixed;
 		top: 0;
@@ -153,10 +153,12 @@ function onMenuKeydown(event: KeyboardEvent) {
 
 	.drop-down-items {
 		position: absolute;
-		border: solid;
+		border-style: var(--wlk-menu-bs, var(--wlk-bs));
+		border-width: var(--wlk-menu-bw, var(--wlk-bw));
+		border-color: var(--wlk-menu-border-color, currentcolor);
 		background-color: var(--wlk-menu-bg, var(--wlk-bg-surface));
 		color: var(--wlk-text);
-		z-index: 20;
+		z-index: var(--wlk-z-drop-items);
 		display: flex;
 		flex-direction: column;
 	}

@@ -300,7 +300,7 @@ defineExpose({
 			border-color: var(--wlk-focus-color);
 			background-color: var(--wlk-bg-input-focus);
 			border-radius: var(--wlk-menu-r-tl, var(--wlk-r-tl, var(--wlk-r))) var(--wlk-menu-r-tr, var(--wlk-r-tr, var(--wlk-r))) 0 0;
-			outline: 2px solid var(--wlk-focus-color);
+			outline: var(--wlk-focus-w) solid var(--wlk-focus-color);
 			outline-offset: 2px;
 		}
 	}

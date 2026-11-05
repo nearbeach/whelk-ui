@@ -15,8 +15,8 @@ input, button, select, textarea, .multi-select-container {
 
 /* A visible keyboard focus ring on everything interactive, including custom controls */
 :focus-visible {
-    outline: 2px solid var(--wlk-focus-color);
-    outline-offset: 2px;
+    outline: var(--wlk-focus-w) solid var(--wlk-focus-color);
+    outline-offset: var(--wlk-focus-offset);
 }
 
 /*COLOURS*/
@@ -111,5 +111,5 @@ input, button, select, textarea, .multi-select-container {
 }
 
 :disabled {
-    color: color-mix(in srgb, var(--wlk-neutral-colour-2), #0000 var(--wlk-neutral-colour-6));
+    color: var(--wlk-text-disabled);
 }

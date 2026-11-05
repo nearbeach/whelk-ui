@@ -13,7 +13,7 @@ const labelId = inject(modalLabelIdKey, undefined);
 
 <style scoped>
 .wlk-modal-header {
-	border-bottom: var(--wlk-neutral-colour-9) solid 1px;
+	border-bottom: var(--wlk-divider-w) var(--wlk-bs) var(--wlk-divider-color);
 	margin-bottom: 1rem;
 }
 </style>

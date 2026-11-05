@@ -71,11 +71,11 @@ const checkboxId = computed(() => {
 <style scoped>
 .wlk-checkbox {
 	label {
-		padding: var(--wlk-checkbox-top-padding) var(--wlk-checkbox-right-padding) var(--wlk-checkbox-bottom-padding) var(--wlk-checkbox-left-padding);
+		padding: var(--wlk-chk-p-t, var(--wlk-chk-p, 0)) var(--wlk-chk-p-r, var(--wlk-chk-p, 0)) var(--wlk-chk-p-b, var(--wlk-chk-p, 0.75rem)) var(--wlk-chk-p-l, var(--wlk-chk-p, 0));
 	}
 
 	input {
-		padding: var(--wlk-checkbox-top-padding) var(--wlk-checkbox-right-padding) var(--wlk-checkbox-bottom-padding) var(--wlk-checkbox-left-padding);
+		padding: var(--wlk-chk-p-t, var(--wlk-chk-p, 0)) var(--wlk-chk-p-r, var(--wlk-chk-p, 0)) var(--wlk-chk-p-b, var(--wlk-chk-p, 0.75rem)) var(--wlk-chk-p-l, var(--wlk-chk-p, 0));
 	}
 }
 </style>

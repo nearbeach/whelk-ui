@@ -6,6 +6,27 @@
     --wlk-border-color: var(--wlk-neutral-colour-8);
     --wlk-input-border-color: var(--wlk-neutral-colour-6);
     --wlk-focus-color: var(--wlk-blue-colour-2);
+    --wlk-focus-w: 2px;
+    --wlk-focus-offset: 2px;
+    --wlk-divider-color: var(--wlk-neutral-colour-9);
+    --wlk-divider-w: 1px;
+
+    /* Text colours */
+    --wlk-text-hover: var(--wlk-blue-colour-4);
+    --wlk-text-disabled: var(--wlk-neutral-colour-5);
+    --wlk-text-on-stepper: var(--wlk-neutral-colour-11);
+    --wlk-text-required: var(--wlk-red-5);
+    --wlk-text-error: var(--wlk-red-3);
+    --wlk-text-success: var(--wlk-green-colour-3);
+    --wlk-text-info: var(--wlk-blue-colour-3);
+    --wlk-text-warning: var(--wlk-amber-3);
+
+    /* Layering */
+    --wlk-z-drop-backdrop: 5;
+    --wlk-z-drop: 10;
+    --wlk-z-drop-items: 20;
+    --wlk-z-tip: 10;
+    --wlk-z-modal: 10;
 
     /* Backgrounds */
     --wlk-bg-surface: var(--wlk-neutral-colour-11);   /* card, modal, menus, rich text */

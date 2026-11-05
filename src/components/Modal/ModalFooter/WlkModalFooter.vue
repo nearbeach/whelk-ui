@@ -8,7 +8,7 @@
 
 <style scoped>
 .wlk-modal-footer {
-	border-top: var(--wlk-neutral-colour-9) solid 1px;
+	border-top: var(--wlk-divider-w) var(--wlk-bs) var(--wlk-divider-color);
 	margin-top: 1rem;
 }
 </style>
