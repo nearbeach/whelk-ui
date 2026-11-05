@@ -70,6 +70,18 @@ const { theme, toggleTheme, setTheme } = useTheme() // setTheme('dark' | 'light'
 
 If you already manage themes yourself, set `data-theme="dark"` on `<html>` directly.
 
+## Theming
+
+Everything visual is a CSS variable prefixed `--wlk-`: radius, borders, backgrounds, text colours, padding, typography, spacing, shadows, motion and z-index. Set them on `:root` for the whole app, or on any wrapper to restyle just its children:
+
+```css
+:root  { --wlk-r: 25%; --wlk-r-bl: 0; }  /* round every corner except bottom-left */
+.admin { --wlk-r: 0; }                   /* square inside .admin */
+.cta   { --wlk-primary-bg: hotpink; }    /* primary buttons only */
+```
+
+See the [full list of variables](docs/theming.md).
+
 Use the component guides on how to utilise each component on your Vue project.
 
 

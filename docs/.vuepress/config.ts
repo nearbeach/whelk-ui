@@ -30,7 +30,8 @@ export default defineUserConfig({
     theme: defaultTheme({
         navbar: [
             {text: 'Home', link: '/'},
-            {text: 'Components', link: '/components/components'}
+            {text: 'Components', link: '/components/components'},
+            {text: 'Theming', link: '/theming'}
         ],
         sidebar: {
             '/components/': [
