@@ -113,4 +113,7 @@ input, button, select, textarea, .multi-select-container {
 
 :disabled {
     color: var(--wlk-text-disabled);
+    /* Both default to the browser behaviour; set them to opt in. */
+    cursor: var(--wlk-disabled-cursor, revert);
+    opacity: var(--wlk-disabled-opacity, 1);
 }

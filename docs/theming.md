@@ -69,6 +69,7 @@ drive the dropdown fade; `--wlk-dur` becomes `0s` under `prefers-reduced-motion`
 |---|---|
 | `--wlk-focus-color`, `--wlk-focus-w`, `--wlk-focus-offset` | blue, `2px`, `2px` |
 | `--wlk-divider-color`, `--wlk-divider-w` | modal header/footer lines |
+| `--wlk-disabled-cursor`, `--wlk-disabled-opacity` | browser default, `1` (opt in, e.g. `not-allowed`, `0.6`) |
 | `--wlk-tab-line-w` | active tab underline (`2px`) |
 | `--wlk-menu-bs`, `--wlk-menu-bw`, `--wlk-menu-border-color` | dropdown panel border |
 | `--wlk-z-drop-backdrop` / `-drop` / `-drop-items` / `-tip` / `-modal` | `5` / `10` / `20` / `10` / `10` |
